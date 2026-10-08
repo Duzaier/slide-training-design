@@ -53,7 +53,7 @@ const PROCESS_STAGES: ProcessStageStep[] = [
   {
     id: 3,
     stepNumber: "03",
-    title: "Xử lý background, retouch ảnh & ánh sáng chủ thể",
+    title: "Xử lý background\nretouch ảnh\nánh sáng chủ thể",
     shortTitle: "3. BG & Retouch",
     subtitle: "Thiết lập sân khấu nhung, retouch sản phẩm và luồng sáng ma thuật",
     image: "/assets/image 28.png",
@@ -141,8 +141,17 @@ export const UnifiedProcessStage: React.FC<UnifiedProcessStageProps> = ({ onImag
         <div className="unified-process-workspace">
           {/* LEFT COLUMN: Clean Title, Subtitle & Step Navigation */}
           <section className="process-info-col">
-            <h1 className="stage-main-title">{currentStep.title}</h1>
-            <p className="stage-subtitle">{currentStep.subtitle}</p>
+            <div className="process-text-group">
+              <h1 className="stage-main-title">
+                {currentStep.title.split('\n').map((line, idx, arr) => (
+                  <React.Fragment key={idx}>
+                    {line}
+                    {idx < arr.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </h1>
+              <p className="stage-subtitle">{currentStep.subtitle}</p>
+            </div>
 
             {/* Step Navigation Controls & Mini Thumbnails Filmstrip */}
             <div className="stage-footer-nav">
