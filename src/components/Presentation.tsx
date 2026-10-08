@@ -5,10 +5,7 @@ import { SlideNavigation } from './SlideNavigation';
 import { ThumbnailsDrawer } from './ThumbnailsDrawer';
 import { PresenterNotes } from './PresenterNotes';
 import { 
-  Sparkles, 
   HelpCircle, 
-  PanelLeftClose, 
-  PanelLeftOpen, 
   MonitorPlay, 
   Layout, 
   FolderKanban,
@@ -20,10 +17,8 @@ export const Presentation: React.FC = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   const [isCleanPresentationMode, setIsCleanPresentationMode] = useState<boolean>(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [isThumbnailsOpen, setIsThumbnailsOpen] = useState<boolean>(false);
   const [isNotesOpen, setIsNotesOpen] = useState<boolean>(false);
-  const [isAutoPlay, setIsAutoPlay] = useState<boolean>(false);
   const [showKeyboardHelp, setShowKeyboardHelp] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -96,16 +91,13 @@ export const Presentation: React.FC = () => {
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().then(() => {
-        setIsFullscreen(true);
         setIsCleanPresentationMode(true);
       }).catch(err => {
         console.warn("Fullscreen error:", err);
       });
     } else {
       if (document.exitFullscreen) {
-        document.exitFullscreen().then(() => {
-          setIsFullscreen(false);
-        });
+        document.exitFullscreen();
       }
     }
   };
@@ -114,7 +106,6 @@ export const Presentation: React.FC = () => {
   useEffect(() => {
     const handleFullscreenChange = () => {
       const active = !!document.fullscreenElement;
-      setIsFullscreen(active);
       if (active) {
         setIsCleanPresentationMode(true);
       }
@@ -131,9 +122,10 @@ export const Presentation: React.FC = () => {
 
       if (e.key === 'Escape') {
         if (isInputFocused) activeEl.blur();
-        if (isThumbnailsOpen) setIsThumbnailsOpen(false);
-        if (isNotesOpen) setIsNotesOpen(false);
-        if (showKeyboardHelp) setShowKeyboardHelp(false);
+        if (isThumbnailsOpen) { setIsThumbnailsOpen(false); return; }
+        if (isNotesOpen) { setIsNotesOpen(false); return; }
+        if (showKeyboardHelp) { setShowKeyboardHelp(false); return; }
+        if (isCleanPresentationMode) { setIsCleanPresentationMode(false); return; }
         return;
       }
 
@@ -189,7 +181,7 @@ export const Presentation: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNext, handlePrev, handleFirst, handleLast, isThumbnailsOpen, isNotesOpen, showKeyboardHelp]);
+  }, [handleNext, handlePrev, handleFirst, handleLast, isThumbnailsOpen, isNotesOpen, showKeyboardHelp, isCleanPresentationMode]);
 
   // Touch swipe gestures
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -214,16 +206,7 @@ export const Presentation: React.FC = () => {
     touchStartYRef.current = null;
   };
 
-  // Autoplay timer effect
-  useEffect(() => {
-    if (!isAutoPlay) return;
 
-    const timer = setInterval(() => {
-      setCurrentSlideIndex(prev => (prev < totalSlides - 1 ? prev + 1 : 0));
-    }, 6000);
-
-    return () => clearInterval(timer);
-  }, [isAutoPlay, totalSlides]);
 
   const progressPercent = ((currentSlideIndex + 1) / totalSlides) * 100;
 
@@ -255,15 +238,7 @@ export const Presentation: React.FC = () => {
 
       {/* Presentation Website Shell Header */}
       <header className={`shell-header ${isCleanPresentationMode ? 'clean-mode' : ''}`}>
-        <div className="shell-brand">
-          <div className="shell-brand-icon">
-            <Sparkles size={18} />
-          </div>
-          <div className="shell-brand-text">
-            <h1>SOCIAL MEDIA DESIGN MASTERCLASS</h1>
-            <p>Phạm Lai Đăng Khoa • Training Deck & Design System</p>
-          </div>
-        </div>
+        <div className="shell-header-left" />
 
         <div className="shell-header-center">
           <div className="shell-section-badge">
@@ -277,22 +252,11 @@ export const Presentation: React.FC = () => {
           <button
             onClick={() => setIsCleanPresentationMode(prev => !prev)}
             className={`shell-btn ${isCleanPresentationMode ? 'active' : ''}`}
-            title="Chuyển đổi giữa Chế độ Website và Chế độ Trình Chiếu sạch (P)"
+            title="Chuyển đổi giữa Chế độ Website và Chế độ Trình Chiếu (P)"
           >
             {isCleanPresentationMode ? <Layout size={14} /> : <MonitorPlay size={14} />}
             <span>{isCleanPresentationMode ? 'Website View' : 'Presentation Mode'}</span>
           </button>
-
-          {!isCleanPresentationMode && (
-            <button
-              onClick={() => setIsSidebarOpen(prev => !prev)}
-              className="shell-btn"
-              title="Ẩn / Hiện mục lục bên trái (S)"
-            >
-              {isSidebarOpen ? <PanelLeftClose size={14} /> : <PanelLeftOpen size={14} />}
-              <span>{isSidebarOpen ? 'Ẩn Menu' : 'Mục Lục'}</span>
-            </button>
-          )}
 
           <button 
             className="shell-btn"
@@ -306,10 +270,10 @@ export const Presentation: React.FC = () => {
       </header>
 
       {/* Main Workspace Body: Sidebar + Stage */}
-      <div className="shell-body">
+      <div className={`shell-body ${isCleanPresentationMode ? 'clean-mode' : ''}`}>
         {/* Left Section Navigation Sidebar (Shown in Website View Mode) */}
-        {!isCleanPresentationMode && (
-          <aside className={`shell-sidebar ${!isSidebarOpen ? 'collapsed' : ''}`}>
+        {!isCleanPresentationMode && isSidebarOpen && (
+          <aside className="shell-sidebar">
             <div className="sidebar-header">
               <span className="sidebar-title">DANH SÁCH BÀI GIẢNG ({totalSlides} SLIDES)</span>
               <FolderKanban size={15} color="#94a3b8" />
@@ -345,6 +309,18 @@ export const Presentation: React.FC = () => {
         </main>
       </div>
 
+      {/* Discreet Floating Exit FAB when in Presentation Mode */}
+      {isCleanPresentationMode && (
+        <button
+          onClick={() => setIsCleanPresentationMode(false)}
+          className="exit-presentation-fab"
+          title="Thoát chế độ trình chiếu (P hoặc Esc)"
+        >
+          <Layout size={14} />
+          <span>Thoát Trình Chiếu (Esc)</span>
+        </button>
+      )}
+
       {/* Bottom Floating Navigation Bar */}
       <SlideNavigation
         currentSlideIndex={currentSlideIndex}
@@ -352,13 +328,7 @@ export const Presentation: React.FC = () => {
         onNext={handleNext}
         onPrev={handlePrev}
         onFirst={handleFirst}
-        isFullscreen={isFullscreen}
-        onToggleFullscreen={toggleFullscreen}
-        onToggleThumbnails={() => setIsThumbnailsOpen(true)}
-        onToggleNotes={() => setIsNotesOpen(prev => !prev)}
-        isNotesOpen={isNotesOpen}
-        isAutoPlay={isAutoPlay}
-        onToggleAutoPlay={() => setIsAutoPlay(prev => !prev)}
+        isCleanPresentationMode={isCleanPresentationMode}
       />
 
       {/* Full Overview Thumbnails Drawer Modal */}

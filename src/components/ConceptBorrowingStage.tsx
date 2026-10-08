@@ -83,24 +83,6 @@ export const ConceptBorrowingStage: React.FC<ConceptBorrowingStageProps> = ({ on
             </div>
           </div>
 
-          {/* Quick Context Tip */}
-          <div className="borrowing-context-card">
-            {viewMode === 'part1' && (
-              <p>
-                <strong>Phần 1 • Dáng tay & Khối không gian:</strong> Tham chiếu dáng tay vươn tới cầm cầu năng lượng từ bản Sketch sang phối cảnh 3D Key Visual góc rộng màn hình holographic.
-              </p>
-            )}
-            {viewMode === 'part2' && (
-              <p>
-                <strong>Phần 2 • Chất liệu Galaxy & Poster:</strong> Tổng hợp hiệu ứng tóc phát quang ánh sao và dải tinh vân Cosmic LoL để hoàn thiện poster <em>Training Design: Thời đại AI</em>.
-              </p>
-            )}
-            {viewMode === 'all' && (
-              <p>
-                <strong>Toàn cảnh 5 tác phẩm:</strong> Sự kết hợp liền mạch từ Sketch sơ khởi, phối cảnh Key Visual đến bộ màu Cosmic và tác phẩm thương mại hoàn thiện.
-              </p>
-            )}
-          </div>
         </section>
 
         {/* RIGHT COLUMN: Visual Gallery Stage */}
