@@ -1,0 +1,5 @@
+node_modules
+dist
+.DS_Store
+_backup_before_galaxy_redesign
+*.log

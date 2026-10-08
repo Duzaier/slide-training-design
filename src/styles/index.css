@@ -1,0 +1,186 @@
+@font-face {
+  font-family: 'SVN-Segoe UI';
+  src: url('/fonts/SVN-Segoe UI.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SVN-Segoe UI';
+  src: url('/fonts/SVN-Segoe UI.ttf') format('truetype');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-heading: 'SVN-Segoe UI', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --font-body: 'SVN-Segoe UI', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --font-impact: 'SVN-Segoe UI', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --font-segoe: 'SVN-Segoe UI', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Color Palette - Premium Dark Theme with Vibrant Accents */
+  --bg-dark-primary: #07090e;
+  --bg-dark-secondary: #0d121d;
+  --bg-dark-card: rgba(18, 25, 38, 0.75);
+  --bg-dark-card-hover: rgba(28, 38, 58, 0.85);
+  --bg-glass: rgba(15, 23, 42, 0.65);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-bright: rgba(56, 182, 255, 0.35);
+  
+  --color-primary: #38b6ff;
+  --color-primary-glow: rgba(56, 182, 255, 0.3);
+  --color-secondary: #7000ff;
+  --color-secondary-glow: rgba(112, 0, 255, 0.3);
+  --color-accent-amber: #ffbd59;
+  --color-accent-coral: #ff5757;
+  --color-accent-emerald: #00f0aa;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  --text-highlight: #ffffff;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px var(--color-primary-glow);
+  --shadow-glow: 0 0 30px rgba(56, 182, 255, 0.25);
+  
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.2s ease-out;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg-dark-primary);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Glassmorphic background blur utilities */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+}
+
+.glass-panel-interactive {
+  background: var(--bg-dark-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel-interactive:hover {
+  background: var(--bg-dark-card-hover);
+  border-color: var(--border-glass-bright);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--color-primary-glow);
+}
+
+/* Typography styles */
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Text Gradients */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 40%, #38b6ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #ffbd59 0%, #ff5757 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyber {
+  background: linear-gradient(135deg, #38b6ff 0%, #a855f7 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Badges & Tags */
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(56, 182, 255, 0.12);
+  color: var(--color-primary);
+  border: 1px solid rgba(56, 182, 255, 0.25);
+}
+
+.badge-tag-amber {
+  background: rgba(255, 189, 89, 0.12);
+  color: var(--color-accent-amber);
+  border-color: rgba(255, 189, 89, 0.3);
+}
+
+.badge-tag-coral {
+  background: rgba(255, 87, 87, 0.12);
+  color: var(--color-accent-coral);
+  border-color: rgba(255, 87, 87, 0.3);
+}
+
+.badge-tag-emerald {
+  background: rgba(0, 240, 170, 0.12);
+  color: var(--color-accent-emerald);
+  border-color: rgba(0, 240, 170, 0.3);
+}
