@@ -15,15 +15,15 @@
 }
 
 :root {
-  --font-heading: 'Plus Jakarta Sans', 'Outfit', 'SVN-Segoe UI', sans-serif;
-  --font-body: 'Plus Jakarta Sans', 'Outfit', 'SVN-Segoe UI', sans-serif;
-  --font-impact: 'Syne', 'Plus Jakarta Sans', sans-serif;
-  --font-segoe: 'SVN-Segoe UI', 'Segoe UI', sans-serif;
+  --font-heading: 'Noto Serif Display', 'Playfair Display', 'Be Vietnam Pro', serif;
+  --font-body: 'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif;
+  --font-impact: 'Noto Serif Display', 'Be Vietnam Pro', serif;
+  --font-segoe: 'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --font-editorial-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-display-celestial: 'Cinzel', 'Cormorant Garamond', serif;
-  --font-display-modern: 'Syne', 'Plus Jakarta Sans', sans-serif;
-  --font-sans-clean: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+  --font-editorial-serif: 'Noto Serif Display', 'Playfair Display', Georgia, serif;
+  --font-display-celestial: 'Noto Serif Display', 'Playfair Display', serif;
+  --font-display-modern: 'Noto Serif Display', 'Be Vietnam Pro', serif;
+  --font-sans-clean: 'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif;
 
   /* Galaxy & Cosmic Visual Tokens (Ref 1, 2, 3) */
   --galaxy-void: #020307;

@@ -230,7 +230,7 @@ export const Presentation: React.FC = () => {
   return (
     <div 
       ref={containerRef}
-      className="website-shell-root"
+      className={`website-shell-root galaxy-family-${(currentSlideIndex % 6) + 1}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -242,9 +242,16 @@ export const Presentation: React.FC = () => {
         />
       </div>
 
-      {/* Ambient background light orbs */}
-      <div className="ambient-glow-orb-1" />
-      <div className="ambient-glow-orb-2" />
+      {/* Dynamic Multi-layered Cosmic Galaxy Background System (Ref A, Ref B, Ref C) */}
+      <div className="galaxy-stage-canvas" aria-hidden="true">
+        <div className="cosmic-layer cosmic-deep-void" />
+        <div className="cosmic-layer cosmic-flowing-band band-primary" />
+        <div className="cosmic-layer cosmic-flowing-band band-secondary" />
+        <div className="cosmic-layer cosmic-flowing-band band-focal-core" />
+        <div className="cosmic-layer cosmic-starfield" />
+        <div className="cosmic-layer cosmic-starlight-flares" />
+        <div className="cosmic-layer cosmic-text-safe-vignette" />
+      </div>
 
       {/* Presentation Website Shell Header */}
       <header className={`shell-header ${isCleanPresentationMode ? 'clean-mode' : ''}`}>

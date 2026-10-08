@@ -8,58 +8,227 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: #030409;
-  background-image: 
-    radial-gradient(circle at 50% -10%, rgba(30, 58, 138, 0.35) 0%, transparent 60%),
-    radial-gradient(circle at 85% 90%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 15% 85%, rgba(56, 182, 255, 0.12) 0%, transparent 50%),
-    url('/assets/bg.png');
-  background-size: auto, auto, auto, 800px;
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-blend-mode: normal, normal, normal, screen;
+  background-color: #020308;
   color: var(--text-main);
   position: relative;
 }
 
-/* Ambient Galactic Nebula & Star Light Effects */
-.ambient-glow-orb-1 {
+/* ============================================================
+   COSMIC GALAXY BACKGROUND SYSTEM (Ref A, Ref B, Ref C)
+   Multi-layered: Void + Flowing Nebula Ribbon + Starlight + Text-Safe Zone
+   ============================================================ */
+
+.galaxy-stage-canvas {
   position: absolute;
-  top: -12vw;
-  right: -8vw;
-  width: 52vw;
-  height: 52vw;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 182, 255, 0.16) 0%, rgba(168, 85, 247, 0.08) 45%, transparent 70%);
+  inset: 0;
   pointer-events: none;
   z-index: 0;
-  filter: blur(80px);
-  animation: cosmicOrbDriftA 24s ease-in-out infinite alternate;
+  overflow: hidden;
+  background-color: #020308;
 }
 
-.ambient-glow-orb-2 {
+.cosmic-layer {
   position: absolute;
-  bottom: -18vw;
-  left: -12vw;
-  width: 56vw;
-  height: 56vw;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.14) 0%, rgba(236, 72, 153, 0.06) 45%, transparent 70%);
+  inset: 0;
   pointer-events: none;
-  z-index: 0;
-  filter: blur(95px);
-  animation: cosmicOrbDriftB 28s ease-in-out infinite alternate;
 }
 
-@keyframes cosmicOrbDriftA {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-30px, 20px) scale(1.06); }
-  100% { transform: translate(15px, -15px) scale(0.96); }
+/* Layer 1: Deep Space Cosmic Void & Harmonic Gradients */
+.cosmic-deep-void {
+  background: 
+    radial-gradient(circle at 18% 18%, rgba(20, 35, 75, 0.45) 0%, transparent 55%),
+    radial-gradient(circle at 82% 82%, rgba(45, 15, 75, 0.4) 0%, transparent 60%),
+    radial-gradient(circle at 50% 50%, rgba(6, 10, 22, 0.95) 0%, #020308 100%);
+  z-index: 1;
 }
 
-@keyframes cosmicOrbDriftB {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(25px, -20px) scale(1.08); }
-  100% { transform: translate(-15px, 25px) scale(0.95); }
+/* Layer 2A: Primary Flowing Nebula Silk Ribbon (Ref B: b2febc677701abb5f05e69a56974f5ab.jpg) */
+.cosmic-flowing-band.band-primary {
+  top: -25%;
+  left: -20%;
+  width: 145%;
+  height: 150%;
+  background-image: url('/assets/b2febc677701abb5f05e69a56974f5ab.jpg');
+  background-size: cover;
+  background-position: center 42%;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  opacity: 0.28;
+  filter: saturate(1.3) contrast(1.15) hue-rotate(-5deg);
+  transform: rotate(-10deg);
+  mask-image: radial-gradient(ellipse 75% 55% at 50% 50%, black 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 50%, black 25%, transparent 75%);
+  animation: cosmicPrimaryFlow 70s ease-in-out infinite alternate;
+  z-index: 2;
+}
+
+/* Layer 2B: Secondary Electric Sapphire & Radiant Wave (Ref A: 700ef2bb7f79b95bcd3a084cb2095559.jpg) */
+.cosmic-flowing-band.band-secondary {
+  top: -15%;
+  left: -15%;
+  width: 135%;
+  height: 135%;
+  background-image: url('/assets/700ef2bb7f79b95bcd3a084cb2095559.jpg');
+  background-size: cover;
+  background-position: 65% center;
+  background-repeat: no-repeat;
+  mix-blend-mode: color-dodge;
+  opacity: 0.22;
+  filter: blur(1.5px) saturate(1.35) contrast(1.1);
+  transform: rotate(8deg);
+  mask-image: radial-gradient(ellipse 65% 50% at 55% 48%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 50% at 55% 48%, black 20%, transparent 70%);
+  animation: cosmicSecondaryFlow 85s ease-in-out infinite alternate;
+  z-index: 3;
+}
+
+/* Layer 2C: Celestial Galactic Core Disc (Ref C: 310b3c93b56be36f537471a68bb84fe4.jpg) */
+.cosmic-flowing-band.band-focal-core {
+  top: -10%;
+  right: -10%;
+  width: 90vw;
+  height: 90vw;
+  background-image: url('/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  opacity: 0.14;
+  filter: blur(4px) saturate(1.2);
+  mask-image: radial-gradient(circle at 50% 50%, black 15%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 15%, transparent 70%);
+  animation: cosmicCoreSlowSpin 180s linear infinite;
+  z-index: 4;
+}
+
+/* Layer 3A: Cosmic Particle Field & Stardust */
+.cosmic-starfield {
+  background-image: 
+    radial-gradient(1px 1px at 15% 25%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(1.5px 1.5px at 35% 65%, rgba(186, 230, 253, 0.9), transparent),
+    radial-gradient(1px 1px at 55% 15%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 75% 45%, rgba(216, 180, 254, 0.95), transparent),
+    radial-gradient(1.5px 1.5px at 85% 80%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(1px 1px at 25% 85%, rgba(165, 243, 252, 0.75), transparent),
+    radial-gradient(1.2px 1.2px at 65% 75%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1.8px 1.8px at 45% 35%, rgba(244, 114, 182, 0.8), transparent),
+    radial-gradient(1px 1px at 92% 20%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(1.5px 1.5px at 8% 55%, rgba(199, 210, 254, 0.8), transparent);
+  background-size: 650px 650px;
+  opacity: 0.65;
+  animation: cosmicStarTwinkle 14s ease-in-out infinite alternate;
+  z-index: 5;
+}
+
+/* Layer 3B: Radiant 4-Point Star Clusters */
+.cosmic-starlight-flares {
+  background-image:
+    radial-gradient(circle at 80% 25%, rgba(255, 255, 255, 0.9) 0%, rgba(56, 182, 255, 0.4) 1.5px, transparent 18px),
+    radial-gradient(circle at 18% 70%, rgba(255, 255, 255, 0.85) 0%, rgba(168, 85, 247, 0.35) 1.5px, transparent 16px),
+    radial-gradient(circle at 65% 82%, rgba(255, 255, 255, 0.75) 0%, rgba(56, 182, 255, 0.3) 1px, transparent 14px);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 16px rgba(56, 182, 255, 0.5));
+  opacity: 0.75;
+  z-index: 6;
+}
+
+/* Layer 4: Text-Safe Area & Contrast Protection Vignette */
+.cosmic-text-safe-vignette {
+  background: 
+    radial-gradient(ellipse 65% 60% at 42% 48%, rgba(2, 3, 8, 0.78) 0%, rgba(2, 3, 8, 0.48) 50%, transparent 80%),
+    radial-gradient(circle at 15% 50%, rgba(2, 3, 8, 0.82) 0%, transparent 60%);
+  z-index: 7;
+  pointer-events: none;
+}
+
+/* Cosmic Animations */
+@keyframes cosmicPrimaryFlow {
+  0% { transform: rotate(-10deg) translate(0, 0) scale(1); }
+  50% { transform: rotate(-8deg) translate(-25px, 15px) scale(1.04); }
+  100% { transform: rotate(-11deg) translate(15px, -18px) scale(0.98); }
+}
+
+@keyframes cosmicSecondaryFlow {
+  0% { transform: rotate(8deg) translate(0, 0) scale(1); }
+  50% { transform: rotate(10deg) translate(20px, -15px) scale(1.05); }
+  100% { transform: rotate(7deg) translate(-15px, 20px) scale(0.97); }
+}
+
+@keyframes cosmicCoreSlowSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cosmicStarTwinkle {
+  0% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.01); }
+  100% { opacity: 0.6; transform: scale(0.99); }
+}
+
+/* ============================================================
+   GALAXY BACKGROUND VARIATION FAMILIES (Slide-by-Slide Design System)
+   ============================================================ */
+
+/* Family 1: GALAXY_01 → Bright Flowing Nebula Band */
+.website-shell-root.galaxy-family-1 .cosmic-flowing-band.band-primary {
+  opacity: 0.36;
+  filter: saturate(1.4) contrast(1.2);
+}
+.website-shell-root.galaxy-family-1 .cosmic-flowing-band.band-secondary {
+  opacity: 0.28;
+}
+
+/* Family 2: GALAXY_02 → Deep Dark Cosmic Field (High Contrast Void) */
+.website-shell-root.galaxy-family-2 .cosmic-flowing-band.band-primary {
+  opacity: 0.18;
+  filter: saturate(1.1) contrast(1.1);
+}
+.website-shell-root.galaxy-family-2 .cosmic-flowing-band.band-secondary {
+  opacity: 0.14;
+}
+.website-shell-root.galaxy-family-2 .cosmic-deep-void {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(12, 22, 50, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(28, 10, 50, 0.3) 0%, transparent 50%),
+    #020308;
+}
+
+/* Family 3: GALAXY_03 → Ethereal Violet & Lavender Nebula */
+.website-shell-root.galaxy-family-3 .cosmic-flowing-band.band-primary {
+  opacity: 0.35;
+  filter: saturate(1.45) contrast(1.18) hue-rotate(25deg);
+}
+.website-shell-root.galaxy-family-3 .cosmic-flowing-band.band-secondary {
+  opacity: 0.16;
+  filter: saturate(1.2) hue-rotate(20deg);
+}
+
+/* Family 4: GALAXY_04 → Electric Blue / Sapphire / Radiant Cyan Wave */
+.website-shell-root.galaxy-family-4 .cosmic-flowing-band.band-primary {
+  opacity: 0.2;
+}
+.website-shell-root.galaxy-family-4 .cosmic-flowing-band.band-secondary {
+  opacity: 0.34;
+  filter: saturate(1.5) contrast(1.25) hue-rotate(-15deg);
+}
+
+/* Family 5: GALAXY_05 → Minimalist Star Field & Quiet Void */
+.website-shell-root.galaxy-family-5 .cosmic-flowing-band.band-primary {
+  opacity: 0.15;
+}
+.website-shell-root.galaxy-family-5 .cosmic-flowing-band.band-secondary {
+  opacity: 0.12;
+}
+.website-shell-root.galaxy-family-5 .cosmic-starfield {
+  opacity: 0.8;
+}
+
+/* Family 6: GALAXY_06 → Strong Cosmic Focal Core Light */
+.website-shell-root.galaxy-family-6 .cosmic-flowing-band.band-focal-core {
+  opacity: 0.25;
+  filter: blur(2px) saturate(1.4);
+}
+.website-shell-root.galaxy-family-6 .cosmic-flowing-band.band-primary {
+  opacity: 0.24;
 }
 
 /* ------------------------------------------------------------
@@ -290,20 +459,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 32px 84px 32px;
+  padding: 12px 20px 68px 20px;
   position: relative;
   overflow: hidden;
 }
 
 .shell-stage.clean-mode {
-  padding: 16px 40px 84px 40px;
+  padding: 10px 24px 68px 24px;
 }
 
 .slide-content-wrapper {
   width: 100%;
-  max-width: 1600px;
+  max-width: 1820px;
   height: 100%;
-  max-height: 840px;
+  max-height: 940px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -511,7 +680,7 @@
 .speaker-hero-card {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
   border-radius: var(--radius-xl);
   padding: 0;
   background: transparent;
@@ -528,7 +697,7 @@
 
 .speaker-img-container {
   width: 100%;
-  height: 480px;
+  height: 580px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -538,7 +707,7 @@
 
 .speaker-hero-img {
   max-width: 100%;
-  max-height: 480px;
+  max-height: 580px;
   height: auto;
   object-fit: contain;
   object-position: center bottom;
@@ -552,7 +721,7 @@
 .speaker-hero-card:hover .speaker-hero-img {
   transform: scale(1.04);
   filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.9)) 
-          drop-shadow(0 0 45px rgba(56, 182, 255, 0.5))
+          drop-shadow(0 0 45px rgba(56, 182, 255, 0.5)) 
           drop-shadow(0 0 90px rgba(112, 0, 255, 0.3));
 }
 
@@ -607,7 +776,7 @@
 }
 
 .speaker-minimal-name {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.8rem, 4.4vw, 4.4rem);
   font-weight: 800;
   line-height: 1.12;
@@ -676,9 +845,10 @@
 
 .concept-minimal-content-grid {
   display: grid;
-  grid-template-columns: 0.95fr 1.35fr;
-  gap: 40px;
+  grid-template-columns: minmax(240px, 320px) 1fr;
+  gap: 36px;
   width: 100%;
+  max-width: 1760px;
   height: 100%;
   align-items: center;
   position: relative;
@@ -724,7 +894,7 @@
 }
 
 .concept-minimal-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.3rem, 3.5vw, 3.8rem);
   font-weight: 800;
   line-height: 1.14;
@@ -750,8 +920,8 @@
 .concept-poster-card {
   position: relative;
   flex: 1;
-  max-width: 340px;
-  height: 480px;
+  max-width: 480px;
+  height: 590px;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -819,11 +989,11 @@
   position: relative;
   z-index: 10;
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: minmax(280px, 400px) 1fr;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
   width: 100%;
-  max-width: 1380px;
+  max-width: 1720px;
 }
 
 .ai-minimal-title-col {
@@ -862,7 +1032,7 @@
 }
 
 .ai-minimal-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.2rem, 3.3vw, 3.6rem);
   font-weight: 800;
   line-height: 1.14;
@@ -887,7 +1057,8 @@
 .ai-poster-card {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 640px;
+  max-height: 82vh;
   aspect-ratio: 1 / 1;
   border-radius: 24px;
   overflow: hidden;
@@ -981,7 +1152,7 @@
 }
 
 .genmodel-minimal-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.3rem, 3.4vw, 3.8rem);
   font-weight: 800;
   line-height: 1.12;
@@ -1007,8 +1178,8 @@
 .genmodel-poster-card {
   position: relative;
   flex: 1;
-  max-width: 360px;
-  max-height: 80vh;
+  max-width: 440px;
+  max-height: 84vh;
   aspect-ratio: 1458 / 1998;
   border-radius: 16px;
   overflow: hidden;
@@ -1082,7 +1253,7 @@
   align-items: center;
   gap: 36px;
   width: 100%;
-  max-width: 1760px;
+  max-width: 1800px;
 }
 
 .lighting-minimal-title-col {
@@ -1092,7 +1263,7 @@
 }
 
 .lighting-minimal-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(1.75rem, 2.3vw, 2.75rem);
   font-weight: 800;
   line-height: 1.25;
@@ -1128,15 +1299,15 @@
 
 .lighting-diagram-card {
   flex: 1.45;
-  max-width: 780px;
-  max-height: 80vh;
+  max-width: 880px;
+  max-height: 84vh;
   aspect-ratio: 2281 / 1599;
 }
 
 .lighting-render-card {
   flex: 1.22;
-  max-width: 640px;
-  max-height: 80vh;
+  max-width: 740px;
+  max-height: 84vh;
   aspect-ratio: 2062 / 1599;
 }
 
@@ -1183,7 +1354,7 @@
   align-items: center;
   gap: 40px;
   width: 100%;
-  max-width: 1720px;
+  max-width: 1800px;
 }
 
 .genai-minimal-title-col {
@@ -1193,7 +1364,7 @@
 }
 
 .genai-minimal-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.3rem, 3.5vw, 3.8rem);
   font-weight: 800;
   line-height: 1.15;
@@ -1235,12 +1406,12 @@
 }
 
 .genai-card-square {
-  width: 280px;
+  width: 340px;
   aspect-ratio: 1 / 1;
 }
 
 .genai-card-portrait {
-  width: 250px;
+  width: 300px;
   aspect-ratio: 3 / 4;
 }
 
@@ -1287,7 +1458,7 @@
   align-items: center;
   gap: 48px;
   width: 100%;
-  max-width: 1680px;
+  max-width: 1760px;
 }
 
 .prompt-minimal-title-col {
@@ -1297,7 +1468,7 @@
 }
 
 .prompt-minimal-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.4rem, 3.8vw, 4.2rem);
   font-weight: 800;
   line-height: 1.15;
@@ -1322,8 +1493,8 @@
 .prompt-poster-card {
   position: relative;
   width: 100%;
-  max-width: 660px;
-  max-height: 82vh;
+  max-width: 740px;
+  max-height: 84vh;
   aspect-ratio: 946 / 1017;
   border-radius: 20px;
   overflow: hidden;
@@ -1409,7 +1580,7 @@
 }
 
 .question-editorial-heading {
-  font-family: var(--font-editorial-serif, 'Cormorant Garamond', Georgia, serif);
+  font-family: var(--font-editorial-serif, 'Noto Serif Display', serif);
   font-style: italic;
   font-size: clamp(2.8rem, 4.8vw, 4.8rem);
   font-weight: 700;
@@ -1902,7 +2073,7 @@
   align-items: center;
   gap: 40px;
   width: 100%;
-  max-width: 1720px;
+  max-width: 1800px;
 }
 
 .lighting-duo-title-col {
@@ -1912,7 +2083,7 @@
 }
 
 .lighting-duo-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.6rem, 4.2vw, 4.8rem);
   font-weight: 800;
   line-height: 1.15;
@@ -1948,8 +2119,8 @@
 
 .lighting-primitives-card {
   flex: 1.25;
-  max-width: 600px;
-  max-height: 80vh;
+  max-width: 700px;
+  max-height: 84vh;
   aspect-ratio: 16 / 9;
   background: #ffffff;
   display: flex;
@@ -1959,8 +2130,8 @@
 
 .lighting-commercial-card {
   flex: 0.95;
-  max-width: 440px;
-  max-height: 80vh;
+  max-width: 520px;
+  max-height: 84vh;
   aspect-ratio: 1458 / 1998;
 }
 
@@ -2011,7 +2182,7 @@
   align-items: center;
   gap: 48px;
   width: 100%;
-  max-width: 1680px;
+  max-width: 1760px;
 }
 
 .perspective-minimal-title-col {
@@ -2021,7 +2192,7 @@
 }
 
 .perspective-minimal-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.4rem, 3.8vw, 4.2rem);
   font-weight: 800;
   line-height: 1.15;
@@ -2046,8 +2217,8 @@
 .perspective-poster-card {
   position: relative;
   width: 100%;
-  max-width: 580px;
-  max-height: 82vh;
+  max-width: 660px;
+  max-height: 85vh;
   aspect-ratio: 1 / 1;
   border-radius: 20px;
   overflow: hidden;
@@ -2096,9 +2267,9 @@
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 1680px;
+  max-width: 1760px;
   height: 100%;
-  max-height: 820px;
+  max-height: 840px;
   display: grid;
   grid-template-columns: minmax(180px, 220px) 1fr;
   align-items: center;
@@ -2112,7 +2283,7 @@
 }
 
 .color-analysis-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.4rem, 3.5vw, 4rem);
   font-weight: 800;
   line-height: 1.1;
@@ -2132,13 +2303,13 @@
   align-items: center;
   gap: 32px;
   height: 100%;
-  max-height: 560px;
+  max-height: 640px;
 }
 
 .color-analysis-card {
   position: relative;
   height: 100%;
-  max-height: 540px;
+  max-height: 620px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2595,11 +2766,11 @@
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 1600px;
+  max-width: 1760px;
   height: 100%;
-  max-height: 820px;
+  max-height: 840px;
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: minmax(240px, 300px) 1fr;
   align-items: center;
   gap: 48px;
 }
@@ -2611,7 +2782,7 @@
 }
 
 .value-contrast-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1.1;
@@ -2631,7 +2802,7 @@
   gap: 24px;
   width: 100%;
   height: 100%;
-  max-height: 720px;
+  max-height: 760px;
   justify-content: center;
 }
 
@@ -2692,7 +2863,7 @@
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 1760px;
+  max-width: 1800px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -2708,7 +2879,7 @@
 }
 
 .style-art-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: 3rem;
   font-weight: 800;
   line-height: 1;
@@ -2737,7 +2908,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 12px;
-  height: 250px;
+  height: 275px;
   width: 100%;
 }
 
@@ -3510,11 +3681,11 @@
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 1650px;
+  max-width: 1760px;
   height: 100%;
-  max-height: 820px;
+  max-height: 840px;
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: minmax(240px, 320px) 1fr;
   align-items: center;
   gap: 56px;
 }
@@ -3526,7 +3697,7 @@
 }
 
 .typography-heading {
-  font-family: var(--font-editorial-serif, 'Cormorant Garamond', Georgia, serif);
+  font-family: var(--font-editorial-serif, 'Noto Serif Display', serif);
   font-style: italic;
   font-size: 3.8rem;
   font-weight: 700;
@@ -3554,7 +3725,7 @@
   position: relative;
   aspect-ratio: 1 / 1;
   width: 100%;
-  max-height: 480px;
+  max-height: 560px;
   background: rgba(14, 20, 32, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
@@ -4356,7 +4527,7 @@
   align-items: center;
   gap: 48px;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1720px;
   height: 100%;
   z-index: 10;
 }
@@ -4368,7 +4539,7 @@
 }
 
 .social-size-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(3rem, 5vw, 5.2rem);
   font-weight: 800;
   line-height: 1.1;
@@ -4395,7 +4566,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 36px;
   width: 100%;
-  max-width: 920px;
+  max-width: 1100px;
   align-items: flex-end;
 }
 
@@ -4444,7 +4615,7 @@
 .social-size-card-img {
   width: 100%;
   height: auto;
-  max-height: 480px;
+  max-height: 580px;
   object-fit: contain;
   display: block;
 }
@@ -4481,7 +4652,7 @@
   align-items: center;
   gap: 36px;
   width: 100%;
-  max-width: 1440px;
+  max-width: 1720px;
   height: 100%;
   z-index: 10;
 }
@@ -4494,7 +4665,7 @@
 }
 
 .social-multi-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.6rem, 4vw, 4.4rem);
   font-weight: 800;
   line-height: 1.1;
@@ -4531,7 +4702,7 @@
 .social-multi-showcase-img {
   width: 100%;
   height: auto;
-  max-height: 440px;
+  max-height: 540px;
   object-fit: contain;
   display: block;
 }
@@ -4549,7 +4720,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   width: 100%;
-  max-width: 920px;
+  max-width: 1040px;
 }
 
 .social-template-card {
@@ -4612,11 +4783,11 @@
 
 .social-error-content-grid {
   display: grid;
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: minmax(280px, 360px) 1fr;
   align-items: center;
-  gap: 52px;
+  gap: 48px;
   width: 100%;
-  max-width: 1360px;
+  max-width: 1720px;
   height: 100%;
   z-index: 10;
 }
@@ -4629,7 +4800,7 @@
 }
 
 .social-error-heading {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.8rem, 4.2vw, 4.6rem);
   font-weight: 800;
   line-height: 1.15;
@@ -4691,8 +4862,8 @@
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(239, 68, 68, 0.22);
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  max-height: 570px;
-  max-width: 520px;
+  max-height: 650px;
+  max-width: 700px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4707,7 +4878,7 @@
 .social-error-preview-img {
   width: 100%;
   height: auto;
-  max-height: 570px;
+  max-height: 650px;
   object-fit: contain;
   display: block;
 }
@@ -5005,7 +5176,7 @@
 }
 
 .stage-main-title {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.1rem, 3.4vw, 3.6rem);
   font-weight: 800;
   line-height: 1.15;
@@ -5179,9 +5350,9 @@
   position: relative;
   aspect-ratio: 1903 / 2686;
   width: auto;
-  max-width: 460px;
+  max-width: 580px;
   height: auto;
-  max-height: 570px;
+  max-height: 680px;
   background: #0d0f17;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 16px;
@@ -5425,7 +5596,7 @@
 }
 
 .slide-main-title {
-  font-family: var(--font-display-modern, 'Syne', sans-serif);
+  font-family: var(--font-display-modern, 'Noto Serif Display', serif);
   font-size: clamp(2.2rem, 3.4vw, 3.6rem);
   font-weight: 800;
   line-height: 1.15;
