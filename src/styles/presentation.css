@@ -5149,7 +5149,7 @@
 /* Workspace Layout */
 .unified-process-workspace {
   display: grid;
-  grid-template-columns: minmax(360px, 480px) 1fr;
+  grid-template-columns: minmax(460px, 560px) 1fr;
   gap: 48px;
   align-items: center;
   justify-content: center;
@@ -5166,7 +5166,7 @@
   justify-content: space-between;
   height: 100%;
   max-height: 740px;
-  padding: 20px 0 10px 0;
+  padding: 16px 0 0 0;
   box-sizing: border-box;
 }
 
@@ -5175,28 +5175,31 @@
   flex-direction: column;
   gap: 16px;
   justify-content: flex-start;
+  min-height: 260px;
 }
 
 .stage-main-title {
   font-family: var(--font-display-modern, 'Noto Serif Display', serif);
-  font-size: clamp(2.3rem, 3.4vw, 3.8rem);
+  font-size: clamp(1.95rem, 2.65vw, 3.25rem);
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.18;
   background: linear-gradient(135deg, #ffffff 0%, #fdf4ff 35%, #ec4899 70%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
   letter-spacing: -0.02em;
-  white-space: normal;
-  word-break: keep-all;
-  overflow-wrap: break-word;
   filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.75)) 
           drop-shadow(0 0 35px rgba(236, 72, 153, 0.5)) 
           drop-shadow(0 0 70px rgba(168, 85, 247, 0.3));
 }
 
+.stage-title-line {
+  display: block;
+  white-space: nowrap;
+}
+
 .stage-subtitle {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   color: #94a3b8;
   margin: 0;
   line-height: 1.5;

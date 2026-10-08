@@ -143,11 +143,10 @@ export const UnifiedProcessStage: React.FC<UnifiedProcessStageProps> = ({ onImag
           <section className="process-info-col">
             <div className="process-text-group">
               <h1 className="stage-main-title">
-                {currentStep.title.split('\n').map((line, idx, arr) => (
-                  <React.Fragment key={idx}>
+                {currentStep.title.split('\n').map((line, idx) => (
+                  <span key={idx} className="stage-title-line">
                     {line}
-                    {idx < arr.length - 1 && <br />}
-                  </React.Fragment>
+                  </span>
                 ))}
               </h1>
               <p className="stage-subtitle">{currentStep.subtitle}</p>
