@@ -15,11 +15,27 @@
 }
 
 :root {
-  --font-heading: 'SVN-Segoe UI', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-  --font-body: 'SVN-Segoe UI', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-  --font-impact: 'SVN-Segoe UI', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-  --font-segoe: 'SVN-Segoe UI', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', 'Outfit', 'SVN-Segoe UI', sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Outfit', 'SVN-Segoe UI', sans-serif;
+  --font-impact: 'Syne', 'Plus Jakarta Sans', sans-serif;
+  --font-segoe: 'SVN-Segoe UI', 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-editorial-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-display-celestial: 'Cinzel', 'Cormorant Garamond', serif;
+  --font-display-modern: 'Syne', 'Plus Jakarta Sans', sans-serif;
+  --font-sans-clean: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+
+  /* Galaxy & Cosmic Visual Tokens (Ref 1, 2, 3) */
+  --galaxy-void: #020307;
+  --galaxy-deep-space: #05070f;
+  --galaxy-nebula-blue: #0b152d;
+  --galaxy-cyan: #38b6ff;
+  --galaxy-magenta: #ec4899;
+  --galaxy-violet: #a855f7;
+  --galaxy-starlight: #e2f4ff;
+  --galaxy-amber: #ffb03a;
+  --galaxy-star-glint: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 35px rgba(56, 182, 255, 0.6);
+  --title-glow-celestial: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 45px rgba(168, 85, 247, 0.4), 0 0 80px rgba(56, 182, 255, 0.25);
 
   /* Color Palette - Premium Dark Theme with Vibrant Accents */
   --bg-dark-primary: #07090e;
