@@ -27,6 +27,7 @@ export type LayoutType =
   | 'typography_minimal'
   | 'design_process_minimal'
   | 'design_process_unified'
+  | 'concept_borrowing_stage'
   | 'sketch_minimal'
   | 'element_replacement_minimal'
   | 'lighting_retouch_minimal'

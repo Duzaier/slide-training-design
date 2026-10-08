@@ -3,6 +3,7 @@ import { SlideData } from '../types/presentation';
 import { InteractiveColorPicker } from './InteractiveColorPicker';
 import { InteractiveLightStudio } from './InteractiveLightStudio';
 import { UnifiedProcessStage } from './UnifiedProcessStage';
+import { ConceptBorrowingStage } from './ConceptBorrowingStage';
 import {
   Sparkles,
   Layers,
@@ -47,6 +48,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
   const isSlide14 = slide.id === 14 || slide.layoutType === 'style_art_gallery_minimal';
   const isTypographySlide = slide.layoutType === 'typography_minimal' || slide.title?.toLowerCase() === 'typography';
   const isProcessUnifiedSlide = slide.id === 17 || slide.layoutType === 'design_process_unified' || slide.title?.toLowerCase().includes('tiến trình');
+  const isConceptBorrowingSlide = slide.id === 182 || slide.layoutType === 'concept_borrowing_stage' || slide.title?.toLowerCase().includes('mượn ý tưởng');
   const isSocialSizeSlide = slide.layoutType === 'social_size_minimal' || slide.title?.toLowerCase() === 'size';
   const isSocialMultiImageSlide = slide.layoutType === 'social_multi_image_minimal' || slide.title?.toLowerCase().includes('nhiều ảnh');
   const isSocialSizeErrorSlide = slide.layoutType === 'social_size_error_minimal' || slide.title?.toLowerCase().includes('lỗi sai kích thước');
@@ -850,6 +852,9 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
       ) : isProcessUnifiedSlide ? (
         /* 17. SLIDE 17: UNIFIED PROCESS PROGRESSION STAGE (5 CÔNG ĐOẠN XỬ LÝ KEY VISUAL) */
         <UnifiedProcessStage onImageZoom={handleImageZoom} />
+      ) : isConceptBorrowingSlide ? (
+        /* 18B. SLIDE 18B: MƯỢN Ý TƯỞNG (CONCEPT BORROWING STAGE) */
+        <ConceptBorrowingStage onImageZoom={handleImageZoom} />
       ) : isSocialSizeSlide ? (
         /* 23. SLIDE 23: SIZE (2000X2000 & 3660 X 2880) */
         <div className="layout-social-size-stage">

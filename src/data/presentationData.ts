@@ -414,6 +414,38 @@ export const presentationSlides: SlideData[] = [
     notes: "Slide 18: Cách kết hợp kiến thức - Tiêu đề chuyển mục."
   },
   {
+    id: 182,
+    slideNumber: "18B",
+    category: "commercial_design",
+    categoryLabel: "CÁCH KẾT HỢP KIẾN THỨC",
+    title: "Mượn ý tưởng",
+    primaryText: "Khai thác và liên kết bố cục, dáng chuyển động và chất liệu ánh sáng từ các tác phẩm tham chiếu vào thiết kế thực tế.",
+    images: [
+      {
+        url: "/assets/image 37.png",
+        caption: "Bản vẽ phác thảo (Sketch Pose)"
+      },
+      {
+        url: "/assets/image 41.png",
+        caption: "Tạo hình 3D Key Visual (PUBG)"
+      },
+      {
+        url: "/assets/image 39.png",
+        caption: "Chất liệu Cosmic Galaxy"
+      },
+      {
+        url: "/assets/image 40.png",
+        caption: "Hệ thống Skin Cosmic (LoL)"
+      },
+      {
+        url: "/assets/Train 1.png",
+        caption: "Poster Training Design hoàn thiện"
+      }
+    ],
+    layoutType: "concept_borrowing_stage",
+    notes: "Slide 18B: Mượn ý tưởng - Phân tích quy trình mượn ý tưởng từ tham chiếu bố cục (Sketch/PUBG) và chất liệu Galaxy (Anime/LoL) để sáng tạo poster Training Design."
+  },
+  {
     id: 19,
     slideNumber: "19",
     category: "commercial_design",
