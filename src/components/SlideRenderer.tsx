@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { SlideData } from '../types/presentation';
 import { InteractiveColorPicker } from './InteractiveColorPicker';
 import { InteractiveLightStudio } from './InteractiveLightStudio';
@@ -8,7 +8,11 @@ import {
   Sparkles,
   Layers,
   CheckCircle2,
-  Compass
+  Compass,
+  Maximize2,
+  ChevronLeft,
+  ChevronRight,
+  X
 } from 'lucide-react';
 
 interface SlideRendererProps {
@@ -19,14 +23,68 @@ interface SlideRendererProps {
 export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClick }) => {
   const [activeBreakdownTab, setActiveBreakdownTab] = useState<'both' | 'sketch' | 'analysis'>('both');
   const [zoomModalUrl, setZoomModalUrl] = useState<string | null>(null);
+  const [zoomImageIndex, setZoomImageIndex] = useState<number>(0);
+
+  // Collect all images in current slide
+  const currentImages = useMemo(() => {
+    return slide.images && slide.images.length > 0 ? slide.images : [];
+  }, [slide.images]);
+
+  const hasMultipleImages = currentImages.length >= 2;
 
   const handleImageZoom = (url: string) => {
     if (onImageClick) {
       onImageClick(url);
-    } else {
-      setZoomModalUrl(url);
+      return;
     }
+    const idx = currentImages.findIndex(img => img.url === url);
+    if (idx !== -1) {
+      setZoomImageIndex(idx);
+    } else {
+      setZoomImageIndex(0);
+    }
+    setZoomModalUrl(url);
   };
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!hasMultipleImages) return;
+    const nextIdx = zoomImageIndex > 0 ? zoomImageIndex - 1 : currentImages.length - 1;
+    setZoomImageIndex(nextIdx);
+    setZoomModalUrl(currentImages[nextIdx].url);
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!hasMultipleImages) return;
+    const nextIdx = zoomImageIndex < currentImages.length - 1 ? zoomImageIndex + 1 : 0;
+    setZoomImageIndex(nextIdx);
+    setZoomModalUrl(currentImages[nextIdx].url);
+  };
+
+  // Keyboard navigation for enlarged lightbox
+  useEffect(() => {
+    if (!zoomModalUrl) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setZoomModalUrl(null);
+      } else if (e.key === 'ArrowLeft') {
+        if (hasMultipleImages) {
+          const nextIdx = zoomImageIndex > 0 ? zoomImageIndex - 1 : currentImages.length - 1;
+          setZoomImageIndex(nextIdx);
+          setZoomModalUrl(currentImages[nextIdx].url);
+        }
+      } else if (e.key === 'ArrowRight') {
+        if (hasMultipleImages) {
+          const nextIdx = zoomImageIndex < currentImages.length - 1 ? zoomImageIndex + 1 : 0;
+          setZoomImageIndex(nextIdx);
+          setZoomModalUrl(currentImages[nextIdx].url);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [zoomModalUrl, zoomImageIndex, hasMultipleImages, currentImages]);
 
   // Slide 12 Interactive Color Studio state
   const [slide12PickedColor, setSlide12PickedColor] = useState<string>('#1E5AFF');
@@ -935,40 +993,60 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
             <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
-          <div className="social-multi-content-grid">
-            {/* LEFT COLUMN: Title & Post Showcase */}
-            <div className="social-multi-left-col">
-              <h1 className="social-multi-heading">{slide.title}</h1>
-              <div
-                className="social-multi-showcase-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/image 31.png')}
-                title="Click để phóng to bài đăng mẫu"
-              >
-                <img
-                  src={slide.images[0]?.url || '/assets/image 31.png'}
-                  alt={slide.images[0]?.caption || "Bài đăng 440Hz"}
-                  className="social-multi-showcase-img"
-                />
+          <div className="social-multi-container">
+            {/* TOP HEADER: Title strictly on 1 line */}
+            <div className="social-multi-header-row">
+              <div className="social-multi-title-wrap">
+                <span className="social-multi-category-badge">BỐ CỤC SOCIAL ALBUM</span>
+                <h1 className="social-multi-heading">{slide.title}</h1>
               </div>
+              <p className="social-multi-lead-text">
+                Hệ thống tỉ lệ và bố cục chia khung lưới cho các bài đăng album nhiều ảnh chuẩn Social Media.
+              </p>
             </div>
 
-            {/* RIGHT COLUMN: 5 Layout Template Cards */}
-            <div className="social-multi-right-col">
-              <div className="social-multi-templates-grid">
-                {slide.images.slice(1, 6).map((img, idx) => (
-                  <div
-                    key={idx}
-                    className={`social-template-card social-template-card-${idx + 1}`}
-                    onClick={() => handleImageZoom(img.url)}
-                    title={`Click để phóng to ${img.caption || `Layout ${idx + 1}`}`}
-                  >
-                    <img
-                      src={img.url}
-                      alt={img.caption || `Layout ${idx + 1}`}
-                      className="social-template-img"
-                    />
-                  </div>
-                ))}
+            {/* MAIN CONTENT: Left Showcase Post + Right 5 Square Templates */}
+            <div className="social-multi-body-layout">
+              {/* LEFT COLUMN: 440Hz Post Showcase */}
+              <div className="social-multi-showcase-col">
+                <div
+                  className="social-multi-showcase-card"
+                  onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/image 31.png')}
+                  title="Click để phóng to bài đăng mẫu 440Hz"
+                >
+                  <div className="social-multi-card-tag">Bài đăng thực tế • 440Hz</div>
+                  <img
+                    src={slide.images[0]?.url || '/assets/image 31.png'}
+                    alt={slide.images[0]?.caption || "Bài đăng 440Hz"}
+                    className="social-multi-showcase-img"
+                  />
+                  <button className="social-multi-zoom-btn" title="Phóng to">
+                    <Maximize2 size={16} />
+                  </button>
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN: 5 Layout Template Cards (matching authentic 1:1 image dimensions) */}
+              <div className="social-multi-templates-col">
+                <div className="social-multi-templates-grid">
+                  {slide.images.slice(1, 6).map((img, idx) => (
+                    <div
+                      key={idx}
+                      className={`social-template-card social-template-card-${idx + 1}`}
+                      onClick={() => handleImageZoom(img.url)}
+                      title={`Click để phóng to ${img.caption || `Layout ${idx + 1}`}`}
+                    >
+                      <img
+                        src={img.url}
+                        alt={img.caption || `Layout ${idx + 1}`}
+                        className="social-template-img"
+                      />
+                      <button className="social-template-zoom-btn" title="Phóng to ảnh">
+                        <Maximize2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -1428,27 +1506,69 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
         </>
       )}
 
-      {/* Enlarged Visual Modal Viewport */}
+      {/* Enlarged Visual Lightbox with Multi-image Navigation */}
       {zoomModalUrl && (
         <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(0,0,0,0.92)',
-            zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '40px',
-            backdropFilter: 'blur(10px)'
-          }}
+          className="image-lightbox-overlay"
           onClick={() => setZoomModalUrl(null)}
         >
-          <img
-            src={zoomModalUrl}
-            alt="Enlarged Visual"
-            style={{ maxWidth: '95%', maxHeight: '95%', objectFit: 'contain', borderRadius: '12px', boxShadow: '0 0 50px rgba(0,0,0,0.9)' }}
-          />
+          {/* Close button */}
+          <button
+            className="lightbox-close-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              setZoomModalUrl(null);
+            }}
+            title="Đóng (Esc)"
+            aria-label="Đóng"
+          >
+            <X size={22} />
+          </button>
+
+          {/* Previous Arrow Button (shown when slide has 2+ images) */}
+          {hasMultipleImages && (
+            <button
+              className="lightbox-nav-arrow lightbox-nav-prev"
+              onClick={handlePrevImage}
+              title="Ảnh trước (ArrowLeft)"
+              aria-label="Ảnh trước"
+            >
+              <ChevronLeft size={32} />
+            </button>
+          )}
+
+          {/* Image Display Area */}
+          <div className="lightbox-image-wrapper" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={zoomModalUrl}
+              alt={currentImages[zoomImageIndex]?.caption || "Enlarged Visual"}
+              className="lightbox-image"
+            />
+            {hasMultipleImages && (
+              <div className="lightbox-indicator-bar">
+                <span className="lightbox-counter-badge">
+                  {zoomImageIndex + 1} / {currentImages.length}
+                </span>
+                {currentImages[zoomImageIndex]?.caption && (
+                  <span className="lightbox-caption-text">
+                    {currentImages[zoomImageIndex].caption}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Next Arrow Button (shown when slide has 2+ images) */}
+          {hasMultipleImages && (
+            <button
+              className="lightbox-nav-arrow lightbox-nav-next"
+              onClick={handleNextImage}
+              title="Ảnh kế tiếp (ArrowRight)"
+              aria-label="Ảnh kế tiếp"
+            >
+              <ChevronRight size={32} />
+            </button>
+          )}
         </div>
       )}
     </div>

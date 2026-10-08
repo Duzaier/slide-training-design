@@ -40,8 +40,12 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({
           onClick={onFirst}
           title="Về slide đầu tiên (Home)"
           className="nav-home-btn"
+          aria-label="Về slide đầu tiên"
         >
-          <RotateCcw size={13} /> Đầu trang
+          <span className="nav-home-icon-wrap">
+            <RotateCcw size={14} className="nav-home-icon" />
+          </span>
+          <span className="nav-home-label">Đầu trang</span>
         </button>
       </div>
 
