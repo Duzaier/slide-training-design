@@ -7134,21 +7134,21 @@ h4,
 .slide-content-wrapper .interactive-color-stage,
 .slide-content-wrapper .cube-studio-viewport-grid,
 .slide-content-wrapper .floating-decor-item {
-  animation: universalSlideMediaEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+  animation: universalSlideMediaEntrance 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Stagger multiple poster cards within grids */
+/* Stagger multiple poster cards within grids - snappy 0.05s intervals */
 .slide-content-wrapper .concept-poster-card:nth-child(2),
 .slide-content-wrapper .genmodel-poster-card:nth-child(2),
 .slide-content-wrapper .style-gallery-card:nth-child(2),
 .slide-content-wrapper .contrast-card:nth-child(2),
 .slide-content-wrapper .error-good-card {
-  animation-delay: 0.44s !important;
+  animation-delay: 0.05s !important;
 }
 
 .slide-content-wrapper .genmodel-poster-card:nth-child(3),
 .slide-content-wrapper .style-gallery-card:nth-child(3) {
-  animation-delay: 0.56s !important;
+  animation-delay: 0.08s !important;
 }
 
 /* 3. HD IMAGE OPTIMIZATION: ZERO DISTORTION, ZERO PIXELATION, PRESERVES ASPECT RATIO & ORIGINAL QUALITY */
@@ -7176,27 +7176,23 @@ h4,
 @keyframes universalSlideTextEntrance {
   0% {
     opacity: 0;
-    transform: translateY(24px);
-    filter: blur(8px);
+    transform: translateY(8px);
   }
 
   100% {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0px);
   }
 }
 
 @keyframes universalSlideMediaEntrance {
   0% {
     opacity: 0;
-    transform: translateY(32px) scale(0.96);
-    filter: blur(10px);
+    transform: scale(0.99);
   }
 
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0px);
+    transform: scale(1);
   }
 }

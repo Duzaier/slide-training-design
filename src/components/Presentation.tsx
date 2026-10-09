@@ -14,8 +14,14 @@ import {
 } from 'lucide-react';
 import gsap from 'gsap';
 import { CosmicIntroOverlay, resetCosmicIntroSeen } from './intro/CosmicIntroOverlay';
+import { preloadAllPresentationAssets } from '../utils/imagePreloader';
 
 export const Presentation: React.FC = () => {
+  // Preload and pre-decode all presentation images in memory on launch
+  useEffect(() => {
+    preloadAllPresentationAssets();
+  }, []);
+
   const [hasStarted, setHasStarted] = useState<boolean>(false);
   const [showCosmicIntro, setShowCosmicIntro] = useState<boolean>(false);
   const [isIntroRevealing, setIsIntroRevealing] = useState<boolean>(false);
