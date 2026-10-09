@@ -48,10 +48,12 @@ export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
     return () => clearTimeout(watchdogTimer);
   }, [config, handleSkip]);
 
-  // Keyboard controls listener (Esc or Space or Enter to skip)
+  // Keyboard controls listener (Esc to skip, with 1.2s guard to prevent accidental skip from Start button)
   useEffect(() => {
+    const mountTimestamp = Date.now();
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+      if (e.key === 'Escape') {
+        if (Date.now() - mountTimestamp < 1200) return;
         e.preventDefault();
         handleSkip();
       }
