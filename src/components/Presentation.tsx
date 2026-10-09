@@ -24,7 +24,6 @@ export const Presentation: React.FC = () => {
 
   const [hasStarted, setHasStarted] = useState<boolean>(false);
   const [showCosmicIntro, setShowCosmicIntro] = useState<boolean>(false);
-  const [isIntroRevealing, setIsIntroRevealing] = useState<boolean>(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   const [isCleanPresentationMode, setIsCleanPresentationMode] = useState<boolean>(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
@@ -136,7 +135,6 @@ export const Presentation: React.FC = () => {
     resetCosmicIntroSeen();
     setHasStarted(true);
     setShowCosmicIntro(true);
-    setIsIntroRevealing(false);
     setCurrentSlideIndex(0);
     setIsCleanPresentationMode(true);
   };
@@ -244,11 +242,6 @@ export const Presentation: React.FC = () => {
 
   const handleIntroComplete = useCallback(() => {
     setShowCosmicIntro(false);
-    setIsIntroRevealing(true);
-
-    setTimeout(() => {
-      setIsIntroRevealing(false);
-    }, 3500);
   }, []);
 
   // 1. Initial Start Screen: Dedicated Pure Black Screen with Pulsing Start Button
@@ -266,22 +259,24 @@ export const Presentation: React.FC = () => {
     );
   }
 
-  // 2. Presentation Stage with seamless Cosmic Intro Overlay on top
-  return (
-    <>
-      {showCosmicIntro && (
-        <CosmicIntroOverlay
-          onComplete={handleIntroComplete}
-          forceReplay={true}
-        />
-      )}
+  // 2. Cosmic Intro Mode: Dedicated Fullscreen WebGL Canvas without any background slide overhead
+  if (showCosmicIntro) {
+    return (
+      <CosmicIntroOverlay
+        onComplete={handleIntroComplete}
+        forceReplay={true}
+      />
+    );
+  }
 
-      <div 
-        ref={containerRef}
-        className={`website-shell-root galaxy-family-${(currentSlideIndex % 6) + 1} active-slide-${currentSlideIndex + 1}`}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+  // 3. Presentation Stage: Clean, hardware-accelerated 60 FPS slide presentation
+  return (
+    <div 
+      ref={containerRef}
+      className={`website-shell-root galaxy-family-${(currentSlideIndex % 6) + 1} active-slide-${currentSlideIndex + 1}`}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
 
       {/* Top Progress Track */}
       <div className="presentation-progress-track">
@@ -380,7 +375,7 @@ export const Presentation: React.FC = () => {
         {/* Center Presentation Stage */}
         <main className={`shell-stage ${isCleanPresentationMode ? 'clean-mode' : ''}`}>
           <div ref={slideStageRef} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <SlideRenderer key={currentSlide.id} slide={currentSlide} isIntroRevealing={isIntroRevealing && currentSlideIndex === 0} />
+            <SlideRenderer key={currentSlide.id} slide={currentSlide} />
           </div>
         </main>
       </div>
@@ -496,6 +491,5 @@ export const Presentation: React.FC = () => {
         </div>
       )}
     </div>
-    </>
   );
 };

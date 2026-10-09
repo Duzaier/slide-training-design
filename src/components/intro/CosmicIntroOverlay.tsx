@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { FastForward, Sparkles, Volume2, VolumeX } from 'lucide-react';
-import gsap from 'gsap';
 import { CosmicIntroCanvas } from './CosmicIntroCanvas';
 import { CosmicIntro2DFallback } from './CosmicIntro2DFallback';
 import { CosmicIntroConfig, DEFAULT_INTRO_CONFIG, getTotalIntroDuration } from './cosmicIntroConfig';
@@ -19,10 +18,8 @@ export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
 
-  const rootOverlayRef = useRef<HTMLDivElement>(null);
   const stageTextRef = useRef<HTMLSpanElement>(null);
   const progressPercentRef = useRef<HTMLSpanElement>(null);
-  const isEndingRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (forceReplay) {
@@ -30,36 +27,15 @@ export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
     }
   }, [forceReplay, config.sessionStorageKey]);
 
-  // Smooth completion handler with cinematic cross-fade
-  const finishIntroWithFade = useCallback(() => {
-    if (isEndingRef.current) return;
-    isEndingRef.current = true;
-
+  // Skip handler
+  const handleSkip = useCallback(() => {
     try {
       sessionStorage.setItem(config.sessionStorageKey, 'true');
     } catch (e) {
       console.warn('SessionStorage error:', e);
     }
-
-    if (rootOverlayRef.current) {
-      rootOverlayRef.current.style.pointerEvents = 'none';
-      gsap.to(rootOverlayRef.current, {
-        opacity: 0,
-        duration: 0.35,
-        ease: 'power2.out',
-        onComplete: () => {
-          onComplete();
-        }
-      });
-    } else {
-      onComplete();
-    }
+    onComplete();
   }, [config.sessionStorageKey, onComplete]);
-
-  // Skip handler
-  const handleSkip = useCallback(() => {
-    finishIntroWithFade();
-  }, [finishIntroWithFade]);
 
   // Global Watchdog Safety Timer (Prevents any stuck percentage or infinite freeze)
   useEffect(() => {
@@ -98,8 +74,13 @@ export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
 
   // Completion callback
   const handleCanvasComplete = useCallback(() => {
-    finishIntroWithFade();
-  }, [finishIntroWithFade]);
+    try {
+      sessionStorage.setItem(config.sessionStorageKey, 'true');
+    } catch (e) {
+      console.warn('SessionStorage error:', e);
+    }
+    onComplete();
+  }, [config.sessionStorageKey, onComplete]);
 
   // Error fallback callback
   const handleError = useCallback((err: any) => {
@@ -109,7 +90,6 @@ export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
 
   return (
     <div
-      ref={rootOverlayRef}
       className="cosmic-intro-overlay-root"
       style={{
         position: 'fixed',

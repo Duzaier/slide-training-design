@@ -19,10 +19,9 @@ import {
 interface SlideRendererProps {
   slide: SlideData;
   onImageClick?: (url: string) => void;
-  isIntroRevealing?: boolean;
 }
 
-export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClick, isIntroRevealing = false }) => {
+export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClick }) => {
   const [activeBreakdownTab, setActiveBreakdownTab] = useState<'both' | 'sketch' | 'analysis'>('both');
   const [zoomModalUrl, setZoomModalUrl] = useState<string | null>(null);
   const [zoomImageIndex, setZoomImageIndex] = useState<number>(0);
@@ -117,7 +116,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
     <div className="slide-content-wrapper">
       {/* 1. SLIDE 01: SPEAKER PROFILE (PHẠM LAI ĐĂNG KHOA) - BESPOKE GALAXY ART DIRECTION */}
       {isSpeakerSlide ? (
-        <div className={`layout-speaker-galaxy-stage ${isIntroRevealing ? 'slide1-cinematic-reveal' : ''}`}>
+        <div className="layout-speaker-galaxy-stage">
           {/* Galaxy Cosmic Backdrop with soft blur */}
           <div className="galaxy-backdrop-layer">
             <div className="galaxy-nebula-glow galaxy-glow-top-right" />
