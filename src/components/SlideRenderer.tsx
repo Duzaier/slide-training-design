@@ -18,9 +18,10 @@ import {
 interface SlideRendererProps {
   slide: SlideData;
   onImageClick?: (url: string) => void;
+  isIntroRevealing?: boolean;
 }
 
-export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClick }) => {
+export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClick, isIntroRevealing = false }) => {
   const [activeBreakdownTab, setActiveBreakdownTab] = useState<'both' | 'sketch' | 'analysis'>('both');
   const [zoomModalUrl, setZoomModalUrl] = useState<string | null>(null);
   const [zoomImageIndex, setZoomImageIndex] = useState<number>(0);
@@ -115,7 +116,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
     <div className="slide-content-wrapper">
       {/* 1. SLIDE 01: SPEAKER PROFILE (PHẠM LAI ĐĂNG KHOA) - BESPOKE GALAXY ART DIRECTION */}
       {isSpeakerSlide ? (
-        <div className="layout-speaker-galaxy-stage">
+        <div className={`layout-speaker-galaxy-stage ${isIntroRevealing ? 'slide1-cinematic-reveal' : ''}`}>
           {/* Galaxy Cosmic Backdrop with soft blur */}
           <div className="galaxy-backdrop-layer">
             <div className="galaxy-nebula-glow galaxy-glow-top-right" />
@@ -994,21 +995,13 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
           </div>
 
           <div className="social-multi-container">
-            {/* TOP HEADER: Title strictly on 1 line */}
-            <div className="social-multi-header-row">
-              <div className="social-multi-title-wrap">
-                <span className="social-multi-category-badge">BỐ CỤC SOCIAL ALBUM</span>
-                <h1 className="social-multi-heading">{slide.title}</h1>
-              </div>
-              <p className="social-multi-lead-text">
-                Hệ thống tỉ lệ và bố cục chia khung lưới cho các bài đăng album nhiều ảnh chuẩn Social Media.
-              </p>
-            </div>
-
-            {/* MAIN CONTENT: Left Showcase Post + Right 5 Square Templates */}
+            {/* MAIN CONTENT: Left Showcase Post with Title + Right 5 Square Templates */}
             <div className="social-multi-body-layout">
-              {/* LEFT COLUMN: 440Hz Post Showcase */}
+              {/* LEFT COLUMN: Title "Nhiều ảnh" sitting closely above 440Hz Post */}
               <div className="social-multi-showcase-col">
+                <div className="social-multi-title-wrap">
+                  <h1 className="social-multi-heading">{slide.title}</h1>
+                </div>
                 <div
                   className="social-multi-showcase-card"
                   onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/image 31.png')}
@@ -1073,12 +1066,6 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
             {/* LEFT COLUMN: Title "Lỗi sai kích thước" */}
             <div className="social-error-title-col">
               <h1 className="social-error-heading">{slide.title}</h1>
-              <div className="social-error-badge-note">
-                <span className="error-note-tag">⚠️ Aspect Ratio Crop</span>
-                <p className="error-note-desc">
-                  Nội dung vượt quá khung an toàn (Safe Zone) hoặc tỉ lệ chuẩn của bảng tin sẽ bị Facebook tự động crop mất tiêu đề và thông tin bên dưới.
-                </p>
-              </div>
             </div>
 
             {/* RIGHT COLUMN: Cropped Infographic Post */}

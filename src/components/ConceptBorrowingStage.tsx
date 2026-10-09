@@ -46,23 +46,20 @@ export const ConceptBorrowingStage: React.FC<ConceptBorrowingStageProps> = ({ on
         {/* LEFT COLUMN: Title & Concept Navigation */}
         <section className="borrowing-info-col">
           <div className="borrowing-header-group">
-            <span className="borrowing-category-badge">CÁCH KẾT HỢP KIẾN THỨC</span>
-            <h1 className="borrowing-main-title">Mượn ý tưởng</h1>
-            <p className="borrowing-subtitle">
-              Phương pháp liên kết, vay mượn góc nhìn bố cục và chất liệu Galaxy từ các tác phẩm tham chiếu để sáng tạo nên ấn phẩm Key Visual thương mại.
-            </p>
+            <h1 className="borrowing-main-title" style={{ whiteSpace: 'nowrap', wordBreak: 'keep-all' }}>
+              Mượn ý tưởng
+            </h1>
           </div>
 
           {/* Interactive Flow Switcher */}
           <div className="borrowing-tabs-panel">
-            <span className="borrowing-tabs-title">GÓC ĐỘ MƯỢN Ý TƯỞNG:</span>
             <div className="borrowing-tab-buttons">
               <button
                 className={`borrowing-tab-btn ${viewMode === 'part1' ? 'active' : ''}`}
                 onClick={() => setViewMode('part1')}
               >
                 <Compass size={16} />
-                <span>1. Bố cục & Dáng (2 ảnh)</span>
+                <span>1. Bố cục & Dáng</span>
               </button>
 
               <button
@@ -70,7 +67,7 @@ export const ConceptBorrowingStage: React.FC<ConceptBorrowingStageProps> = ({ on
                 onClick={() => setViewMode('part2')}
               >
                 <Palette size={16} />
-                <span>2. Chất liệu & Thành phẩm (3 ảnh)</span>
+                <span>2. Chất liệu & Thành phẩm</span>
               </button>
 
               <button
@@ -78,11 +75,10 @@ export const ConceptBorrowingStage: React.FC<ConceptBorrowingStageProps> = ({ on
                 onClick={() => setViewMode('all')}
               >
                 <Layers size={16} />
-                <span>Xem toàn cảnh (5 ảnh)</span>
+                <span>Xem toàn cảnh</span>
               </button>
             </div>
           </div>
-
         </section>
 
         {/* RIGHT COLUMN: Visual Gallery Stage */}

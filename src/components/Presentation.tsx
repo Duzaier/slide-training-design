@@ -9,11 +9,17 @@ import {
   MonitorPlay, 
   Layout, 
   FolderKanban,
-  Layers
+  Layers,
+  Sparkles
 } from 'lucide-react';
 import gsap from 'gsap';
+import { CosmicIntroOverlay, resetCosmicIntroSeen } from './intro/CosmicIntroOverlay';
 
 export const Presentation: React.FC = () => {
+  const [showCosmicIntro, setShowCosmicIntro] = useState<boolean>(true);
+  const [isIntroRevealing, setIsIntroRevealing] = useState<boolean>(false);
+  const [isBlackoutCurtainActive, setIsBlackoutCurtainActive] = useState<boolean>(false);
+  const [isCurtainFadingOut, setIsCurtainFadingOut] = useState<boolean>(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   const [isCleanPresentationMode, setIsCleanPresentationMode] = useState<boolean>(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
@@ -114,9 +120,19 @@ export const Presentation: React.FC = () => {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
+  const handleReplayIntro = () => {
+    resetCosmicIntroSeen();
+    setShowCosmicIntro(true);
+    setIsIntroRevealing(false);
+    setIsBlackoutCurtainActive(false);
+    setIsCurtainFadingOut(false);
+  };
+
   // Keyboard navigation listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (showCosmicIntro) return; // Prevent slide navigation while intro is active
+
       const activeEl = document.activeElement as HTMLElement;
       const isInputFocused = activeEl && ['INPUT', 'TEXTAREA'].includes(activeEl.tagName);
 
@@ -166,11 +182,6 @@ export const Presentation: React.FC = () => {
           e.preventDefault();
           setIsSidebarOpen(prev => !prev);
           break;
-        case 't':
-        case 'T':
-          e.preventDefault();
-          setIsThumbnailsOpen(prev => !prev);
-          break;
         case 'n':
         case 'N':
           e.preventDefault();
@@ -181,15 +192,17 @@ export const Presentation: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNext, handlePrev, handleFirst, handleLast, isThumbnailsOpen, isNotesOpen, showKeyboardHelp, isCleanPresentationMode]);
+  }, [handleNext, handlePrev, handleFirst, handleLast, isThumbnailsOpen, isNotesOpen, showKeyboardHelp, isCleanPresentationMode, showCosmicIntro]);
 
   // Touch swipe gestures
   const handleTouchStart = (e: React.TouchEvent) => {
+    if (showCosmicIntro) return;
     touchStartXRef.current = e.touches[0].clientX;
     touchStartYRef.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
+    if (showCosmicIntro) return;
     if (touchStartXRef.current === null || touchStartYRef.current === null) return;
     const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
     const deltaY = e.changedTouches[0].clientY - touchStartYRef.current;
@@ -206,17 +219,65 @@ export const Presentation: React.FC = () => {
     touchStartYRef.current = null;
   };
 
-
-
   const progressPercent = ((currentSlideIndex + 1) / totalSlides) * 100;
+
+  const handleIntroComplete = useCallback(() => {
+    setShowCosmicIntro(false);
+    setIsBlackoutCurtainActive(true);
+    setIsCurtainFadingOut(false);
+    setIsIntroRevealing(true);
+
+    // Give browser 1 frame to mount Slide 1 under pitch black curtain, then fade over 2.0s
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setIsCurtainFadingOut(true);
+      });
+    });
+
+    // Remove curtain from DOM after fade completes (2.2s)
+    setTimeout(() => {
+      setIsBlackoutCurtainActive(false);
+    }, 2200);
+
+    // Turn off revealing class after complete sequence (4.0s)
+    setTimeout(() => {
+      setIsIntroRevealing(false);
+    }, 4000);
+  }, []);
 
   return (
     <div 
       ref={containerRef}
-      className={`website-shell-root galaxy-family-${(currentSlideIndex % 6) + 1}`}
+      className={`website-shell-root galaxy-family-${(currentSlideIndex % 6) + 1} active-slide-${currentSlideIndex + 1}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
+      {/* Cinematic Fullscreen Big Bang Cosmic Intro */}
+      {showCosmicIntro && (
+        <CosmicIntroOverlay
+          onComplete={handleIntroComplete}
+          forceReplay={true}
+        />
+      )}
+
+      {/* Pitch Black Transition Curtain with 2-second fade into Slide 1 */}
+      {isBlackoutCurtainActive && (
+        <div
+          className={`pitch-black-transition-curtain ${isCurtainFadingOut ? 'fade-out' : ''}`}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: '#000000',
+            zIndex: 99998,
+            pointerEvents: isCurtainFadingOut ? 'none' : 'auto',
+            transition: 'opacity 2.0s cubic-bezier(0.16, 1, 0.3, 1)',
+            opacity: isCurtainFadingOut ? 0 : 1
+          }}
+        />
+      )}
+
       {/* Top Progress Track */}
       <div className="presentation-progress-track">
         <div 
@@ -248,6 +309,16 @@ export const Presentation: React.FC = () => {
         </div>
 
         <div className="shell-header-actions">
+          {/* Replay Cinematic Intro Button */}
+          <button
+            onClick={handleReplayIntro}
+            className="shell-btn"
+            title="Phát lại phim giới thiệu Big Bang Cosmic Intro"
+          >
+            <Sparkles size={14} color="#ffb03a" />
+            <span>Replay Intro</span>
+          </button>
+
           {/* Mode Switcher: Website View vs Clean Presentation Mode */}
           <button
             onClick={() => setIsCleanPresentationMode(prev => !prev)}
@@ -304,22 +375,12 @@ export const Presentation: React.FC = () => {
         {/* Center Presentation Stage */}
         <main className={`shell-stage ${isCleanPresentationMode ? 'clean-mode' : ''}`}>
           <div ref={slideStageRef} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <SlideRenderer key={currentSlide.id} slide={currentSlide} />
+            <SlideRenderer key={currentSlide.id} slide={currentSlide} isIntroRevealing={isIntroRevealing && currentSlideIndex === 0} />
           </div>
         </main>
       </div>
 
-      {/* Discreet Floating Exit FAB when in Presentation Mode */}
-      {isCleanPresentationMode && (
-        <button
-          onClick={() => setIsCleanPresentationMode(false)}
-          className="exit-presentation-fab"
-          title="Thoát chế độ trình chiếu (P hoặc Esc)"
-        >
-          <Layout size={14} />
-          <span>Thoát Trình Chiếu (Esc)</span>
-        </button>
-      )}
+
 
       {/* Bottom Floating Navigation Bar */}
       <SlideNavigation
@@ -364,7 +425,7 @@ export const Presentation: React.FC = () => {
           onClick={() => setShowKeyboardHelp(false)}
         >
           <div 
-            className="glass-panel"
+            className="glass-panel keyboard-help-modal"
             style={{
               maxWidth: '540px',
               width: '100%',
@@ -372,41 +433,38 @@ export const Presentation: React.FC = () => {
               padding: '28px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '16px'
+              gap: '16px',
+              fontFamily: "'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif"
             }}
             onClick={(e) => e.stopPropagation()}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '12px' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff' }}>HƯỚNG DẪN ĐIỀU KHIỂN & PHÍM TẮT</h3>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff', margin: 0, fontFamily: "'Be Vietnam Pro', sans-serif", letterSpacing: '0.02em' }}>HƯỚNG DẪN ĐIỀU KHIỂN & PHÍM TẮT</h3>
               <button onClick={() => setShowKeyboardHelp(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '1.1rem' }}>✕</button>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem', color: '#cbd5e1' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem', color: '#cbd5e1', fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Chuyển Slide tiếp theo:</span>
                 <div><kbd className="kbd-key">→</kbd> hoặc <kbd className="kbd-key">Space</kbd> / <kbd className="kbd-key">PageDown</kbd></div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Quay lại Slide trước:</span>
                 <div><kbd className="kbd-key">←</kbd> hoặc <kbd className="kbd-key">PageUp</kbd></div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Chế độ Trình Chiếu Sạch (Presentation Mode):</span>
                 <div><kbd className="kbd-key">P</kbd></div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Ẩn / Hiện Mục Lục Sidebar:</span>
                 <div><kbd className="kbd-key">S</kbd></div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Toàn màn hình Trình Chiếu:</span>
                 <div><kbd className="kbd-key">F</kbd> hoặc nút ⛶</div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Mở danh sách tất cả Slides:</span>
-                <div><kbd className="kbd-key">T</kbd></div>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Mở ghi chú Diễn giả:</span>
                 <div><kbd className="kbd-key">N</kbd></div>
               </div>
@@ -420,8 +478,10 @@ export const Presentation: React.FC = () => {
                 color: '#07090e',
                 border: 'none',
                 borderRadius: '10px',
-                padding: '10px',
+                padding: '12px',
                 fontWeight: 800,
+                fontSize: '0.9rem',
+                fontFamily: "'Be Vietnam Pro', sans-serif",
                 cursor: 'pointer'
               }}
             >

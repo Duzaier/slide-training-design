@@ -1,0 +1,262 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import { FastForward, Sparkles, Volume2, VolumeX } from 'lucide-react';
+import { CosmicIntroCanvas } from './CosmicIntroCanvas';
+import { CosmicIntro2DFallback } from './CosmicIntro2DFallback';
+import { CosmicIntroConfig, DEFAULT_INTRO_CONFIG, getTotalIntroDuration } from './cosmicIntroConfig';
+
+interface CosmicIntroOverlayProps {
+  config?: CosmicIntroConfig;
+  onComplete: () => void;
+  forceReplay?: boolean;
+}
+
+export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
+  config = DEFAULT_INTRO_CONFIG,
+  onComplete,
+  forceReplay = false
+}) => {
+  const [stageText, setStageText] = useState<string>('INITIALIZING COSMOS...');
+  const [progressPercent, setProgressPercent] = useState<number>(0);
+  const [isMuted, setIsMuted] = useState<boolean>(true);
+  const [hasError, setHasError] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (forceReplay) {
+      resetCosmicIntroSeen(config.sessionStorageKey);
+    }
+  }, [forceReplay, config.sessionStorageKey]);
+
+  // Skip handler
+  const handleSkip = useCallback(() => {
+    try {
+      sessionStorage.setItem(config.sessionStorageKey, 'true');
+    } catch (e) {
+      console.warn('SessionStorage error:', e);
+    }
+    onComplete();
+  }, [config.sessionStorageKey, onComplete]);
+
+  // Global Watchdog Safety Timer (Prevents any stuck percentage or infinite freeze)
+  useEffect(() => {
+    const maxDurationMs = (getTotalIntroDuration(config) + 2.5) * 1000;
+    const watchdogTimer = setTimeout(() => {
+      console.warn('Cosmic Intro Watchdog Triggered: Auto completing intro to prevent freeze.');
+      handleSkip();
+    }, maxDurationMs);
+
+    return () => clearTimeout(watchdogTimer);
+  }, [config, handleSkip]);
+
+  // Keyboard controls listener (Esc or Space or Enter to skip)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        handleSkip();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleSkip]);
+
+  // Progress update callback
+  const handleProgress = useCallback((progress: number, stageName: string) => {
+    setProgressPercent(Math.round(progress * 100));
+    setStageText(stageName);
+  }, []);
+
+  // Completion callback
+  const handleCanvasComplete = useCallback(() => {
+    try {
+      sessionStorage.setItem(config.sessionStorageKey, 'true');
+    } catch (e) {
+      console.warn('SessionStorage error:', e);
+    }
+    onComplete();
+  }, [config.sessionStorageKey, onComplete]);
+
+  // Error fallback callback
+  const handleError = useCallback((err: any) => {
+    console.warn('Cosmic Intro WebGL Error -> Switching to 2D Fallback:', err);
+    setHasError(true);
+  }, []);
+
+  return (
+    <div
+      className="cosmic-intro-overlay-root"
+      style={{
+        position: 'fixed',
+        inset: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 99999,
+        backgroundColor: '#020307',
+        pointerEvents: 'auto'
+      }}
+    >
+      {/* 1. Fullscreen Background Canvas Layer */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 1,
+          overflow: 'hidden'
+        }}
+      >
+        {!hasError ? (
+          <CosmicIntroCanvas
+            config={config}
+            onProgress={handleProgress}
+            onComplete={handleCanvasComplete}
+            onError={handleError}
+          />
+        ) : (
+          <CosmicIntro2DFallback
+            config={config}
+            onProgress={handleProgress}
+            onComplete={handleCanvasComplete}
+          />
+        )}
+      </div>
+
+      {/* 2. Foreground UI Controls Container */}
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '32px 40px',
+          boxSizing: 'border-box',
+          pointerEvents: 'none'
+        }}
+      >
+        {/* Top Header Controls: Stage Badge & Audio Toggle */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+            pointerEvents: 'auto'
+          }}
+        >
+        {/* Stage Status Pill */}
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            background: 'rgba(8, 14, 28, 0.75)',
+            border: '1px solid rgba(56, 182, 255, 0.3)',
+            padding: '8px 20px',
+            borderRadius: '999px',
+            backdropFilter: 'blur(16px)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.6)',
+            letterSpacing: '0.12em',
+            fontSize: '0.78rem',
+            fontWeight: 800,
+            color: '#38b6ff',
+            textTransform: 'uppercase'
+          }}
+        >
+          <Sparkles size={14} color="#ffb03a" />
+          <span>{stageText}</span>
+          <span style={{ color: 'rgba(255,255,255,0.4)', paddingLeft: '6px' }}>
+            {progressPercent}%
+          </span>
+        </div>
+
+        {/* Audio Mute Toggle */}
+        {config.enableAudio && (
+          <button
+            onClick={() => setIsMuted(!isMuted)}
+            style={{
+              background: 'rgba(15, 23, 42, 0.75)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              color: '#ffffff',
+              padding: '10px',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backdropFilter: 'blur(12px)'
+            }}
+            title={isMuted ? 'Bật âm thanh' : 'Tắt âm thanh'}
+          >
+            {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+          </button>
+        )}
+      </div>
+
+      {/* Bottom Footer Action: Skip Intro Button */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          width: '100%',
+          pointerEvents: 'auto'
+        }}
+      >
+        <button
+          onClick={handleSkip}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            background: 'rgba(12, 18, 36, 0.85)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            color: '#ffffff',
+            padding: '12px 24px',
+            borderRadius: '999px',
+            cursor: 'pointer',
+            fontWeight: 700,
+            fontSize: '0.88rem',
+            letterSpacing: '0.05em',
+            backdropFilter: 'blur(16px)',
+            boxShadow: '0 10px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(56, 182, 255, 0.25)',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(56, 182, 255, 0.6)';
+            (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px) scale(1.02)';
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            (e.currentTarget as HTMLElement).style.transform = 'none';
+          }}
+          title="Bỏ qua phim giới thiệu Vũ Trụ Big Bang (Esc hoặc Space)"
+        >
+          <span>Bỏ qua Intro</span>
+          <FastForward size={16} color="#38b6ff" />
+          <span style={{ opacity: 0.5, fontSize: '0.75rem', fontFamily: 'monospace' }}>(Esc)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+);
+};
+
+// Helper functions for Session Replay Management
+export const hasSeenCosmicIntro = (key: string = DEFAULT_INTRO_CONFIG.sessionStorageKey): boolean => {
+  try {
+    return sessionStorage.getItem(key) === 'true';
+  } catch (e) {
+    return false;
+  }
+};
+
+export const resetCosmicIntroSeen = (key: string = DEFAULT_INTRO_CONFIG.sessionStorageKey): void => {
+  try {
+    sessionStorage.removeItem(key);
+  } catch (e) {
+    console.warn('SessionStorage error:', e);
+  }
+};

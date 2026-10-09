@@ -5,9 +5,6 @@ import {
   Play, 
   Pause, 
   Compass, 
-  Layers, 
-  Eye, 
-  Palette,
   Maximize2,
   Minimize2
 } from 'lucide-react';
@@ -25,14 +22,14 @@ interface MaterialConfig {
 
 const MATERIAL_PRESETS: Record<MaterialPreset, MaterialConfig> = {
   plaster: {
-    name: 'Thạch Cao Mỹ Thuật',
+    name: 'Thạch cao',
     desc: 'Màu trắng ngà khuếch tán mềm chuẩn giáo trình hình họa.',
     color: 0xe8ecf4,
     roughness: 0.82,
     metalness: 0.02
   },
   obsidian: {
-    name: 'Obsidian Đen Bóng',
+    name: 'Obsidian',
     desc: 'Bề mặt khoáng thạch đen bóng, tương phản gắt & phản xạ sắc nét.',
     color: 0x141a28,
     roughness: 0.18,
@@ -40,21 +37,21 @@ const MATERIAL_PRESETS: Record<MaterialPreset, MaterialConfig> = {
     clearcoat: 0.6
   },
   gold: {
-    name: 'Kim Loại Vàng',
+    name: 'Kim loại vàng',
     desc: 'Bề mặt kim loại óng ánh với ánh sắc phản chiếu rực rỡ.',
     color: 0xf5b941,
     roughness: 0.32,
     metalness: 0.92
   },
   clay: {
-    name: 'Đất Sét Terracotta',
+    name: 'Đất sét',
     desc: 'Màu đất nung mộc mạc với độ nhám bề mặt tự nhiên.',
     color: 0xd76e50,
     roughness: 0.9,
     metalness: 0.02
   },
   cyberpunk: {
-    name: 'Neon Cyber Blue',
+    name: 'Neon Blue',
     desc: 'Chất liệu sci-fi hiện đại phản chiếu ánh xanh công nghệ.',
     color: 0x124baf,
     roughness: 0.28,
@@ -74,39 +71,55 @@ export const InteractiveLightStudio: React.FC = () => {
   const [lightIntensity, setLightIntensity] = useState<number>(45);
   const [selectedMaterial, setSelectedMaterial] = useState<MaterialPreset>('plaster');
   const [isAutoRotate, setIsAutoRotate] = useState<boolean>(false);
-  const [showAnnotations, setShowAnnotations] = useState<boolean>(true);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
-  // Exit fullscreen on Escape
+  // Toggle true native fullscreen or fallback
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        if (containerRef.current?.requestFullscreen) {
+          await containerRef.current.requestFullscreen();
+        } else {
+          setIsFullscreen(true);
+        }
+      } else {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else {
+          setIsFullscreen(false);
+        }
+      }
+    } catch {
+      setIsFullscreen((prev) => !prev);
+    }
+  };
+
+  // Sync fullscreen state & Esc key handling
   useEffect(() => {
+    const handleFullscreenChange = () => {
+      const isFs = Boolean(document.fullscreenElement && document.fullscreenElement === containerRef.current);
+      setIsFullscreen(isFs);
+    };
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isFullscreen) {
-        setIsFullscreen(false);
+        if (document.fullscreenElement) {
+          document.exitFullscreen().catch(() => {});
+        } else {
+          setIsFullscreen(false);
+        }
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isFullscreen]);
 
-  // Real-time lighting face intensities for anatomical diagnostics
-  const [faceDiagnostics, setFaceDiagnostics] = useState<{
-    highlightFace: string;
-    highlightVal: number;
-    midtoneFace: string;
-    midtoneVal: number;
-    coreShadowFace: string;
-    coreShadowVal: number;
-    shadowLengthStr: string;
-  }>({
-    highlightFace: 'Mặt Trên (Top)',
-    highlightVal: 92,
-    midtoneFace: 'Mặt Phải (Right)',
-    midtoneVal: 68,
-    coreShadowFace: 'Mặt Trái (Left)',
-    coreShadowVal: 15,
-    shadowLengthStr: '100%'
-  });
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isFullscreen]);
 
   // Imperative refs for Three.js state to bypass React render overhead in animation loops
   const stateRef = useRef({
@@ -274,9 +287,8 @@ export const InteractiveLightStudio: React.FC = () => {
 
     // 10. Animation & Render Loop
     let animationFrameId: number;
-    let lastDiagUpdate = 0;
 
-    const animate = (time: number) => {
+    const animate = () => {
       const s = stateRef.current;
 
       // Auto rotation
@@ -314,48 +326,6 @@ export const InteractiveLightStudio: React.FC = () => {
 
       // Render the true WebGL 3D Scene
       renderer.render(scene, camera);
-
-      // Diagnostics Calculation (~10 FPS throttle to keep UI ultra-smooth)
-      if (time - lastDiagUpdate > 100) {
-        lastDiagUpdate = time;
-        
-        // Compute normalized light vector from box center
-        const Lvec = new THREE.Vector3(lx, ly - targetY, lz).normalize();
-        
-        // Face normals
-        const nTop = new THREE.Vector3(0, 1, 0);
-        const nRight = new THREE.Vector3(1, 0, 0); // +X
-        const nFront = new THREE.Vector3(0, 0, 1); // +Z
-        const nLeft = new THREE.Vector3(-1, 0, 0); // -X
-        const nBack = new THREE.Vector3(0, 0, -1); // -Z
-
-        const dotTop = Math.max(0, nTop.dot(Lvec));
-        const dotRight = Math.max(0, nRight.dot(Lvec));
-        const dotFront = Math.max(0, nFront.dot(Lvec));
-        const dotLeft = Math.max(0, nLeft.dot(Lvec));
-        const dotBack = Math.max(0, nBack.dot(Lvec));
-
-        const faces = [
-          { name: 'Mặt Trên (Top)', val: Math.round((0.15 + dotTop * 0.85) * 100) },
-          { name: 'Mặt Phải (+X Right)', val: Math.round((0.15 + dotRight * 0.85) * 100) },
-          { name: 'Mặt Trước (+Z Front)', val: Math.round((0.15 + dotFront * 0.85) * 100) },
-          { name: 'Mặt Trái (-X Left)', val: Math.round((0.15 + dotLeft * 0.85) * 100) },
-          { name: 'Mặt Sau (-Z Back)', val: Math.round((0.15 + dotBack * 0.85) * 100) }
-        ].sort((a, b) => b.val - a.val);
-
-        const shadowFactor = Math.min(3.5, 1 / Math.max(0.15, Math.tan(Math.max(0.1, s.elevation))));
-
-        setFaceDiagnostics({
-          highlightFace: faces[0].name,
-          highlightVal: faces[0].val,
-          midtoneFace: faces[1].name,
-          midtoneVal: faces[1].val,
-          coreShadowFace: faces[faces.length - 1].name,
-          coreShadowVal: faces[faces.length - 1].val,
-          shadowLengthStr: `${Math.round(shadowFactor * 100)}%`
-        });
-      }
-
       animationFrameId = requestAnimationFrame(animate);
     };
 
@@ -448,40 +418,16 @@ export const InteractiveLightStudio: React.FC = () => {
     stateRef.current.elevation = (el * Math.PI) / 180;
   };
 
+  // Reset to default lighting
+  const handleReset = () => {
+    applyPreset(45, 45);
+    setLightDistance(4.2);
+    setLightIntensity(45);
+    setIsAutoRotate(false);
+  };
+
   return (
     <div className="cube-studio-stage">
-      {/* Studio Header Action Toolbar (Clean Minimalist Bar) */}
-      <div className="cube-studio-header cube-studio-header-minimal">
-        <div className="cube-studio-actions-row">
-          <button
-            onClick={() => setIsAutoRotate(!isAutoRotate)}
-            className={`cube-studio-btn ${isAutoRotate ? 'btn-active' : ''}`}
-            title="Tự động xoay nguồn sáng 360°"
-          >
-            {isAutoRotate ? <Pause size={15} /> : <Play size={15} />}
-            <span>{isAutoRotate ? 'Dừng xoay' : 'Tự động xoay 360°'}</span>
-          </button>
-          
-          <button
-            onClick={() => setShowAnnotations(!showAnnotations)}
-            className={`cube-studio-btn ${showAnnotations ? 'btn-active' : ''}`}
-            title="Bật/Tắt bảng phân tích quang học"
-          >
-            <Eye size={15} />
-            <span>{showAnnotations ? 'Ẩn phân tích' : 'Hiện phân tích'}</span>
-          </button>
-
-          <button
-            onClick={() => setIsFullscreen(!isFullscreen)}
-            className={`cube-studio-btn cube-btn-fullscreen ${isFullscreen ? 'btn-active' : ''}`}
-            title="Mở rộng không gian 3D toàn màn hình"
-          >
-            {isFullscreen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
-            <span>{isFullscreen ? 'Thu nhỏ (Esc)' : 'Mở rộng toàn màn hình'}</span>
-          </button>
-        </div>
-      </div>
-
       {/* Main Studio Viewport Grid */}
       <div className="cube-studio-viewport-grid">
         {/* LEFT / CENTER: Grand True 3D WebGL Canvas Viewport */}
@@ -493,7 +439,7 @@ export const InteractiveLightStudio: React.FC = () => {
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
           style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-          title="Kéo giữ chuột trực tiếp trên canvas để di chuyển nguồn sáng 360° quanh khối hộp"
+          title="Kéo chuột trên màn hình 3D để di chuyển đèn"
         >
           {/* Hardware-Accelerated 3D WebGL Canvas */}
           <canvas ref={canvasRef} className="webgl-3d-canvas" />
@@ -503,8 +449,8 @@ export const InteractiveLightStudio: React.FC = () => {
             <div className="fullscreen-overlay-controls">
               <button 
                 className="fullscreen-floating-btn"
-                onClick={() => setIsFullscreen(false)}
-                title="Thu nhỏ chế độ toàn màn hình (Esc)"
+                onClick={toggleFullscreen}
+                title="Thu nhỏ (Esc)"
               >
                 <Minimize2 size={16} />
                 <span>Thu nhỏ (Esc)</span>
@@ -516,29 +462,58 @@ export const InteractiveLightStudio: React.FC = () => {
           <div className="cube-compass-overlay">
             <Compass size={14} color="#38b6ff" />
             <span>
-              Azimuth: <strong>{azimuthDeg}°</strong> • Elevation: <strong>{elevationDeg}°</strong> • R: <strong>{lightDistance.toFixed(1)}m</strong>
+              Xoay: <strong>{azimuthDeg}°</strong> • Nâng: <strong>{elevationDeg}°</strong> • Khoảng cách: <strong>{lightDistance.toFixed(1)}m</strong>
             </span>
           </div>
 
           <div className="viewport-drag-hint">
-            <Maximize2 size={12} />
-            <span>Kéo chuột trên màn hình 3D để di chuyển đèn</span>
+            <span>Kéo chuột để xoay đèn 360°</span>
           </div>
         </div>
 
-        {/* RIGHT PANEL: Lighting Controls & Optical Anatomy Breakdown */}
+        {/* RIGHT PANEL: Clean & Streamlined Controls */}
         <div className="cube-controls-panel">
           {/* Panel 1: Master Orbit & Intensity Controls */}
           <div className="cube-panel-card">
-            <h3 className="cube-card-title">
-              <RotateCw size={16} color="#38b6ff" />
-              <span>ĐIỀU KHIỂN NGUỒN SÁNG 360° × 180°</span>
-            </h3>
+            <div className="cube-card-header-row">
+              <h3 className="cube-card-title">
+                <span>ĐIỀU CHỈNH ÁNH SÁNG</span>
+              </h3>
+              
+              <div className="cube-panel-actions">
+                <button
+                  onClick={() => setIsAutoRotate(!isAutoRotate)}
+                  className={`cube-studio-btn cube-studio-icon-btn ${isAutoRotate ? 'btn-active' : ''}`}
+                  title={isAutoRotate ? 'Dừng xoay tự động' : 'Tự động xoay 360°'}
+                  aria-label="Tự động xoay"
+                >
+                  {isAutoRotate ? <Pause size={15} /> : <Play size={15} />}
+                </button>
+                
+                <button
+                  onClick={handleReset}
+                  className="cube-studio-btn cube-studio-icon-btn"
+                  title="Đặt lại ánh sáng mặc định"
+                  aria-label="Đặt lại"
+                >
+                  <RotateCw size={15} />
+                </button>
+
+                <button
+                  onClick={toggleFullscreen}
+                  className={`cube-studio-btn cube-studio-icon-btn cube-btn-fullscreen ${isFullscreen ? 'btn-active' : ''}`}
+                  title={isFullscreen ? 'Thu nhỏ (Esc)' : 'Toàn màn hình'}
+                  aria-label="Toàn màn hình"
+                >
+                  {isFullscreen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
+                </button>
+              </div>
+            </div>
 
             {/* Azimuth 360 Slider */}
             <div className="cube-slider-group">
               <div className="cube-slider-label-row">
-                <span className="label-text">Phương vị ngang (Azimuth 0° - 360°)</span>
+                <span className="label-text">Góc xoay ngang</span>
                 <span className="cube-slider-val">{azimuthDeg}°</span>
               </div>
               <input 
@@ -554,7 +529,7 @@ export const InteractiveLightStudio: React.FC = () => {
             {/* Elevation Slider */}
             <div className="cube-slider-group">
               <div className="cube-slider-label-row">
-                <span className="label-text">Độ cao dọc (Elevation -80° đến +85°)</span>
+                <span className="label-text">Góc nâng</span>
                 <span className="cube-slider-val">{elevationDeg}°</span>
               </div>
               <input 
@@ -571,7 +546,8 @@ export const InteractiveLightStudio: React.FC = () => {
             <div className="cube-slider-double-row">
               <div className="cube-slider-group">
                 <div className="cube-slider-label-row">
-                  <span className="label-text">Khoảng cách ({lightDistance.toFixed(1)}m)</span>
+                  <span className="label-text">Khoảng cách</span>
+                  <span className="cube-slider-val">{lightDistance.toFixed(1)}m</span>
                 </div>
                 <input 
                   type="range" 
@@ -586,7 +562,7 @@ export const InteractiveLightStudio: React.FC = () => {
 
               <div className="cube-slider-group">
                 <div className="cube-slider-label-row">
-                  <span className="label-text">Cường độ (Lumens)</span>
+                  <span className="label-text">Cường độ</span>
                   <span className="cube-slider-val">{lightIntensity}W</span>
                 </div>
                 <input 
@@ -602,43 +578,43 @@ export const InteractiveLightStudio: React.FC = () => {
             </div>
 
             {/* Quick Lighting Presets Grid */}
-            <div className="cube-presets-label">Góc chiếu sáng tiêu chuẩn:</div>
+            <div className="cube-presets-label">Vị trí mẫu:</div>
             <div className="cube-presets-grid">
               <button 
                 onClick={() => applyPreset(315, 45)} 
                 className={`preset-chip ${azimuthDeg === 315 && elevationDeg === 45 ? 'chip-active' : ''}`}
               >
-                Góc Phải 315° (Key Light)
+                Góc phải 315°
               </button>
               <button 
                 onClick={() => applyPreset(135, 45)} 
                 className={`preset-chip ${azimuthDeg === 135 && elevationDeg === 45 ? 'chip-active' : ''}`}
               >
-                Góc Trái 135° (Fill Light)
+                Góc trái 135°
               </button>
               <button 
                 onClick={() => applyPreset(azimuthDeg, 80)} 
                 className={`preset-chip ${elevationDeg >= 78 ? 'chip-active' : ''}`}
               >
-                Đỉnh Đầu 80° (Top Down)
+                Đỉnh đầu 80°
               </button>
               <button 
                 onClick={() => applyPreset(45, 30)} 
                 className={`preset-chip ${azimuthDeg === 45 && elevationDeg === 30 ? 'chip-active' : ''}`}
               >
-                Trước Mặt 45° (Front)
+                Trực diện 45°
               </button>
               <button 
                 onClick={() => applyPreset(225, 20)} 
                 className={`preset-chip ${azimuthDeg === 225 ? 'chip-active' : ''}`}
               >
-                Đằng Sau 225° (Rim Light)
+                Đèn viền 225°
               </button>
               <button 
                 onClick={() => applyPreset(315, 15)} 
                 className={`preset-chip ${elevationDeg <= 18 ? 'chip-active' : ''}`}
               >
-                Hoàng Hôn 15° (Bóng dài)
+                Hoàng hôn 15°
               </button>
             </div>
           </div>
@@ -646,8 +622,7 @@ export const InteractiveLightStudio: React.FC = () => {
           {/* Panel 2: PBR Material Presets */}
           <div className="cube-panel-card">
             <h3 className="cube-card-title">
-              <Palette size={16} color="#38b6ff" />
-              <span>CHẤT LIỆU BỀ MẶT 3D (MESH PHYSICAL MATERIAL)</span>
+              <span>CHẤT LIỆU BỀ MẶT</span>
             </h3>
 
             <div className="material-selector-grid">
@@ -671,62 +646,6 @@ export const InteractiveLightStudio: React.FC = () => {
               })}
             </div>
           </div>
-
-          {/* Panel 3: Real-Time Optical Anatomy Diagnostics */}
-          {showAnnotations && (
-            <div className="cube-panel-card">
-              <h3 className="cube-card-title">
-                <Layers size={16} color="#38b6ff" />
-                <span>PHÂN TÍCH QUANG HỌC 4 VÙNG SẮC ĐỘ THỜI GIAN THỰC</span>
-              </h3>
-
-              <div className="cube-anatomy-list">
-                <div className="cube-anatomy-item item-highlight">
-                  <div className="anatomy-indicator" />
-                  <div className="anatomy-info">
-                    <div className="anatomy-header-row">
-                      <strong>1. Highlight (Vùng Hứng Sáng Cực Đại)</strong>
-                      <span className="anatomy-metric">{faceDiagnostics.highlightVal}% Lumens</span>
-                    </div>
-                    <p>Mặt <strong>{faceDiagnostics.highlightFace}</strong> vuông góc nhất với vectơ ánh sáng chính, hội tụ độ chói và phản xạ Specular mạnh nhất.</p>
-                  </div>
-                </div>
-
-                <div className="cube-anatomy-item item-midtone">
-                  <div className="anatomy-indicator" />
-                  <div className="anatomy-info">
-                    <div className="anatomy-header-row">
-                      <strong>2. Midtone (Sắc Độ Chuyển Tiếp Trung Gian)</strong>
-                      <span className="anatomy-metric">{faceDiagnostics.midtoneVal}% Lumens</span>
-                    </div>
-                    <p>Mặt <strong>{faceDiagnostics.midtoneFace}</strong> nhận góc chiếu xiên, tạo sắc độ trung gian định hình chiều sâu khối hộp 3D.</p>
-                  </div>
-                </div>
-
-                <div className="cube-anatomy-item item-shadow">
-                  <div className="anatomy-indicator" />
-                  <div className="anatomy-info">
-                    <div className="anatomy-header-row">
-                      <strong>3. Core Shadow (Vùng Tối Cốt Lõi)</strong>
-                      <span className="anatomy-metric">{faceDiagnostics.coreShadowVal}% Lumens</span>
-                    </div>
-                    <p>Mặt <strong>{faceDiagnostics.coreShadowFace}</strong> khuất sáng hoàn toàn, chỉ nhận ánh sáng tán xạ thứ cấp từ môi trường.</p>
-                  </div>
-                </div>
-
-                <div className="cube-anatomy-item item-cast">
-                  <div className="anatomy-indicator" />
-                  <div className="anatomy-info">
-                    <div className="anatomy-header-row">
-                      <strong>4. Cast Shadow (Bóng Đổ Thời Gian Thực)</strong>
-                      <span className="anatomy-metric">Độ vươn: {faceDiagnostics.shadowLengthStr}</span>
-                    </div>
-                    <p>Bóng đổ được tính toán thực tế bằng <strong>Three.js PCFSoftShadowMap</strong>, tự động dài ra khi hạ thấp đèn và thu gọn khi nâng cao đỉnh đầu.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

@@ -540,36 +540,5 @@ export const presentationSlides: SlideData[] = [
     images: [],
     layoutType: "editorial_question_minimal",
     notes: "Slide 23: Q&A - Phiên giao lưu, giải đáp thắc mắc của học viên và người tham dự."
-  },
-  {
-    id: 24,
-    slideNumber: "24",
-    category: "summary",
-    categoryLabel: "TỔNG KẾT & QUY TRÌNH",
-    title: "TỔNG KẾT & CHECKLIST BÀN GIAO THIẾT KẾ",
-    subtitle: "Bảng kiểm định 6 tiêu chuẩn chất lượng (QA Checklist) trước khi xuất bản",
-    primaryText: "Quy trình kiểm soát chất lượng nghiêm ngặt trước khi bàn giao file hoặc đăng tải lên mạng xã hội.",
-    keyPoints: [
-      "1. Size & Aspect Ratio: Đúng tỉ lệ 1:1, 4:5, 16:9 hoặc cấu trúc multi-photo.",
-      "2. Safe Zone: Chữ và nút quan trọng cách mép viền tối thiểu 8%, không bị che bởi UI.",
-      "3. Contrast & Copy: Chữ đạt chuẩn WCAG >= 4.5:1, không sai chính tả, đúng logo.",
-      "4. Chiếu sáng & Đổ bóng: Hướng bóng đổ ăn khớp với nguồn sáng chính của bố cục.",
-      "5. Quản lý hệ màu: sRGB chuẩn web, độ phân giải tối ưu 72-150 DPI.",
-      "6. Đặt tên layer: Nhóm group khoa học (Header, Hero, Badges, Background, Effects)."
-    ],
-    specs: [
-      { label: "SLIDES", value: "24 Slides", sub: "Toàn diện chương trình đào tạo" },
-      { label: "STATUS", value: "100% Hoàn tất", sub: "Interactive Deck Sẵn sàng" },
-      { label: "CONTROL", value: "Keyboard / Swipe", sub: "Hỗ trợ Presentation Mode" }
-    ],
-    images: [
-      {
-        url: "/assets/LOGO 1.png",
-        caption: "Social Media Design Masterclass Finish",
-        role: "primary"
-      }
-    ],
-    layoutType: "hero_cover",
-    notes: "Hoàn thành buổi đào tạo - Chúc mừng các Designer đã làm chủ toàn bộ hệ thống kiến thức!"
   }
 ];
