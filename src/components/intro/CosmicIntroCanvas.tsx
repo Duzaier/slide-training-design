@@ -80,13 +80,13 @@ export const CosmicIntroCanvas: React.FC<CosmicIntroCanvasProps> = ({
 
       renderer = new THREE.WebGLRenderer({
         canvas: canvas,
-        antialias: true,
+        antialias: false,
         alpha: false,
-        preserveDrawingBuffer: true,
+        preserveDrawingBuffer: false,
         powerPreference: 'high-performance'
       });
       renderer.setSize(width, height, false);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
 
       // Film-VFX Filmic Tone Mapping & SRGB Color Space
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
