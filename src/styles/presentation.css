@@ -44,10 +44,10 @@
 
 /* Layer 2A: Primary Flowing Nebula Silk Ribbon (Ref B: b2febc677701abb5f05e69a56974f5ab.jpg) */
 .cosmic-flowing-band.band-primary {
-  top: -57.5%;
-  left: -57.5%;
-  width: 215%;
-  height: 215%;
+  top: 50%;
+  left: 50%;
+  width: 300vmax;
+  height: 300vmax;
   background-image: url('../../public/assets/b2febc677701abb5f05e69a56974f5ab.jpg');
   background-size: cover;
   background-position: center 42%;
@@ -55,7 +55,7 @@
   mix-blend-mode: screen;
   opacity: 0.35;
   will-change: transform;
-  transform: rotate(-10deg) translate3d(0, 0, 0);
+  transform: translate(-50%, -50%) rotate(-10deg) scale(1.25) translate3d(0, 0, 0);
   mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 0%, black 60%, rgba(0, 0, 0, 0.6) 80%, transparent 96%);
   -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 0%, black 60%, rgba(0, 0, 0, 0.6) 80%, transparent 96%);
   animation: cosmicPrimaryFlow 70s ease-in-out infinite alternate;
@@ -64,10 +64,10 @@
 
 /* Layer 2B: Secondary Electric Sapphire & Radiant Wave (Ref A: 700ef2bb7f79b95bcd3a084cb2095559.jpg) */
 .cosmic-flowing-band.band-secondary {
-  top: -52.5%;
-  left: -52.5%;
-  width: 205%;
-  height: 205%;
+  top: 50%;
+  left: 50%;
+  width: 290vmax;
+  height: 290vmax;
   background-image: url('../../public/assets/700ef2bb7f79b95bcd3a084cb2095559.jpg');
   background-size: cover;
   background-position: 65% center;
@@ -75,7 +75,7 @@
   mix-blend-mode: color-dodge;
   opacity: 0.30;
   will-change: transform;
-  transform: rotate(8deg) translate3d(0, 0, 0);
+  transform: translate(-50%, -50%) rotate(8deg) scale(1.25) translate3d(0, 0, 0);
   mask-image: radial-gradient(ellipse 70% 60% at 55% 48%, black 0%, black 58%, rgba(0, 0, 0, 0.6) 78%, transparent 95%);
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 55% 48%, black 0%, black 58%, rgba(0, 0, 0, 0.6) 78%, transparent 95%);
   animation: cosmicSecondaryFlow 85s ease-in-out infinite alternate;
@@ -86,9 +86,9 @@
 .cosmic-flowing-band.band-focal-core {
   top: 50%;
   left: 50%;
-  width: 220vw;
-  height: 220vw;
-  transform: translate(-50%, -50%) translate3d(0, 0, 0);
+  width: 320vmax;
+  height: 320vmax;
+  transform: translate(-50%, -50%) scale(1.3) translate3d(0, 0, 0);
   background-image: url('../../public/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
   background-size: cover;
   background-position: center center;
@@ -144,39 +144,39 @@
 /* Cosmic Animations */
 @keyframes cosmicPrimaryFlow {
   0% {
-    transform: rotate(-10deg) translate(0, 0) scale(1);
+    transform: translate(-50%, -50%) rotate(-10deg) scale(1.25);
   }
 
   50% {
-    transform: rotate(-8deg) translate(-25px, 15px) scale(1.04);
+    transform: translate(-50%, -50%) rotate(-8deg) translate(-25px, 15px) scale(1.32);
   }
 
   100% {
-    transform: rotate(-11deg) translate(15px, -18px) scale(0.98);
+    transform: translate(-50%, -50%) rotate(-11deg) translate(15px, -18px) scale(1.22);
   }
 }
 
 @keyframes cosmicSecondaryFlow {
   0% {
-    transform: rotate(8deg) translate(0, 0) scale(1);
+    transform: translate(-50%, -50%) rotate(8deg) scale(1.25);
   }
 
   50% {
-    transform: rotate(10deg) translate(20px, -15px) scale(1.05);
+    transform: translate(-50%, -50%) rotate(10deg) translate(20px, -15px) scale(1.34);
   }
 
   100% {
-    transform: rotate(7deg) translate(-15px, 20px) scale(0.97);
+    transform: translate(-50%, -50%) rotate(7deg) translate(-15px, 20px) scale(1.22);
   }
 }
 
 @keyframes cosmicCoreSlowSpin {
   from {
-    transform: rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.3);
   }
 
   to {
-    transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg) scale(1.3);
   }
 }
 
@@ -774,16 +774,16 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 195%;
-  height: 195%;
-  transform: translate(-50%, -50%);
+  width: 320vmax;
+  height: 320vmax;
+  transform: translate(-50%, -50%) scale(1.35) translate3d(0, 0, 0);
   background-image: url('../../public/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  opacity: 0.32;
-  filter: blur(18px) saturate(1.25) contrast(1.1);
+  opacity: 0.35;
+  will-change: transform;
   mask-image: radial-gradient(circle at 50% 50%, black 0%, black 65%, rgba(0, 0, 0, 0.7) 80%, transparent 95%);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, black 65%, rgba(0, 0, 0, 0.7) 80%, transparent 95%);
   animation: galaxyCoreSlowSpin 160s linear infinite;
@@ -797,11 +797,11 @@
 
 @keyframes galaxyCoreSlowSpin {
   from {
-    transform: translate(-50%, -50%) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.35);
   }
 
   to {
-    transform: translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg) scale(1.35);
   }
 }
 
