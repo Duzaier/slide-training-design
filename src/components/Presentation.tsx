@@ -16,12 +16,14 @@ import gsap from 'gsap';
 import { CosmicIntroOverlay, resetCosmicIntroSeen } from './intro/CosmicIntroOverlay';
 
 export const Presentation: React.FC = () => {
-  const [showCosmicIntro, setShowCosmicIntro] = useState<boolean>(true);
+  const [hasStarted, setHasStarted] = useState<boolean>(false);
+  const [isStarting, setIsStarting] = useState<boolean>(false);
+  const [showCosmicIntro, setShowCosmicIntro] = useState<boolean>(false);
   const [isIntroRevealing, setIsIntroRevealing] = useState<boolean>(false);
   const [isBlackoutCurtainActive, setIsBlackoutCurtainActive] = useState<boolean>(false);
   const [isCurtainFadingOut, setIsCurtainFadingOut] = useState<boolean>(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
-  const [isCleanPresentationMode, setIsCleanPresentationMode] = useState<boolean>(false);
+  const [isCleanPresentationMode, setIsCleanPresentationMode] = useState<boolean>(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [isThumbnailsOpen, setIsThumbnailsOpen] = useState<boolean>(false);
   const [isNotesOpen, setIsNotesOpen] = useState<boolean>(false);
@@ -120,17 +122,38 @@ export const Presentation: React.FC = () => {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
+  const handleStartPresentation = useCallback(() => {
+    setIsStarting(true);
+    setTimeout(() => {
+      setHasStarted(true);
+      setShowCosmicIntro(true);
+      setIsCleanPresentationMode(true);
+      setCurrentSlideIndex(0);
+    }, 300);
+  }, []);
+
   const handleReplayIntro = () => {
     resetCosmicIntroSeen();
+    setHasStarted(true);
     setShowCosmicIntro(true);
     setIsIntroRevealing(false);
     setIsBlackoutCurtainActive(false);
     setIsCurtainFadingOut(false);
+    setCurrentSlideIndex(0);
+    setIsCleanPresentationMode(true);
   };
 
   // Keyboard navigation listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (!hasStarted) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleStartPresentation();
+        }
+        return;
+      }
+
       if (showCosmicIntro) return; // Prevent slide navigation while intro is active
 
       const activeEl = document.activeElement as HTMLElement;
@@ -252,6 +275,19 @@ export const Presentation: React.FC = () => {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
+      {/* INITIAL START SCREEN: Pure Black Screen with Slow Pulsing Start Button */}
+      {!hasStarted && (
+        <div className={`start-screen-overlay ${isStarting ? 'fade-out' : ''}`}>
+          <button
+            className="start-presentation-btn"
+            onClick={handleStartPresentation}
+            autoFocus
+          >
+            <span>Start</span>
+          </button>
+        </div>
+      )}
+
       {/* Cinematic Fullscreen Big Bang Cosmic Intro */}
       {showCosmicIntro && (
         <CosmicIntroOverlay

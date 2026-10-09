@@ -560,6 +560,77 @@
   }
 }
 
+/* ==========================================================================
+   INITIAL START SCREEN (Pure Black Screen with Slow Pulsing Start Button)
+   ========================================================================== */
+.start-screen-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.start-screen-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.start-presentation-btn {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  color: #ffffff;
+  font-family: 'Be Vietnam Pro', var(--font-sans, sans-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 14px 46px;
+  border-radius: 999px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  animation: startBtnPulseGlow 2.8s ease-in-out infinite;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.start-presentation-btn:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.7), 0 0 65px rgba(56, 182, 255, 0.4);
+  transform: scale(1.08);
+  animation-play-state: paused;
+}
+
+.start-presentation-btn:active {
+  transform: scale(0.96);
+}
+
+@keyframes startBtnPulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.55), 0 0 60px rgba(56, 182, 255, 0.25);
+    transform: scale(1.02);
+  }
+}
+
 /* ------------------------------------------------------------
    SPEAKER PROFILE (SLIDE 01) GALAXY ART DIRECTION & 3D STAGE
    ------------------------------------------------------------ */
