@@ -244,11 +244,7 @@ export const Presentation: React.FC = () => {
 
   const handleIntroComplete = useCallback(() => {
     setShowCosmicIntro(false);
-    setIsIntroRevealing(true);
-
-    setTimeout(() => {
-      setIsIntroRevealing(false);
-    }, 1500);
+    setIsIntroRevealing(false);
   }, []);
 
   // 1. Initial Start Screen: Dedicated Pure Black Screen with Pulsing Start Button
@@ -266,24 +262,22 @@ export const Presentation: React.FC = () => {
     );
   }
 
-  // 2. Cosmic Intro Mode: Dedicated Fullscreen WebGL Canvas without any background slide overhead
-  if (showCosmicIntro) {
-    return (
-      <CosmicIntroOverlay
-        onComplete={handleIntroComplete}
-        forceReplay={true}
-      />
-    );
-  }
-
-  // 3. Presentation Stage: Clean, hardware-accelerated 60 FPS slide presentation
+  // 2. Presentation Stage with seamless Cosmic Intro Overlay on top
   return (
-    <div 
-      ref={containerRef}
-      className={`website-shell-root galaxy-family-${(currentSlideIndex % 6) + 1} active-slide-${currentSlideIndex + 1}`}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
+    <>
+      {showCosmicIntro && (
+        <CosmicIntroOverlay
+          onComplete={handleIntroComplete}
+          forceReplay={true}
+        />
+      )}
+
+      <div 
+        ref={containerRef}
+        className={`website-shell-root galaxy-family-${(currentSlideIndex % 6) + 1} active-slide-${currentSlideIndex + 1}`}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
 
       {/* Top Progress Track */}
       <div className="presentation-progress-track">
@@ -498,5 +492,6 @@ export const Presentation: React.FC = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
