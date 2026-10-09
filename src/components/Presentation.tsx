@@ -244,7 +244,11 @@ export const Presentation: React.FC = () => {
 
   const handleIntroComplete = useCallback(() => {
     setShowCosmicIntro(false);
-    setIsIntroRevealing(false);
+    setIsIntroRevealing(true);
+
+    setTimeout(() => {
+      setIsIntroRevealing(false);
+    }, 3500);
   }, []);
 
   // 1. Initial Start Screen: Dedicated Pure Black Screen with Pulsing Start Button
