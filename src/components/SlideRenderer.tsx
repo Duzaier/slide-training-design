@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { getAssetUrl } from '../utils/assetHelper';
 import { SlideData } from '../types/presentation';
 import { InteractiveColorPicker } from './InteractiveColorPicker';
 import { InteractiveLightStudio } from './InteractiveLightStudio';
@@ -126,16 +127,16 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* 4 Floating Decorative 3D Assets (ảnh 1, 2, 3, 4) */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '4%', left: '46%', width: '70px', opacity: 0.7 }} title="3D ChatGPT Asset">
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', right: '3%', width: '75px', opacity: 0.7 }} title="3D Photoshop Asset">
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '4%', width: '85px', opacity: 0.75 }} title="Cosmic Moon Asset">
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-nebula" style={{ bottom: '4%', left: '3%', width: '80px', opacity: 0.65 }} title="Nebula Planet Asset">
-            <img src="/assets/decor_nebula_planet.png" alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_nebula_planet.png'))} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           {/* Main 2-Column Hero: Left Portrait • Right Profile Info */}
@@ -144,13 +145,13 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
             <div className="speaker-portrait-col">
               <div
                 className="speaker-hero-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/speaker_portrait.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/speaker_portrait.png'))}
                 title="Click để xem ảnh kích thước lớn"
               >
                 <div className="speaker-portrait-glow-ring" />
                 <div className="speaker-img-container">
                   <img
-                    src={slide.images[0]?.url || '/assets/speaker_portrait.png'}
+                    src={slide.images[0]?.url || getAssetUrl('/assets/speaker_portrait.png')}
                     alt="Phạm Lai Đăng Khoa"
                     className="speaker-hero-img"
                   />
@@ -181,10 +182,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ bottom: '10%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '85px', opacity: 0.75 }}>
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="concept-minimal-content-grid">
@@ -197,11 +198,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
             <div className="concept-minimal-posters-col">
               <div
                 className="concept-poster-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/slide2_poster_1.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/slide2_poster_1.png'))}
                 title="Click để phóng to Poster 1"
               >
                 <img
-                  src={slide.images[0]?.url || '/assets/slide2_poster_1.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/slide2_poster_1.png')}
                   alt="Concept 01"
                   className="concept-poster-img"
                 />
@@ -209,11 +210,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
               <div
                 className="concept-poster-card"
-                onClick={() => handleImageZoom(slide.images[1]?.url || '/assets/slide2_poster_2.png')}
+                onClick={() => handleImageZoom(slide.images[1]?.url || getAssetUrl('/assets/slide2_poster_2.png'))}
                 title="Click để phóng to Poster 2"
               >
                 <img
-                  src={slide.images[1]?.url || '/assets/slide2_poster_2.png'}
+                  src={slide.images[1]?.url || getAssetUrl('/assets/slide2_poster_2.png')}
                   alt="Concept 02"
                   className="concept-poster-img"
                 />
@@ -233,10 +234,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '75px', opacity: 0.75 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-nebula" style={{ top: '4%', right: '4%', width: '75px', opacity: 0.65 }}>
-            <img src="/assets/decor_nebula_planet.png" alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_nebula_planet.png'))} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="ai-minimal-content-grid">
@@ -249,12 +250,12 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
             <div className="ai-minimal-poster-col">
               <div
                 className="ai-poster-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/bt 1.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/bt 1.png'))}
                 title="Click để phóng to visual WARRIOR Vị Dâu"
               >
                 <div className="ai-poster-glow-backdrop" />
                 <img
-                  src={slide.images[0]?.url || '/assets/bt 1.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/bt 1.png')}
                   alt="WARRIOR Vị Dâu AI Design"
                   className="ai-poster-img"
                 />
@@ -274,10 +275,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ bottom: '10%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '85px', opacity: 0.75 }}>
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="concept-minimal-content-grid">
@@ -291,11 +292,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Image 1: Real Model Reference */}
               <div
                 className="genmodel-poster-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/slide4_real_model.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/slide4_real_model.png'))}
                 title="Click để phóng to Ảnh Chụp Mẫu Thực Tế"
               >
                 <img
-                  src={slide.images[0]?.url || '/assets/slide4_real_model.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/slide4_real_model.png')}
                   alt="Ảnh chụp mẫu thực tế"
                   className="genmodel-poster-img"
                 />
@@ -304,11 +305,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Image 2: Pose Reference */}
               <div
                 className="genmodel-poster-card"
-                onClick={() => handleImageZoom(slide.images[1]?.url || '/assets/slide4_pose_ref.png')}
+                onClick={() => handleImageZoom(slide.images[1]?.url || getAssetUrl('/assets/slide4_pose_ref.png'))}
                 title="Click để phóng to Dáng Nhân Vật Tham Chiếu"
               >
                 <img
-                  src={slide.images[1]?.url || '/assets/slide4_pose_ref.png'}
+                  src={slide.images[1]?.url || getAssetUrl('/assets/slide4_pose_ref.png')}
                   alt="Dáng nhân vật tham chiếu"
                   className="genmodel-poster-img"
                 />
@@ -317,11 +318,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Image 3: AI Model */}
               <div
                 className="genmodel-poster-card"
-                onClick={() => handleImageZoom(slide.images[2]?.url || '/assets/slide4_ai_model.png')}
+                onClick={() => handleImageZoom(slide.images[2]?.url || getAssetUrl('/assets/slide4_ai_model.png'))}
                 title="Click để phóng to Tạo Hình AI 3D"
               >
                 <img
-                  src={slide.images[2]?.url || '/assets/slide4_ai_model.png'}
+                  src={slide.images[2]?.url || getAssetUrl('/assets/slide4_ai_model.png')}
                   alt="Tạo hình nhân vật AI 3D"
                   className="genmodel-poster-img"
                 />
@@ -341,10 +342,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-nebula" style={{ top: '4%', right: '3.5%', width: '75px', opacity: 0.65 }}>
-            <img src="/assets/decor_nebula_planet.png" alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_nebula_planet.png'))} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="lighting-minimal-content-grid">
@@ -358,11 +359,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Image 1: Lighting Infographic Diagram */}
               <div
                 className="lighting-poster-card lighting-diagram-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/image 3.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/image 3.png'))}
                 title="Click để phóng to Sơ đồ phân tích ánh sáng"
               >
                 <img
-                  src={slide.images[0]?.url || '/assets/image 3.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/image 3.png')}
                   alt="Sơ đồ Phân Tích Ánh Sáng"
                   className="lighting-poster-img"
                 />
@@ -371,11 +372,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Image 2: Isometric 3D Truck Render */}
               <div
                 className="lighting-poster-card lighting-render-card"
-                onClick={() => handleImageZoom(slide.images[1]?.url || '/assets/image 17.png')}
+                onClick={() => handleImageZoom(slide.images[1]?.url || getAssetUrl('/assets/image 17.png'))}
                 title="Click để phóng to Mô Hình 3D Isometric"
               >
                 <img
-                  src={slide.images[1]?.url || '/assets/image 17.png'}
+                  src={slide.images[1]?.url || getAssetUrl('/assets/image 17.png')}
                   alt="3D Truck Isometric Render"
                   className="lighting-poster-img"
                 />
@@ -395,10 +396,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ bottom: '10%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '85px', opacity: 0.75 }}>
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="genai-minimal-content-grid">
@@ -413,11 +414,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               <div className="genai-posters-subcol">
                 <div
                   className="genai-grid-card genai-card-square"
-                  onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/image 4.png')}
+                  onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/image 4.png'))}
                   title="Click để phóng to Bài Đăng Social"
                 >
                   <img
-                    src={slide.images[0]?.url || '/assets/image 4.png'}
+                    src={slide.images[0]?.url || getAssetUrl('/assets/image 4.png')}
                     alt="Social Media Post"
                     className="genai-grid-img"
                   />
@@ -425,11 +426,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
                 <div
                   className="genai-grid-card genai-card-square"
-                  onClick={() => handleImageZoom(slide.images[2]?.url || '/assets/Nhà cái 1.png')}
+                  onClick={() => handleImageZoom(slide.images[2]?.url || getAssetUrl('/assets/Nhà cái 1.png'))}
                   title="Click để phóng to Visual Storylab"
                 >
                   <img
-                    src={slide.images[2]?.url || '/assets/Nhà cái 1.png'}
+                    src={slide.images[2]?.url || getAssetUrl('/assets/Nhà cái 1.png')}
                     alt="Storylab Sponsor Visual"
                     className="genai-grid-img"
                   />
@@ -440,11 +441,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               <div className="genai-posters-subcol">
                 <div
                   className="genai-grid-card genai-card-portrait"
-                  onClick={() => handleImageZoom(slide.images[1]?.url || '/assets/image 5.png')}
+                  onClick={() => handleImageZoom(slide.images[1]?.url || getAssetUrl('/assets/image 5.png'))}
                   title="Click để phóng to Poster Hovilo Dạ Vũ"
                 >
                   <img
-                    src={slide.images[1]?.url || '/assets/image 5.png'}
+                    src={slide.images[1]?.url || getAssetUrl('/assets/image 5.png')}
                     alt="Hovilo Dạ Vũ Poster"
                     className="genai-grid-img"
                   />
@@ -452,11 +453,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
                 <div
                   className="genai-grid-card genai-card-portrait"
-                  onClick={() => handleImageZoom(slide.images[3]?.url || '/assets/CD đóng form 1.png')}
+                  onClick={() => handleImageZoom(slide.images[3]?.url || getAssetUrl('/assets/CD đóng form 1.png'))}
                   title="Click để phóng to Poster Vovinam Countdown"
                 >
                   <img
-                    src={slide.images[3]?.url || '/assets/CD đóng form 1.png'}
+                    src={slide.images[3]?.url || getAssetUrl('/assets/CD đóng form 1.png')}
                     alt="Vovinam Countdown Poster"
                     className="genai-grid-img"
                   />
@@ -477,10 +478,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ bottom: '10%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-nebula" style={{ top: '4%', right: '3.5%', width: '75px', opacity: 0.65 }}>
-            <img src="/assets/decor_nebula_planet.png" alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_nebula_planet.png'))} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="prompt-minimal-content-grid">
@@ -493,11 +494,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
             <div className="prompt-minimal-poster-col">
               <div
                 className="prompt-poster-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/image 7.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/image 7.png'))}
                 title="Click để phóng to Ảnh minh họa Prompt AI"
               >
                 <img
-                  src={slide.images[0]?.url || '/assets/image 7.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/image 7.png')}
                   alt="Prompt AI Showcase"
                   className="prompt-poster-img"
                 />
@@ -517,13 +518,13 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '6%', right: '6%', width: '75px', opacity: 0.75 }}>
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '6%', width: '75px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '8%', left: '6%', width: '85px', opacity: 0.65 }}>
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="question-editorial-content">
@@ -550,10 +551,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="lighting-duo-content-grid">
@@ -567,11 +568,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Image 1: 3D Primitives (Sphere, Box, Cylinder) */}
               <div
                 className="lighting-duo-card lighting-primitives-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/Các khối 1.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/Các khối 1.png'))}
                 title="Click để phóng to Nghiên cứu ánh sáng các khối 3D"
               >
                 <img
-                  src={slide.images[0]?.url || '/assets/Các khối 1.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/Các khối 1.png')}
                   alt="Các Khối 3D Cơ Bản"
                   className="lighting-duo-img lighting-primitives-img"
                 />
@@ -580,11 +581,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Image 2: Shopee Mall AHC 11.11 Poster */}
               <div
                 className="lighting-duo-card lighting-commercial-card"
-                onClick={() => handleImageZoom(slide.images[1]?.url || '/assets/bài tập 1.png')}
+                onClick={() => handleImageZoom(slide.images[1]?.url || getAssetUrl('/assets/bài tập 1.png'))}
                 title="Click để phóng to Key Visual Shopee Mall x AHC"
               >
                 <img
-                  src={slide.images[1]?.url || '/assets/bài tập 1.png'}
+                  src={slide.images[1]?.url || getAssetUrl('/assets/bài tập 1.png')}
                   alt="Key Visual Shopee Mall x AHC"
                   className="lighting-duo-img"
                 />
@@ -614,10 +615,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="perspective-minimal-content-grid">
@@ -630,11 +631,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
             <div className="perspective-minimal-poster-col">
               <div
                 className="perspective-poster-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/Bài tập 2.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/Bài tập 2.png'))}
                 title="Click để phóng to Key Visual Shopee Xả Kho Voucher"
               >
                 <img
-                  src={slide.images[0]?.url || '/assets/Bài tập 2.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/Bài tập 2.png')}
                   alt="Key Visual Shopee Xả Kho Voucher"
                   className="perspective-poster-img"
                 />
@@ -652,10 +653,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
           </div>
 
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="color-analysis-content-grid">
@@ -669,11 +670,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Image 1: Poster Analysis */}
               <div
                 className="color-analysis-card color-poster-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/Phân tích màu 1.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/Phân tích màu 1.png'))}
                 title="Click để phóng to Bảng phân tích màu sắc"
               >
                 <img
-                  src={slide.images[0]?.url || '/assets/Phân tích màu 1.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/Phân tích màu 1.png')}
                   alt="Phân Tích Màu Sắc"
                   className="color-analysis-img"
                 />
@@ -703,10 +704,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
           </div>
 
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="value-contrast-content-grid">
@@ -721,31 +722,31 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               <div className="value-comparison-row">
                 <div
                   className="value-card"
-                  onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/image 10.png')}
+                  onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/image 10.png'))}
                   title="Click để phóng to Catch STAR Color"
                 >
-                  <img src={slide.images[0]?.url || '/assets/image 10.png'} alt="Catch Star Color" className="value-img" />
+                  <img src={slide.images[0]?.url || getAssetUrl('/assets/image 10.png')} alt="Catch Star Color" className="value-img" />
                 </div>
                 <div
                   className="value-card"
-                  onClick={() => handleImageZoom(slide.images[1]?.url || '/assets/image 11.png')}
+                  onClick={() => handleImageZoom(slide.images[1]?.url || getAssetUrl('/assets/image 11.png'))}
                   title="Click để phóng to Catch STAR Gray"
                 >
-                  <img src={slide.images[1]?.url || '/assets/image 11.png'} alt="Catch Star Gray" className="value-img" />
+                  <img src={slide.images[1]?.url || getAssetUrl('/assets/image 11.png')} alt="Catch Star Gray" className="value-img" />
                 </div>
                 <div
                   className="value-card"
-                  onClick={() => handleImageZoom(slide.images[2]?.url || '/assets/image 13.png')}
+                  onClick={() => handleImageZoom(slide.images[2]?.url || getAssetUrl('/assets/image 13.png'))}
                   title="Click để phóng to F-BIZ Cyan"
                 >
-                  <img src={slide.images[2]?.url || '/assets/image 13.png'} alt="F-BIZ Cyan" className="value-img" />
+                  <img src={slide.images[2]?.url || getAssetUrl('/assets/image 13.png')} alt="F-BIZ Cyan" className="value-img" />
                 </div>
                 <div
                   className="value-card"
-                  onClick={() => handleImageZoom(slide.images[3]?.url || '/assets/image 14.png')}
+                  onClick={() => handleImageZoom(slide.images[3]?.url || getAssetUrl('/assets/image 14.png'))}
                   title="Click để phóng to F-BIZ White"
                 >
-                  <img src={slide.images[3]?.url || '/assets/image 14.png'} alt="F-BIZ White" className="value-img" />
+                  <img src={slide.images[3]?.url || getAssetUrl('/assets/image 14.png')} alt="F-BIZ White" className="value-img" />
                 </div>
               </div>
 
@@ -753,17 +754,17 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               <div className="value-comparison-row value-row-bottom">
                 <div
                   className="value-card value-card-wide"
-                  onClick={() => handleImageZoom(slide.images[4]?.url || '/assets/image 15.png')}
+                  onClick={() => handleImageZoom(slide.images[4]?.url || getAssetUrl('/assets/image 15.png'))}
                   title="Click để phóng to F-BIZ Navy"
                 >
-                  <img src={slide.images[4]?.url || '/assets/image 15.png'} alt="F-BIZ Navy" className="value-img" />
+                  <img src={slide.images[4]?.url || getAssetUrl('/assets/image 15.png')} alt="F-BIZ Navy" className="value-img" />
                 </div>
                 <div
                   className="value-card value-card-wide"
-                  onClick={() => handleImageZoom(slide.images[5]?.url || '/assets/image 16.png')}
+                  onClick={() => handleImageZoom(slide.images[5]?.url || getAssetUrl('/assets/image 16.png'))}
                   title="Click để phóng to F-BIZ Dark Slate"
                 >
-                  <img src={slide.images[5]?.url || '/assets/image 16.png'} alt="F-BIZ Dark Slate" className="value-img" />
+                  <img src={slide.images[5]?.url || getAssetUrl('/assets/image 16.png')} alt="F-BIZ Dark Slate" className="value-img" />
                 </div>
               </div>
             </div>
@@ -779,7 +780,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
           </div>
 
           <div className="floating-decor-item decor-chatgpt" style={{ top: '2.5%', right: '3.5%', width: '60px', opacity: 0.7 }}>
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="style-art-stage-container">
@@ -853,10 +854,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
           </div>
 
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '9%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src="/assets/decor_moon_planet.png" alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="typography-content-grid">
@@ -870,11 +871,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Card 1: 440HZ */}
               <div
                 className="typography-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/LOGO 1.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/LOGO 1.png'))}
                 title="Click để phóng to 440HZ Typography"
               >
                 <img
-                  src={slide.images[0]?.url || '/assets/LOGO 1.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/LOGO 1.png')}
                   alt={slide.images[0]?.caption || "440HZ"}
                   className="typography-img"
                 />
@@ -883,11 +884,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Card 2: Đi qua mùa Hạ */}
               <div
                 className="typography-card"
-                onClick={() => handleImageZoom(slide.images[1]?.url || '/assets/Logo dự án 1.png')}
+                onClick={() => handleImageZoom(slide.images[1]?.url || getAssetUrl('/assets/Logo dự án 1.png'))}
                 title="Click để phóng to Đi qua mùa Hạ Lettering"
               >
                 <img
-                  src={slide.images[1]?.url || '/assets/Logo dự án 1.png'}
+                  src={slide.images[1]?.url || getAssetUrl('/assets/Logo dự án 1.png')}
                   alt={slide.images[1]?.caption || "Đi qua mùa Hạ"}
                   className="typography-img"
                 />
@@ -896,11 +897,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               {/* Card 3: Võ Việt Quy Tụ */}
               <div
                 className="typography-card typography-card-dark"
-                onClick={() => handleImageZoom(slide.images[2]?.url || '/assets/Untitled-1 1.png')}
+                onClick={() => handleImageZoom(slide.images[2]?.url || getAssetUrl('/assets/Untitled-1 1.png'))}
                 title="Click để phóng to Võ Việt Quy Tụ 3D Typography"
               >
                 <img
-                  src={slide.images[2]?.url || '/assets/Untitled-1 1.png'}
+                  src={slide.images[2]?.url || getAssetUrl('/assets/Untitled-1 1.png')}
                   alt={slide.images[2]?.caption || "Võ Việt Quy Tụ"}
                   className="typography-img typography-img-contain"
                 />
@@ -926,10 +927,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '3.5%', right: '3.5%', width: '65px', opacity: 0.7 }}>
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="social-size-content-grid">
@@ -946,11 +947,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
                   <div className="social-size-tag-badge">2000X2000</div>
                   <div
                     className="social-size-card"
-                    onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/Nhà cái 1.png')}
+                    onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/Nhà cái 1.png'))}
                     title="Click để phóng to ảnh 2000X2000"
                   >
                     <img
-                      src={slide.images[0]?.url || '/assets/Nhà cái 1.png'}
+                      src={slide.images[0]?.url || getAssetUrl('/assets/Nhà cái 1.png')}
                       alt={slide.images[0]?.caption || "Ảnh vuông 2000X2000"}
                       className="social-size-card-img"
                     />
@@ -962,11 +963,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
                   <div className="social-size-tag-badge">3660 X 2880</div>
                   <div
                     className="social-size-card"
-                    onClick={() => handleImageZoom(slide.images[1]?.url || '/assets/CD đóng form 1.png')}
+                    onClick={() => handleImageZoom(slide.images[1]?.url || getAssetUrl('/assets/CD đóng form 1.png'))}
                     title="Click để phóng to ảnh 3660 X 2880"
                   >
                     <img
-                      src={slide.images[1]?.url || '/assets/CD đóng form 1.png'}
+                      src={slide.images[1]?.url || getAssetUrl('/assets/CD đóng form 1.png')}
                       alt={slide.images[1]?.caption || "Ảnh dọc 3660 X 2880"}
                       className="social-size-card-img"
                     />
@@ -988,10 +989,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '3.5%', right: '3.5%', width: '65px', opacity: 0.7 }}>
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="social-multi-container">
@@ -1004,12 +1005,12 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
                 </div>
                 <div
                   className="social-multi-showcase-card"
-                  onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/image 31.png')}
+                  onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/image 31.png'))}
                   title="Click để phóng to bài đăng mẫu 440Hz"
                 >
                   <div className="social-multi-card-tag">Bài đăng thực tế • 440Hz</div>
                   <img
-                    src={slide.images[0]?.url || '/assets/image 31.png'}
+                    src={slide.images[0]?.url || getAssetUrl('/assets/image 31.png')}
                     alt={slide.images[0]?.caption || "Bài đăng 440Hz"}
                     className="social-multi-showcase-img"
                   />
@@ -1056,10 +1057,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '3.5%', right: '3.5%', width: '65px', opacity: 0.7 }}>
-            <img src="/assets/decor_chatgpt_3d.png" alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src="/assets/decor_photoshop_3d.png" alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="social-error-content-grid">
@@ -1072,11 +1073,11 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
             <div className="social-error-preview-col">
               <div
                 className="social-error-preview-card"
-                onClick={() => handleImageZoom(slide.images[0]?.url || '/assets/image 8.png')}
+                onClick={() => handleImageZoom(slide.images[0]?.url || getAssetUrl('/assets/image 8.png'))}
                 title="Click để phóng to Lỗi sai kích thước"
               >
                 <img
-                  src={slide.images[0]?.url || '/assets/image 8.png'}
+                  src={slide.images[0]?.url || getAssetUrl('/assets/image 8.png')}
                   alt={slide.images[0]?.caption || "Lỗi sai kích thước trên Facebook News Feed"}
                   className="social-error-preview-img"
                 />

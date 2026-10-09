@@ -48,7 +48,7 @@
   left: -57.5%;
   width: 215%;
   height: 215%;
-  background-image: url('/assets/b2febc677701abb5f05e69a56974f5ab.jpg');
+  background-image: url('../../public/assets/b2febc677701abb5f05e69a56974f5ab.jpg');
   background-size: cover;
   background-position: center 42%;
   background-repeat: no-repeat;
@@ -68,7 +68,7 @@
   left: -52.5%;
   width: 205%;
   height: 205%;
-  background-image: url('/assets/700ef2bb7f79b95bcd3a084cb2095559.jpg');
+  background-image: url('../../public/assets/700ef2bb7f79b95bcd3a084cb2095559.jpg');
   background-size: cover;
   background-position: 65% center;
   background-repeat: no-repeat;
@@ -89,7 +89,7 @@
   width: 220vw;
   height: 220vw;
   transform: translate(-50%, -50%);
-  background-image: url('/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
+  background-image: url('../../public/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -778,7 +778,7 @@
   width: 195%;
   height: 195%;
   transform: translate(-50%, -50%);
-  background-image: url('/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
+  background-image: url('../../public/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -861,11 +861,10 @@
   position: absolute;
   inset: 0;
   background-image:
-    url('/assets/bg.png'),
     radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
     radial-gradient(rgba(56, 182, 255, 0.45) 1.5px, transparent 1.5px);
-  background-size: 700px, 60px 60px, 90px 90px;
-  background-position: 0 0, 0 0, 30px 45px;
+  background-size: 60px 60px, 90px 90px;
+  background-position: 0 0, 30px 45px;
   background-repeat: repeat;
   mix-blend-mode: screen;
   opacity: 0.42;

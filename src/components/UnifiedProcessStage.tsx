@@ -3,6 +3,7 @@ import {
   ArrowLeft, 
   ArrowRight
 } from 'lucide-react';
+import { getAssetUrl } from '../utils/assetHelper';
 
 export interface ProcessStageStep {
   id: number;
@@ -24,7 +25,7 @@ const PROCESS_STAGES: ProcessStageStep[] = [
     title: "Sketch",
     shortTitle: "1. Sketch",
     subtitle: "Bản vẽ phác thảo bố cục & hệ thống lưới (Layout Wireframe & Grid)",
-    image: "/assets/image 26.png",
+    image: getAssetUrl("/assets/image 26.png"),
     category: "Khung bố cục & Lưới",
     description: "Xây dựng hệ thống lưới (Grid) & wireframe định hình tỷ lệ các khu vực chính: tiêu đề, sản phẩm trung tâm và voucher.",
     keyActions: [
@@ -40,7 +41,7 @@ const PROCESS_STAGES: ProcessStageStep[] = [
     title: "Thay element cơ bản",
     shortTitle: "2. Thay Element",
     subtitle: "Định vị và đưa các sản phẩm thương hiệu vào bố cục",
-    image: "/assets/image 27.png",
+    image: getAssetUrl("/assets/image 27.png"),
     category: "Sắp đặt thành phần",
     description: "Định vị và thay thế các element sản phẩm chủ đạo (bộ mỹ phẩm AHC, hộp quà 3D, mũ ảo thuật và các tag voucher) vào khung wireframe bố cục.",
     keyActions: [
@@ -56,7 +57,7 @@ const PROCESS_STAGES: ProcessStageStep[] = [
     title: "Xử lý background\nretouch ảnh\nánh sáng chủ thể",
     shortTitle: "3. BG & Retouch",
     subtitle: "Thiết lập sân khấu nhung, retouch sản phẩm và luồng sáng ma thuật",
-    image: "/assets/image 28.png",
+    image: getAssetUrl("/assets/image 28.png"),
     category: "Retouch & Ánh sáng cục bộ",
     description: "Thiết lập background rèm nhung sân khấu, retouch sắc nét từng sản phẩm AHC và xử lý luồng ánh sáng chủ thể tỏa ra từ chiếc nón ảo thuật.",
     keyActions: [
@@ -72,7 +73,7 @@ const PROCESS_STAGES: ProcessStageStep[] = [
     title: "Xử lý ánh sáng tổng thể",
     shortTitle: "4. Ánh sáng tổng thể",
     subtitle: "Đánh nguồn sáng spotlight sân khấu, tương phản và khối 3D",
-    image: "/assets/image 29.png",
+    image: getAssetUrl("/assets/image 29.png"),
     category: "Chiếu sáng tổng thể",
     description: "Đánh nguồn sáng spotlight tổng thể từ đỉnh sân khấu rọi xuống trung tâm cụm sản phẩm, tạo độ tương phản mạnh mẽ và chiều sâu không gian 3D.",
     keyActions: [
@@ -88,7 +89,7 @@ const PROCESS_STAGES: ProcessStageStep[] = [
     title: "Hoàn thiện với hiệu ứng",
     shortTitle: "5. Hiệu ứng",
     subtitle: "Bổ sung dải ruy-băng ánh sáng ma thuật, hạt bụi sao và hoàn thiện",
-    image: "/assets/image 30.png",
+    image: getAssetUrl("/assets/image 30.png"),
     category: "VFX & Hoàn thiện",
     description: "Bổ sung các dải ruy-băng ánh sáng xoắn ốc ma thuật, hạt bụi sao phát quang và vệt sáng viền hoàn thiện tác phẩm Key Visual.",
     keyActions: [

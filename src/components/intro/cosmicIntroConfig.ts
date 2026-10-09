@@ -13,15 +13,15 @@ export interface CosmicIntroConfig {
 }
 
 export const DEFAULT_INTRO_CONFIG: CosmicIntroConfig = {
-  durationVoid: 2.0,
-  durationBlackHole: 2.5,
-  durationAbsorption: 4.0,
-  durationCollapse: 2.0,
-  durationBigBang: 2.5,
-  durationReveal: 2.0,
-  durationTransition: 1.5,
-  starCount: 5000,
-  explosionParticleCount: 7000,
+  durationVoid: 1.2,
+  durationBlackHole: 1.8,
+  durationAbsorption: 2.2,
+  durationCollapse: 1.2,
+  durationBigBang: 1.8,
+  durationReveal: 1.4,
+  durationTransition: 1.2,
+  starCount: 1000,
+  explosionParticleCount: 800,
   sessionStorageKey: 'figma_presentation_intro_seen_v1',
   enableAudio: false
 };

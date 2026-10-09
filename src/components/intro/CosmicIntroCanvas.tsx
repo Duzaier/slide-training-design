@@ -384,7 +384,7 @@ export const CosmicIntroCanvas: React.FC<CosmicIntroCanvasProps> = ({
         // -----------------------------------------------------------
         // 4. MULTI-TIERED STARFIELD & COSMIC DUST ECOSYSTEM
         // -----------------------------------------------------------
-        starCount3D = Math.max(config.starCount, 3200);
+        starCount3D = config.starCount || 1000;
         const starPositions = new Float32Array(starCount3D * 3);
         starBaseX3D = new Float32Array(starCount3D);
         starBaseY3D = new Float32Array(starCount3D);
@@ -438,8 +438,8 @@ export const CosmicIntroCanvas: React.FC<CosmicIntroCanvasProps> = ({
         starField3D = new THREE.Points(starGeometry3D, starMaterial3D);
         scene.add(starField3D);
 
-        // Foreground Bright Stars Tier (800 dynamic glowing stars)
-        const fgStarCount = 800;
+        // Foreground Bright Stars Tier
+        const fgStarCount = 200;
         const fgPositions = new Float32Array(fgStarCount * 3);
         const fgColors = new Float32Array(fgStarCount * 3);
         for (let i = 0; i < fgStarCount; i++) {
@@ -623,7 +623,7 @@ export const CosmicIntroCanvas: React.FC<CosmicIntroCanvasProps> = ({
         // -----------------------------------------------------------
         // 7. MULTI-LAYERED BIG BANG EXPLOSION DEBRIS
         // -----------------------------------------------------------
-        expCount3D = Math.max(config.explosionParticleCount, 4000);
+        expCount3D = config.explosionParticleCount || 800;
         const expPositions = new Float32Array(expCount3D * 3);
         expDirections3D = new Float32Array(expCount3D * 3);
         expSpeeds3D = new Float32Array(expCount3D);

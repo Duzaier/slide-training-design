@@ -1,6 +1,7 @@
 import { SlideData } from '../types/presentation';
+import { getAssetUrl } from '../utils/assetHelper';
 
-export const presentationSlides: SlideData[] = [
+const rawPresentationSlides: SlideData[] = [
   {
     id: 1,
     slideNumber: "01",
@@ -542,3 +543,11 @@ export const presentationSlides: SlideData[] = [
     notes: "Slide 23: Q&A - Phiên giao lưu, giải đáp thắc mắc của học viên và người tham dự."
   }
 ];
+
+export const presentationSlides: SlideData[] = rawPresentationSlides.map((slide) => ({
+  ...slide,
+  images: (slide.images || []).map((img) => ({
+    ...img,
+    url: getAssetUrl(img.url)
+  }))
+}));
