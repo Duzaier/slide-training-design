@@ -17,11 +17,8 @@ import { CosmicIntroOverlay, resetCosmicIntroSeen } from './intro/CosmicIntroOve
 
 export const Presentation: React.FC = () => {
   const [hasStarted, setHasStarted] = useState<boolean>(false);
-  const [isStarting, setIsStarting] = useState<boolean>(false);
   const [showCosmicIntro, setShowCosmicIntro] = useState<boolean>(false);
   const [isIntroRevealing, setIsIntroRevealing] = useState<boolean>(false);
-  const [isBlackoutCurtainActive, setIsBlackoutCurtainActive] = useState<boolean>(false);
-  const [isCurtainFadingOut, setIsCurtainFadingOut] = useState<boolean>(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   const [isCleanPresentationMode, setIsCleanPresentationMode] = useState<boolean>(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
@@ -123,13 +120,10 @@ export const Presentation: React.FC = () => {
   }, []);
 
   const handleStartPresentation = useCallback(() => {
-    setIsStarting(true);
-    setTimeout(() => {
-      setHasStarted(true);
-      setShowCosmicIntro(true);
-      setIsCleanPresentationMode(true);
-      setCurrentSlideIndex(0);
-    }, 300);
+    setHasStarted(true);
+    setShowCosmicIntro(true);
+    setIsCleanPresentationMode(true);
+    setCurrentSlideIndex(0);
   }, []);
 
   const handleReplayIntro = () => {
@@ -137,8 +131,6 @@ export const Presentation: React.FC = () => {
     setHasStarted(true);
     setShowCosmicIntro(true);
     setIsIntroRevealing(false);
-    setIsBlackoutCurtainActive(false);
-    setIsCurtainFadingOut(false);
     setCurrentSlideIndex(0);
     setIsCleanPresentationMode(true);
   };
@@ -215,7 +207,7 @@ export const Presentation: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNext, handlePrev, handleFirst, handleLast, isThumbnailsOpen, isNotesOpen, showKeyboardHelp, isCleanPresentationMode, showCosmicIntro]);
+  }, [handleNext, handlePrev, handleFirst, handleLast, isThumbnailsOpen, isNotesOpen, showKeyboardHelp, isCleanPresentationMode, showCosmicIntro, hasStarted, handleStartPresentation]);
 
   // Touch swipe gestures
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -246,28 +238,39 @@ export const Presentation: React.FC = () => {
 
   const handleIntroComplete = useCallback(() => {
     setShowCosmicIntro(false);
-    setIsBlackoutCurtainActive(true);
-    setIsCurtainFadingOut(false);
     setIsIntroRevealing(true);
 
-    // Give browser 1 frame to mount Slide 1 under pitch black curtain, then fade over 2.0s
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setIsCurtainFadingOut(true);
-      });
-    });
-
-    // Remove curtain from DOM after fade completes (2.2s)
-    setTimeout(() => {
-      setIsBlackoutCurtainActive(false);
-    }, 2200);
-
-    // Turn off revealing class after complete sequence (4.0s)
     setTimeout(() => {
       setIsIntroRevealing(false);
-    }, 4000);
+    }, 1500);
   }, []);
 
+  // 1. Initial Start Screen: Dedicated Pure Black Screen with Pulsing Start Button
+  if (!hasStarted) {
+    return (
+      <div className="start-screen-overlay">
+        <button
+          className="start-presentation-btn"
+          onClick={handleStartPresentation}
+          autoFocus
+        >
+          <span>Start</span>
+        </button>
+      </div>
+    );
+  }
+
+  // 2. Cosmic Intro Mode: Dedicated Fullscreen WebGL Canvas without any background slide overhead
+  if (showCosmicIntro) {
+    return (
+      <CosmicIntroOverlay
+        onComplete={handleIntroComplete}
+        forceReplay={true}
+      />
+    );
+  }
+
+  // 3. Presentation Stage: Clean, hardware-accelerated 60 FPS slide presentation
   return (
     <div 
       ref={containerRef}
@@ -275,44 +278,6 @@ export const Presentation: React.FC = () => {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* INITIAL START SCREEN: Pure Black Screen with Slow Pulsing Start Button */}
-      {!hasStarted && (
-        <div className={`start-screen-overlay ${isStarting ? 'fade-out' : ''}`}>
-          <button
-            className="start-presentation-btn"
-            onClick={handleStartPresentation}
-            autoFocus
-          >
-            <span>Start</span>
-          </button>
-        </div>
-      )}
-
-      {/* Cinematic Fullscreen Big Bang Cosmic Intro */}
-      {showCosmicIntro && (
-        <CosmicIntroOverlay
-          onComplete={handleIntroComplete}
-          forceReplay={true}
-        />
-      )}
-
-      {/* Pitch Black Transition Curtain with 2-second fade into Slide 1 */}
-      {isBlackoutCurtainActive && (
-        <div
-          className={`pitch-black-transition-curtain ${isCurtainFadingOut ? 'fade-out' : ''}`}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            width: '100vw',
-            height: '100vh',
-            backgroundColor: '#000000',
-            zIndex: 99998,
-            pointerEvents: isCurtainFadingOut ? 'none' : 'auto',
-            transition: 'opacity 2.0s cubic-bezier(0.16, 1, 0.3, 1)',
-            opacity: isCurtainFadingOut ? 0 : 1
-          }}
-        />
-      )}
 
       {/* Top Progress Track */}
       <div className="presentation-progress-track">

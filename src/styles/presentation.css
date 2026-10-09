@@ -642,60 +642,65 @@
    3. T = 2.0s -> Text titles, name & roles reveal (1s interval)
 */
 .slide1-cinematic-reveal .galaxy-backdrop-layer {
-  animation: revealCosmicBackground 2.0s cubic-bezier(0.16, 1, 0.3, 1) 0s both !important;
+  animation: revealCosmicBackground 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0s both !important;
+  will-change: opacity, transform;
 }
 
 .slide1-cinematic-reveal .speaker-portrait-col,
 .slide1-cinematic-reveal .speaker-hero-card {
-  animation: revealCosmicImage 1.4s cubic-bezier(0.16, 1, 0.3, 1) 1.0s both !important;
+  animation: revealCosmicImage 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both !important;
+  will-change: opacity, transform;
 }
 
 .slide1-cinematic-reveal .floating-decor-item {
-  animation: revealCosmicDecor 1.4s cubic-bezier(0.16, 1, 0.3, 1) 1.0s both !important;
+  animation: revealCosmicDecor 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both !important;
+  will-change: opacity, transform;
 }
 
 .slide1-cinematic-reveal .floating-decor-item.decor-chatgpt {
-  animation-delay: 1.0s !important;
+  animation-delay: 0.3s !important;
 }
 
 .slide1-cinematic-reveal .floating-decor-item.decor-photoshop {
-  animation-delay: 1.1s !important;
+  animation-delay: 0.38s !important;
 }
 
 .slide1-cinematic-reveal .floating-decor-item.decor-moon {
-  animation-delay: 1.18s !important;
+  animation-delay: 0.44s !important;
 }
 
 .slide1-cinematic-reveal .floating-decor-item.decor-nebula {
-  animation-delay: 1.25s !important;
+  animation-delay: 0.5s !important;
 }
 
 .slide1-cinematic-reveal .speaker-minimal-name {
-  animation: revealCosmicText 1.2s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both !important;
+  animation: revealCosmicText 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both !important;
+  will-change: opacity, transform;
 }
 
 .slide1-cinematic-reveal .speaker-minimal-role:nth-child(1) {
-  animation: revealCosmicText 1.0s cubic-bezier(0.16, 1, 0.3, 1) 2.15s both !important;
+  animation: revealCosmicText 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both !important;
+  will-change: opacity, transform;
 }
 
 .slide1-cinematic-reveal .speaker-minimal-role:nth-child(2) {
-  animation: revealCosmicText 1.0s cubic-bezier(0.16, 1, 0.3, 1) 2.3s both !important;
+  animation: revealCosmicText 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.56s both !important;
+  will-change: opacity, transform;
 }
 
 .slide1-cinematic-reveal .speaker-minimal-role:nth-child(3) {
-  animation: revealCosmicText 1.0s cubic-bezier(0.16, 1, 0.3, 1) 2.45s both !important;
+  animation: revealCosmicText 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.64s both !important;
+  will-change: opacity, transform;
 }
 
 @keyframes revealCosmicBackground {
   0% {
     opacity: 0;
-    filter: brightness(0) saturate(0.3);
-    transform: scale(1.08);
+    transform: scale(1.04);
   }
 
   100% {
     opacity: 0.6;
-    filter: brightness(1) saturate(1);
     transform: scale(1);
   }
 }
@@ -703,42 +708,36 @@
 @keyframes revealCosmicImage {
   0% {
     opacity: 0;
-    transform: translateY(40px) scale(0.9);
-    filter: blur(14px);
+    transform: translateY(24px) scale(0.96);
   }
 
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
-    filter: blur(0px);
   }
 }
 
 @keyframes revealCosmicDecor {
   0% {
     opacity: 0;
-    transform: translateY(30px) scale(0.65);
-    filter: blur(10px);
+    transform: translateY(18px) scale(0.8);
   }
 
   100% {
     opacity: 0.75;
     transform: translateY(0) scale(1);
-    filter: blur(0px);
   }
 }
 
 @keyframes revealCosmicText {
   0% {
     opacity: 0;
-    transform: translateY(28px);
-    filter: blur(10px);
+    transform: translateY(16px);
   }
 
   100% {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0px);
   }
 }
 
@@ -7079,72 +7078,72 @@ h4,
    ============================================================ */
 
 /* 1. TEXT ELEMENTS APPEAR FIRST (T = 0.05s) */
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .concept-minimal-title-col,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .ai-minimal-title-col,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .perspective-minimal-title-col,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .lighting-minimal-title-col,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .composition-title-col,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .typography-title-col,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .social-size-title-col,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .social-multi-title-col,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .social-error-title-col,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .question-editorial-title-box,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .hero-title-box,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .hero-keypoints-list,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .slide-main-title,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .concept-minimal-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .ai-minimal-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .genai-minimal-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .prompt-minimal-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .question-editorial-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .lighting-duo-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .composition-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .color-analysis-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .typography-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .social-size-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .social-multi-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .social-error-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .perspective-minimal-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .statement-quote-heading,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .statement-quote-author {
+.slide-content-wrapper .concept-minimal-title-col,
+.slide-content-wrapper .ai-minimal-title-col,
+.slide-content-wrapper .perspective-minimal-title-col,
+.slide-content-wrapper .lighting-minimal-title-col,
+.slide-content-wrapper .composition-title-col,
+.slide-content-wrapper .typography-title-col,
+.slide-content-wrapper .social-size-title-col,
+.slide-content-wrapper .social-multi-title-col,
+.slide-content-wrapper .social-error-title-col,
+.slide-content-wrapper .question-editorial-title-box,
+.slide-content-wrapper .hero-title-box,
+.slide-content-wrapper .hero-keypoints-list,
+.slide-content-wrapper .slide-main-title,
+.slide-content-wrapper .concept-minimal-heading,
+.slide-content-wrapper .ai-minimal-heading,
+.slide-content-wrapper .genai-minimal-heading,
+.slide-content-wrapper .prompt-minimal-heading,
+.slide-content-wrapper .question-editorial-heading,
+.slide-content-wrapper .lighting-duo-heading,
+.slide-content-wrapper .composition-heading,
+.slide-content-wrapper .color-analysis-heading,
+.slide-content-wrapper .typography-heading,
+.slide-content-wrapper .social-size-heading,
+.slide-content-wrapper .social-multi-heading,
+.slide-content-wrapper .social-error-heading,
+.slide-content-wrapper .perspective-minimal-heading,
+.slide-content-wrapper .statement-quote-heading,
+.slide-content-wrapper .statement-quote-author {
   animation: universalSlideTextEntrance 0.62s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
 }
 
 /* 2. IMAGE, POSTER & MEDIA ELEMENTS APPEAR AFTER TEXT (T = 0.32s) */
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .concept-poster-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .ai-poster-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .genmodel-poster-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .lighting-poster-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .perspective-square-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .composition-poster-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .typography-specimen-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .social-size-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .social-multi-grid,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .multi-photo-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .error-bad-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .error-good-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .style-gallery-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .contrast-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .hero-image-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .unified-process-card,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .concept-borrowing-stage,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .interactive-color-stage,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .cube-studio-viewport-grid,
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .floating-decor-item {
+.slide-content-wrapper .concept-poster-card,
+.slide-content-wrapper .ai-poster-card,
+.slide-content-wrapper .genmodel-poster-card,
+.slide-content-wrapper .lighting-poster-card,
+.slide-content-wrapper .perspective-square-card,
+.slide-content-wrapper .composition-poster-card,
+.slide-content-wrapper .typography-specimen-card,
+.slide-content-wrapper .social-size-card,
+.slide-content-wrapper .social-multi-grid,
+.slide-content-wrapper .multi-photo-card,
+.slide-content-wrapper .error-bad-card,
+.slide-content-wrapper .error-good-card,
+.slide-content-wrapper .style-gallery-card,
+.slide-content-wrapper .contrast-card,
+.slide-content-wrapper .hero-image-card,
+.slide-content-wrapper .unified-process-card,
+.slide-content-wrapper .concept-borrowing-stage,
+.slide-content-wrapper .interactive-color-stage,
+.slide-content-wrapper .cube-studio-viewport-grid,
+.slide-content-wrapper .floating-decor-item {
   animation: universalSlideMediaEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
 }
 
 /* Stagger multiple poster cards within grids */
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .concept-poster-card:nth-child(2),
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .genmodel-poster-card:nth-child(2),
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .style-gallery-card:nth-child(2),
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .contrast-card:nth-child(2),
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .error-good-card {
+.slide-content-wrapper .concept-poster-card:nth-child(2),
+.slide-content-wrapper .genmodel-poster-card:nth-child(2),
+.slide-content-wrapper .style-gallery-card:nth-child(2),
+.slide-content-wrapper .contrast-card:nth-child(2),
+.slide-content-wrapper .error-good-card {
   animation-delay: 0.44s !important;
 }
 
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .genmodel-poster-card:nth-child(3),
-.slide-content-wrapper:not(:has(.slide1-cinematic-reveal)) .style-gallery-card:nth-child(3) {
+.slide-content-wrapper .genmodel-poster-card:nth-child(3),
+.slide-content-wrapper .style-gallery-card:nth-child(3) {
   animation-delay: 0.56s !important;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { FastForward, Sparkles, Volume2, VolumeX } from 'lucide-react';
 import { CosmicIntroCanvas } from './CosmicIntroCanvas';
 import { CosmicIntro2DFallback } from './CosmicIntro2DFallback';
@@ -15,10 +15,11 @@ export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
   onComplete,
   forceReplay = false
 }) => {
-  const [stageText, setStageText] = useState<string>('INITIALIZING COSMOS...');
-  const [progressPercent, setProgressPercent] = useState<number>(0);
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
+
+  const stageTextRef = useRef<HTMLSpanElement>(null);
+  const progressPercentRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (forceReplay) {
@@ -59,10 +60,14 @@ export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleSkip]);
 
-  // Progress update callback
+  // Progress update callback - zero React re-renders for max 60 FPS fluidity
   const handleProgress = useCallback((progress: number, stageName: string) => {
-    setProgressPercent(Math.round(progress * 100));
-    setStageText(stageName);
+    if (stageTextRef.current && stageTextRef.current.textContent !== stageName) {
+      stageTextRef.current.textContent = stageName;
+    }
+    if (progressPercentRef.current) {
+      progressPercentRef.current.textContent = `${Math.round(progress * 100)}%`;
+    }
   }, []);
 
   // Completion callback
@@ -166,9 +171,9 @@ export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
           }}
         >
           <Sparkles size={14} color="#ffb03a" />
-          <span>{stageText}</span>
-          <span style={{ color: 'rgba(255,255,255,0.4)', paddingLeft: '6px' }}>
-            {progressPercent}%
+          <span ref={stageTextRef}>INITIALIZING COSMOS...</span>
+          <span ref={progressPercentRef} style={{ color: 'rgba(255,255,255,0.4)', paddingLeft: '6px' }}>
+            0%
           </span>
         </div>
 
