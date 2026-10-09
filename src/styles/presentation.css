@@ -25,6 +25,7 @@
   z-index: 0;
   overflow: hidden;
   background-color: #020308;
+  contain: strict;
 }
 
 .cosmic-layer {
@@ -42,59 +43,59 @@
   z-index: 1;
 }
 
-/* Layer 2A: Primary Flowing Nebula Silk Ribbon (Ref B: b2febc677701abb5f05e69a56974f5ab.jpg) */
+/* Layer 2A: Primary Flowing Nebula Silk Ribbon */
 .cosmic-flowing-band.band-primary {
   top: 50%;
   left: 50%;
-  width: 300vmax;
-  height: 300vmax;
+  width: 140vmax;
+  height: 140vmax;
   background-image: url('../../public/assets/b2febc677701abb5f05e69a56974f5ab.jpg');
   background-size: cover;
   background-position: center 42%;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  opacity: 0.35;
+  opacity: 0.32;
   will-change: transform;
-  transform: translate(-50%, -50%) rotate(-10deg) scale(1.25) translate3d(0, 0, 0);
+  transform: translate(-50%, -50%) rotate(-10deg) scale(1.1) translate3d(0, 0, 0);
   mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 0%, black 60%, rgba(0, 0, 0, 0.6) 80%, transparent 96%);
   -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 0%, black 60%, rgba(0, 0, 0, 0.6) 80%, transparent 96%);
   animation: cosmicPrimaryFlow 70s ease-in-out infinite alternate;
   z-index: 2;
 }
 
-/* Layer 2B: Secondary Electric Sapphire & Radiant Wave (Ref A: 700ef2bb7f79b95bcd3a084cb2095559.jpg) */
+/* Layer 2B: Secondary Electric Sapphire & Radiant Wave */
 .cosmic-flowing-band.band-secondary {
   top: 50%;
   left: 50%;
-  width: 290vmax;
-  height: 290vmax;
+  width: 140vmax;
+  height: 140vmax;
   background-image: url('../../public/assets/700ef2bb7f79b95bcd3a084cb2095559.jpg');
   background-size: cover;
   background-position: 65% center;
   background-repeat: no-repeat;
-  mix-blend-mode: color-dodge;
-  opacity: 0.30;
+  mix-blend-mode: screen;
+  opacity: 0.28;
   will-change: transform;
-  transform: translate(-50%, -50%) rotate(8deg) scale(1.25) translate3d(0, 0, 0);
+  transform: translate(-50%, -50%) rotate(8deg) scale(1.1) translate3d(0, 0, 0);
   mask-image: radial-gradient(ellipse 70% 60% at 55% 48%, black 0%, black 58%, rgba(0, 0, 0, 0.6) 78%, transparent 95%);
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 55% 48%, black 0%, black 58%, rgba(0, 0, 0, 0.6) 78%, transparent 95%);
   animation: cosmicSecondaryFlow 85s ease-in-out infinite alternate;
   z-index: 3;
 }
 
-/* Layer 2C: Celestial Galactic Core Disc (Ref C: 310b3c93b56be36f537471a68bb84fe4.jpg) */
+/* Layer 2C: Celestial Galactic Core Disc */
 .cosmic-flowing-band.band-focal-core {
   top: 50%;
   left: 50%;
-  width: 320vmax;
-  height: 320vmax;
-  transform: translate(-50%, -50%) scale(1.3) translate3d(0, 0, 0);
+  width: 140vmax;
+  height: 140vmax;
+  transform: translate(-50%, -50%) scale(1.15) translate3d(0, 0, 0);
   background-image: url('../../public/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  opacity: 0.28;
+  opacity: 0.24;
   will-change: transform;
   mask-image: radial-gradient(circle at 50% 50%, black 0%, black 58%, rgba(0, 0, 0, 0.7) 78%, transparent 96%);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, black 58%, rgba(0, 0, 0, 0.7) 78%, transparent 96%);
@@ -127,7 +128,6 @@
     radial-gradient(circle at 80% 25%, rgba(255, 255, 255, 0.9) 0%, rgba(56, 182, 255, 0.4) 1.5px, transparent 18px),
     radial-gradient(circle at 18% 70%, rgba(255, 255, 255, 0.85) 0%, rgba(168, 85, 247, 0.35) 1.5px, transparent 16px),
     radial-gradient(circle at 65% 82%, rgba(255, 255, 255, 0.75) 0%, rgba(56, 182, 255, 0.3) 1px, transparent 14px);
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 16px rgba(56, 182, 255, 0.5));
   opacity: 0.75;
   z-index: 6;
 }
@@ -141,97 +141,92 @@
   pointer-events: none;
 }
 
-/* Cosmic Animations */
+/* Cosmic Animations (Compositor accelerated) */
 @keyframes cosmicPrimaryFlow {
   0% {
-    transform: translate(-50%, -50%) rotate(-10deg) scale(1.25);
+    transform: translate(-50%, -50%) rotate(-10deg) scale(1.1);
   }
 
   50% {
-    transform: translate(-50%, -50%) rotate(-8deg) translate(-25px, 15px) scale(1.32);
+    transform: translate(-50%, -50%) rotate(-8deg) translate(-15px, 10px) scale(1.16);
   }
 
   100% {
-    transform: translate(-50%, -50%) rotate(-11deg) translate(15px, -18px) scale(1.22);
+    transform: translate(-50%, -50%) rotate(-11deg) translate(10px, -12px) scale(1.08);
   }
 }
 
 @keyframes cosmicSecondaryFlow {
   0% {
-    transform: translate(-50%, -50%) rotate(8deg) scale(1.25);
+    transform: translate(-50%, -50%) rotate(8deg) scale(1.1);
   }
 
   50% {
-    transform: translate(-50%, -50%) rotate(10deg) translate(20px, -15px) scale(1.34);
+    transform: translate(-50%, -50%) rotate(10deg) translate(12px, -10px) scale(1.18);
   }
 
   100% {
-    transform: translate(-50%, -50%) rotate(7deg) translate(-15px, 20px) scale(1.22);
+    transform: translate(-50%, -50%) rotate(7deg) translate(-10px, 15px) scale(1.08);
   }
 }
 
 @keyframes cosmicCoreSlowSpin {
   from {
-    transform: translate(-50%, -50%) rotate(0deg) scale(1.3);
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.15);
   }
 
   to {
-    transform: translate(-50%, -50%) rotate(360deg) scale(1.3);
+    transform: translate(-50%, -50%) rotate(360deg) scale(1.15);
   }
 }
 
 @keyframes cosmicStarTwinkle {
   0% {
     opacity: 0.55;
-    transform: scale(1);
   }
 
   50% {
     opacity: 0.85;
-    transform: scale(1.01);
   }
 
   100% {
     opacity: 0.6;
-    transform: scale(0.99);
   }
 }
 
 /* ============================================================
-   SLIDE 1 SPECIFIC BACKGROUND DEPTH BLUR
+   SLIDE 1 SPECIFIC BACKGROUND OPACITY
    ============================================================ */
-.website-shell-root.active-slide-1 .cosmic-flowing-band.band-primary,
-.website-shell-root.active-slide-1 .cosmic-flowing-band.band-secondary,
-.website-shell-root.active-slide-1 .cosmic-flowing-band.band-focal-core,
-.website-shell-root.active-slide-1 .galaxy-backdrop-layer::before {
-  filter: blur(55px) saturate(1.35) contrast(1.1);
-  opacity: 0.38;
+.website-shell-root.active-slide-1 .cosmic-flowing-band.band-primary {
+  opacity: 0.32;
+}
+.website-shell-root.active-slide-1 .cosmic-flowing-band.band-secondary {
+  opacity: 0.26;
+}
+.website-shell-root.active-slide-1 .cosmic-flowing-band.band-focal-core {
+  opacity: 0.24;
 }
 
 /* ============================================================
-   GALAXY BACKGROUND VARIATION FAMILIES (Slide-by-Slide Design System)
+   GALAXY BACKGROUND VARIATION FAMILIES (Zero Runtime Blur for 60 FPS)
    ============================================================ */
 
 /* Family 1: GALAXY_01 → Bright Flowing Nebula Band */
 .website-shell-root.galaxy-family-1 .cosmic-flowing-band.band-primary {
-  opacity: 0.36;
-  filter: blur(36px) saturate(1.4) contrast(1.2);
+  opacity: 0.34;
 }
 
 .website-shell-root.galaxy-family-1 .cosmic-flowing-band.band-secondary {
   opacity: 0.28;
-  filter: blur(36px) saturate(1.3);
 }
 
 /* Family 2: GALAXY_02 → Deep Dark Cosmic Field (High Contrast Void) */
 .website-shell-root.galaxy-family-2 .cosmic-flowing-band.band-primary {
-  opacity: 0.18;
-  filter: blur(32px) saturate(1.1) contrast(1.1);
+  opacity: 0.16;
 }
 
 .website-shell-root.galaxy-family-2 .cosmic-flowing-band.band-secondary {
-  opacity: 0.14;
-  filter: blur(32px);
+  opacity: 0.12;
 }
 
 .website-shell-root.galaxy-family-2 .cosmic-deep-void {
@@ -243,13 +238,11 @@
 
 /* Family 3: GALAXY_03 → Ethereal Violet & Lavender Nebula */
 .website-shell-root.galaxy-family-3 .cosmic-flowing-band.band-primary {
-  opacity: 0.35;
-  filter: blur(36px) saturate(1.45) contrast(1.18) hue-rotate(25deg);
+  opacity: 0.32;
 }
 
 .website-shell-root.galaxy-family-3 .cosmic-flowing-band.band-secondary {
-  opacity: 0.16;
-  filter: blur(36px) saturate(1.2) hue-rotate(20deg);
+  opacity: 0.18;
 }
 
 /* Family 4: GALAXY_04 → Electric Blue / Sapphire / Radiant Cyan Wave */
@@ -258,17 +251,16 @@
 }
 
 .website-shell-root.galaxy-family-4 .cosmic-flowing-band.band-secondary {
-  opacity: 0.34;
-  filter: blur(36px) saturate(1.5) contrast(1.25) hue-rotate(-15deg);
+  opacity: 0.30;
 }
 
 /* Family 5: GALAXY_05 → Minimalist Star Field & Quiet Void */
 .website-shell-root.galaxy-family-5 .cosmic-flowing-band.band-primary {
-  opacity: 0.15;
+  opacity: 0.14;
 }
 
 .website-shell-root.galaxy-family-5 .cosmic-flowing-band.band-secondary {
-  opacity: 0.12;
+  opacity: 0.10;
 }
 
 .website-shell-root.galaxy-family-5 .cosmic-starfield {
@@ -277,12 +269,11 @@
 
 /* Family 6: GALAXY_06 → Strong Cosmic Focal Core Light */
 .website-shell-root.galaxy-family-6 .cosmic-flowing-band.band-focal-core {
-  opacity: 0.25;
-  filter: blur(36px) saturate(1.4);
+  opacity: 0.28;
 }
 
 .website-shell-root.galaxy-family-6 .cosmic-flowing-band.band-primary {
-  opacity: 0.24;
+  opacity: 0.22;
 }
 
 /* ------------------------------------------------------------
@@ -891,24 +882,24 @@
 .galaxy-nebula-glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(75px);
-  opacity: 0.7;
+  opacity: 0.75;
+  will-change: transform, opacity;
   animation: cosmicNebulaBreath 10s ease-in-out infinite alternate;
 }
 
 @keyframes cosmicNebulaBreath {
   0% {
-    transform: scale(1) translate(0, 0);
+    transform: scale(1) translate3d(0, 0, 0);
     opacity: 0.65;
   }
 
   50% {
-    transform: scale(1.08) translate(-15px, 10px);
+    transform: scale(1.08) translate3d(-15px, 10px, 0);
     opacity: 0.8;
   }
 
   100% {
-    transform: scale(0.96) translate(10px, -10px);
+    transform: scale(0.96) translate3d(10px, -10px, 0);
     opacity: 0.6;
   }
 }
@@ -918,7 +909,7 @@
   right: -8%;
   width: 540px;
   height: 540px;
-  background: radial-gradient(circle, rgba(56, 182, 255, 0.38) 0%, rgba(168, 85, 247, 0.2) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(56, 182, 255, 0.42) 0%, rgba(168, 85, 247, 0.22) 35%, transparent 70%);
 }
 
 .galaxy-glow-bottom-left {
@@ -926,7 +917,7 @@
   left: -12%;
   width: 580px;
   height: 580px;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(56, 182, 255, 0.14) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.36) 0%, rgba(56, 182, 255, 0.16) 35%, transparent 70%);
 }
 
 .galaxy-glow-center {
@@ -935,8 +926,7 @@
   width: 600px;
   height: 400px;
   transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse, rgba(255, 176, 58, 0.16) 0%, rgba(168, 85, 247, 0.12) 40%, transparent 70%);
-  filter: blur(90px);
+  background: radial-gradient(ellipse, rgba(255, 176, 58, 0.2) 0%, rgba(168, 85, 247, 0.14) 35%, transparent 70%);
 }
 
 .galaxy-stars-particle-mesh {

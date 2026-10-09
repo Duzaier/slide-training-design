@@ -45,9 +45,8 @@ export const CosmicIntroOverlay: React.FC<CosmicIntroOverlayProps> = ({
       rootOverlayRef.current.style.pointerEvents = 'none';
       gsap.to(rootOverlayRef.current, {
         opacity: 0,
-        scale: 1.03,
-        duration: 0.85,
-        ease: 'power2.inOut',
+        duration: 0.35,
+        ease: 'power2.out',
         onComplete: () => {
           onComplete();
         }
