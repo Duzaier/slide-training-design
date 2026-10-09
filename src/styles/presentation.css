@@ -47,16 +47,17 @@
 .cosmic-flowing-band.band-primary {
   top: 50%;
   left: 50%;
-  width: 140vmax;
-  height: 140vmax;
+  width: 300vmax;
+  height: 300vmax;
   background-image: url('../../public/assets/b2febc677701abb5f05e69a56974f5ab.jpg');
   background-size: cover;
   background-position: center 42%;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  opacity: 0.32;
+  opacity: 0.35;
+  filter: blur(18px) saturate(1.35) contrast(1.15) hue-rotate(-5deg);
   will-change: transform;
-  transform: translate(-50%, -50%) rotate(-10deg) scale(1.1) translate3d(0, 0, 0);
+  transform: translate(-50%, -50%) rotate(-10deg) scale(1.25) translate3d(0, 0, 0);
   mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 0%, black 60%, rgba(0, 0, 0, 0.6) 80%, transparent 96%);
   -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 0%, black 60%, rgba(0, 0, 0, 0.6) 80%, transparent 96%);
   animation: cosmicPrimaryFlow 70s ease-in-out infinite alternate;
@@ -67,16 +68,17 @@
 .cosmic-flowing-band.band-secondary {
   top: 50%;
   left: 50%;
-  width: 140vmax;
-  height: 140vmax;
+  width: 290vmax;
+  height: 290vmax;
   background-image: url('../../public/assets/700ef2bb7f79b95bcd3a084cb2095559.jpg');
   background-size: cover;
   background-position: 65% center;
   background-repeat: no-repeat;
-  mix-blend-mode: screen;
-  opacity: 0.28;
+  mix-blend-mode: color-dodge;
+  opacity: 0.30;
+  filter: blur(18px) saturate(1.35) contrast(1.1);
   will-change: transform;
-  transform: translate(-50%, -50%) rotate(8deg) scale(1.1) translate3d(0, 0, 0);
+  transform: translate(-50%, -50%) rotate(8deg) scale(1.25) translate3d(0, 0, 0);
   mask-image: radial-gradient(ellipse 70% 60% at 55% 48%, black 0%, black 58%, rgba(0, 0, 0, 0.6) 78%, transparent 95%);
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 55% 48%, black 0%, black 58%, rgba(0, 0, 0, 0.6) 78%, transparent 95%);
   animation: cosmicSecondaryFlow 85s ease-in-out infinite alternate;
@@ -87,15 +89,16 @@
 .cosmic-flowing-band.band-focal-core {
   top: 50%;
   left: 50%;
-  width: 140vmax;
-  height: 140vmax;
-  transform: translate(-50%, -50%) scale(1.15) translate3d(0, 0, 0);
+  width: 320vmax;
+  height: 320vmax;
+  transform: translate(-50%, -50%) scale(1.3) translate3d(0, 0, 0);
   background-image: url('../../public/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  opacity: 0.24;
+  opacity: 0.28;
+  filter: blur(20px) saturate(1.3) contrast(1.1);
   will-change: transform;
   mask-image: radial-gradient(circle at 50% 50%, black 0%, black 58%, rgba(0, 0, 0, 0.7) 78%, transparent 96%);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, black 58%, rgba(0, 0, 0, 0.7) 78%, transparent 96%);
@@ -144,39 +147,39 @@
 /* Cosmic Animations (Compositor accelerated) */
 @keyframes cosmicPrimaryFlow {
   0% {
-    transform: translate(-50%, -50%) rotate(-10deg) scale(1.1);
+    transform: translate(-50%, -50%) rotate(-10deg) scale(1.25);
   }
 
   50% {
-    transform: translate(-50%, -50%) rotate(-8deg) translate(-15px, 10px) scale(1.16);
+    transform: translate(-50%, -50%) rotate(-8deg) translate(-25px, 15px) scale(1.32);
   }
 
   100% {
-    transform: translate(-50%, -50%) rotate(-11deg) translate(10px, -12px) scale(1.08);
+    transform: translate(-50%, -50%) rotate(-11deg) translate(15px, -18px) scale(1.22);
   }
 }
 
 @keyframes cosmicSecondaryFlow {
   0% {
-    transform: translate(-50%, -50%) rotate(8deg) scale(1.1);
+    transform: translate(-50%, -50%) rotate(8deg) scale(1.25);
   }
 
   50% {
-    transform: translate(-50%, -50%) rotate(10deg) translate(12px, -10px) scale(1.18);
+    transform: translate(-50%, -50%) rotate(10deg) translate(20px, -15px) scale(1.34);
   }
 
   100% {
-    transform: translate(-50%, -50%) rotate(7deg) translate(-10px, 15px) scale(1.08);
+    transform: translate(-50%, -50%) rotate(7deg) translate(-15px, 20px) scale(1.22);
   }
 }
 
 @keyframes cosmicCoreSlowSpin {
   from {
-    transform: translate(-50%, -50%) rotate(0deg) scale(1.15);
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.3);
   }
 
   to {
-    transform: translate(-50%, -50%) rotate(360deg) scale(1.15);
+    transform: translate(-50%, -50%) rotate(360deg) scale(1.3);
   }
 }
 
@@ -574,51 +577,55 @@
 }
 
 .start-presentation-btn {
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
   color: #ffffff;
   font-family: 'Be Vietnam Pro', var(--font-sans, sans-serif);
   font-size: 1.15rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  padding: 14px 46px;
+  padding: 16px 52px;
   border-radius: 999px;
   cursor: pointer;
   outline: none;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
   animation: startBtnPulseGlow 2.8s ease-in-out infinite;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, border-color 0.28s ease, background 0.28s ease, color 0.28s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   user-select: none;
+  will-change: transform, box-shadow;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .start-presentation-btn:hover {
-  border-color: #ffffff;
+  animation: none;
+  transform: scale(1.15);
+  border-color: #38b6ff;
   color: #ffffff;
-  box-shadow: 0 0 35px rgba(255, 255, 255, 0.7), 0 0 65px rgba(56, 182, 255, 0.4);
-  transform: scale(1.08);
-  animation-play-state: paused;
+  background: rgba(56, 182, 255, 0.16);
+  box-shadow: 0 0 35px rgba(56, 182, 255, 0.7), 0 0 70px rgba(56, 182, 255, 0.35), inset 0 0 15px rgba(56, 182, 255, 0.25);
 }
 
 .start-presentation-btn:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
+  box-shadow: 0 0 20px rgba(56, 182, 255, 0.5);
+  transition-duration: 0.1s;
 }
 
 @keyframes startBtnPulseGlow {
   0%, 100% {
-    opacity: 0.4;
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    transform: scale(0.98);
+    opacity: 0.5;
+    border-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
   }
   50% {
     opacity: 1;
-    border-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.55), 0 0 60px rgba(56, 182, 255, 0.25);
-    transform: scale(1.02);
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.6), 0 0 60px rgba(56, 182, 255, 0.3);
   }
 }
 
@@ -665,6 +672,7 @@
   background-repeat: no-repeat;
   mix-blend-mode: screen;
   opacity: 0.35;
+  filter: blur(18px) saturate(1.25) contrast(1.1);
   will-change: transform;
   mask-image: radial-gradient(circle at 50% 50%, black 0%, black 65%, rgba(0, 0, 0, 0.7) 80%, transparent 95%);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, black 65%, rgba(0, 0, 0, 0.7) 80%, transparent 95%);
@@ -691,6 +699,7 @@
   position: absolute;
   border-radius: 50%;
   opacity: 0.75;
+  filter: blur(75px);
   will-change: transform, opacity;
   animation: cosmicNebulaBreath 10s ease-in-out infinite alternate;
 }
@@ -734,6 +743,7 @@
   width: 600px;
   height: 400px;
   transform: translate(-50%, -50%);
+  filter: blur(90px);
   background: radial-gradient(ellipse, rgba(255, 176, 58, 0.2) 0%, rgba(168, 85, 247, 0.14) 35%, transparent 70%);
 }
 
