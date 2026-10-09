@@ -127,16 +127,16 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* 4 Floating Decorative 3D Assets (ảnh 1, 2, 3, 4) */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '4%', left: '46%', width: '70px', opacity: 0.7 }} title="3D ChatGPT Asset">
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', right: '3%', width: '75px', opacity: 0.7 }} title="3D Photoshop Asset">
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '4%', width: '85px', opacity: 0.75 }} title="Cosmic Moon Asset">
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-nebula" style={{ bottom: '4%', left: '3%', width: '80px', opacity: 0.65 }} title="Nebula Planet Asset">
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_nebula_planet.png'))} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_nebula_planet.png')} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           {/* Main 2-Column Hero: Left Portrait • Right Profile Info */}
@@ -182,10 +182,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ bottom: '10%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '85px', opacity: 0.75 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="concept-minimal-content-grid">
@@ -234,10 +234,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '75px', opacity: 0.75 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-nebula" style={{ top: '4%', right: '4%', width: '75px', opacity: 0.65 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_nebula_planet.png'))} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_nebula_planet.png')} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="ai-minimal-content-grid">
@@ -275,10 +275,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ bottom: '10%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '85px', opacity: 0.75 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="concept-minimal-content-grid">
@@ -342,10 +342,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-nebula" style={{ top: '4%', right: '3.5%', width: '75px', opacity: 0.65 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_nebula_planet.png'))} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_nebula_planet.png')} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="lighting-minimal-content-grid">
@@ -396,10 +396,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ bottom: '10%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '85px', opacity: 0.75 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="genai-minimal-content-grid">
@@ -478,10 +478,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ bottom: '10%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-nebula" style={{ top: '4%', right: '3.5%', width: '75px', opacity: 0.65 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_nebula_planet.png'))} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_nebula_planet.png')} alt="Nebula Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="prompt-minimal-content-grid">
@@ -518,13 +518,13 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '6%', right: '6%', width: '75px', opacity: 0.75 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '6%', width: '75px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '8%', left: '6%', width: '85px', opacity: 0.65 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="question-editorial-content">
@@ -551,10 +551,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="lighting-duo-content-grid">
@@ -615,10 +615,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="perspective-minimal-content-grid">
@@ -653,10 +653,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
           </div>
 
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="color-analysis-content-grid">
@@ -704,10 +704,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
           </div>
 
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '10%', left: '3.5%', width: '72px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="value-contrast-content-grid">
@@ -780,7 +780,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
           </div>
 
           <div className="floating-decor-item decor-chatgpt" style={{ top: '2.5%', right: '3.5%', width: '60px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="style-art-stage-container">
@@ -854,10 +854,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
           </div>
 
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '9%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-moon" style={{ top: '4%', right: '3.5%', width: '80px', opacity: 0.65 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_moon_planet.png'))} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_moon_planet.png')} alt="Moon Planet" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="typography-content-grid">
@@ -927,10 +927,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '3.5%', right: '3.5%', width: '65px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="social-size-content-grid">
@@ -989,10 +989,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '3.5%', right: '3.5%', width: '65px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="social-multi-container">
@@ -1057,10 +1057,10 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
 
           {/* Floating Subtle 3D Decors */}
           <div className="floating-decor-item decor-chatgpt" style={{ top: '3.5%', right: '3.5%', width: '65px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_chatgpt_3d.png'))} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_chatgpt_3d.png')} alt="ChatGPT 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
           <div className="floating-decor-item decor-photoshop" style={{ bottom: '8%', left: '3.5%', width: '70px', opacity: 0.7 }}>
-            <img src={getAssetUrl(getAssetUrl('/assets/decor_photoshop_3d.png'))} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+            <img src={getAssetUrl('/assets/decor_photoshop_3d.png')} alt="Photoshop 3D" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
           </div>
 
           <div className="social-error-content-grid">
