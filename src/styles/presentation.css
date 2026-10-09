@@ -634,188 +634,193 @@
 /* ------------------------------------------------------------
 /* ============================================================
    SPEAKER PROFILE (SLIDE 01) CINEMATIC PIECE-BY-PIECE ASSEMBLY
-   Sequential Assembly Choreography:
-   1. Stage Frame & Ambient Aura materialize (T = 0.0s)
-   2. Speaker Hero Portrait & Glow Ring assemble (T = 0.45s)
-   3. Name & Role descriptions reveal line-by-line (T = 0.85s - 1.35s)
-   4. 3D Floating Decors fly in from 4 corners into orbit (T = 1.45s - 1.9s)
+   100% GPU Compositor Accelerated (60 FPS Butter Smooth)
+   1. Stage Frame & Backdrop (T = 0.0s)
+   2. Speaker Portrait & Light Aura (T = 0.2s)
+   3. Name Title & Roles step-by-step (T = 0.45s - 0.8s)
+   4. 4 Floating 3D Decors fly into orbit (T = 0.95s - 1.25s)
    ============================================================ */
 
 .slide1-cinematic-reveal {
-  animation: revealStageFrame 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0s both !important;
-  will-change: opacity, transform, box-shadow;
+  animation: revealStageFrame 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0s both !important;
+  will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .galaxy-backdrop-layer {
-  animation: revealCosmicBackground 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both !important;
+  animation: revealCosmicBackground 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .speaker-portrait-col,
 .slide1-cinematic-reveal .speaker-hero-card {
-  animation: revealCosmicImage 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both !important;
+  animation: revealCosmicImage 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .speaker-portrait-glow-ring {
-  animation: revealGlowRing 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both !important;
+  animation: revealGlowRing 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both !important;
+  will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .speaker-minimal-name {
-  animation: revealCosmicTitleText 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both !important;
+  animation: revealCosmicTitleText 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .speaker-minimal-role:nth-child(1) {
-  animation: revealCosmicRoleText 0.75s cubic-bezier(0.16, 1, 0.3, 1) 1.05s both !important;
+  animation: revealCosmicRoleText 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .speaker-minimal-role:nth-child(2) {
-  animation: revealCosmicRoleText 0.75s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both !important;
+  animation: revealCosmicRoleText 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .speaker-minimal-role:nth-child(3) {
-  animation: revealCosmicRoleText 0.75s cubic-bezier(0.16, 1, 0.3, 1) 1.35s both !important;
+  animation: revealCosmicRoleText 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .floating-decor-item.decor-chatgpt {
-  animation: revealDecorChatGPT 0.95s cubic-bezier(0.16, 1, 0.3, 1) 1.45s both !important;
+  animation: revealDecorChatGPT 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .floating-decor-item.decor-photoshop {
-  animation: revealDecorPhotoshop 0.95s cubic-bezier(0.16, 1, 0.3, 1) 1.6s both !important;
+  animation: revealDecorPhotoshop 0.55s cubic-bezier(0.16, 1, 0.3, 1) 1.05s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .floating-decor-item.decor-moon {
-  animation: revealDecorMoon 0.95s cubic-bezier(0.16, 1, 0.3, 1) 1.75s both !important;
+  animation: revealDecorMoon 0.55s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .slide1-cinematic-reveal .floating-decor-item.decor-nebula {
-  animation: revealDecorNebula 0.95s cubic-bezier(0.16, 1, 0.3, 1) 1.9s both !important;
+  animation: revealDecorNebula 0.55s cubic-bezier(0.16, 1, 0.3, 1) 1.25s both !important;
   will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
 }
 
 @keyframes revealStageFrame {
   0% {
     opacity: 0;
-    transform: scale(0.95);
-    box-shadow: 0 0 0 rgba(56, 182, 255, 0);
+    transform: scale(0.97) translate3d(0, 0, 0);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
-    box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.85), 0 20px 50px rgba(0, 0, 0, 0.6);
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 
 @keyframes revealCosmicBackground {
   0% {
     opacity: 0;
-    transform: scale(1.08);
+    transform: scale(1.05) translate3d(0, 0, 0);
   }
   100% {
     opacity: 0.6;
-    transform: scale(1);
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 
 @keyframes revealCosmicImage {
   0% {
     opacity: 0;
-    transform: translateY(45px) scale(0.9);
+    transform: translate3d(0, 28px, 0) scale(0.94);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes revealGlowRing {
   0% {
     opacity: 0;
-    transform: scale(0.85);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
+    transform: scale(0.9) translate3d(0, 0, 0);
   }
   100% {
     opacity: 0.7;
-    transform: scale(1);
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 
 @keyframes revealCosmicTitleText {
   0% {
     opacity: 0;
-    transform: translateY(22px);
-    letter-spacing: 0.05em;
+    transform: translate3d(0, 16px, 0);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
-    letter-spacing: normal;
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes revealCosmicRoleText {
   0% {
     opacity: 0;
-    transform: translateX(25px);
+    transform: translate3d(18px, 0, 0);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes revealDecorChatGPT {
   0% {
     opacity: 0;
-    transform: translate(-30px, -30px) rotate(-15deg) scale(0.6);
+    transform: translate3d(-20px, -20px, 0) rotate(-10deg) scale(0.7);
   }
   100% {
     opacity: 0.7;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
 }
 
 @keyframes revealDecorPhotoshop {
   0% {
     opacity: 0;
-    transform: translate(30px, 30px) rotate(15deg) scale(0.6);
+    transform: translate3d(20px, 20px, 0) rotate(10deg) scale(0.7);
   }
   100% {
     opacity: 0.7;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
 }
 
 @keyframes revealDecorMoon {
   0% {
     opacity: 0;
-    transform: translate(30px, -30px) rotate(20deg) scale(0.6);
+    transform: translate3d(20px, -20px, 0) rotate(15deg) scale(0.7);
   }
   100% {
     opacity: 0.75;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
 }
 
 @keyframes revealDecorNebula {
   0% {
     opacity: 0;
-    transform: translate(-30px, 30px) rotate(-20deg) scale(0.6);
+    transform: translate3d(-20px, 20px, 0) rotate(-15deg) scale(0.7);
   }
   100% {
     opacity: 0.65;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
 }
 
