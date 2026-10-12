@@ -4,16 +4,13 @@ import { SlideRenderer } from './SlideRenderer';
 import { SlideNavigation } from './SlideNavigation';
 import { ThumbnailsDrawer } from './ThumbnailsDrawer';
 import { PresenterNotes } from './PresenterNotes';
-import { PresentationScaler } from './PresentationScaler';
 import { 
   HelpCircle, 
   MonitorPlay, 
   Layout, 
   FolderKanban,
   Layers,
-  Sparkles,
-  Maximize,
-  Minimize
+  Sparkles
 } from 'lucide-react';
 import gsap from 'gsap';
 import { CosmicIntroOverlay, resetCosmicIntroSeen } from './intro/CosmicIntroOverlay';
@@ -33,32 +30,12 @@ export const Presentation: React.FC = () => {
   const [isThumbnailsOpen, setIsThumbnailsOpen] = useState<boolean>(false);
   const [isNotesOpen, setIsNotesOpen] = useState<boolean>(false);
   const [showKeyboardHelp, setShowKeyboardHelp] = useState<boolean>(false);
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [isControlsVisible, setIsControlsVisible] = useState<boolean>(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const slideStageRef = useRef<HTMLDivElement>(null);
   const activeSlideItemRef = useRef<HTMLDivElement>(null);
   const touchStartXRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
-  const controlsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Auto-hide floating projector controls after 3.5s of mouse inactivity in Clean Mode
-  const handleUserActivity = useCallback(() => {
-    setIsControlsVisible(true);
-    if (controlsTimeoutRef.current) {
-      clearTimeout(controlsTimeoutRef.current);
-    }
-    controlsTimeoutRef.current = setTimeout(() => {
-      setIsControlsVisible(false);
-    }, 3500);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
-    };
-  }, []);
 
   const totalSlides = presentationSlides.length;
   const currentSlide = presentationSlides[currentSlideIndex];
@@ -125,14 +102,12 @@ export const Presentation: React.FC = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().then(() => {
         setIsCleanPresentationMode(true);
-        setIsFullscreen(true);
       }).catch(err => {
         console.warn("Fullscreen error:", err);
       });
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
-        setIsFullscreen(false);
       }
     }
   };
@@ -141,7 +116,6 @@ export const Presentation: React.FC = () => {
   useEffect(() => {
     const handleFullscreenChange = () => {
       const active = !!document.fullscreenElement;
-      setIsFullscreen(active);
       if (active) {
         setIsCleanPresentationMode(true);
       }
@@ -232,15 +206,6 @@ export const Presentation: React.FC = () => {
           e.preventDefault();
           setIsNotesOpen(prev => !prev);
           break;
-        case 'g':
-        case 'G':
-          e.preventDefault();
-          setIsThumbnailsOpen(prev => !prev);
-          break;
-        case '?':
-          e.preventDefault();
-          setShowKeyboardHelp(prev => !prev);
-          break;
       }
     };
 
@@ -309,8 +274,7 @@ export const Presentation: React.FC = () => {
     <div 
       ref={containerRef}
       className={`website-shell-root galaxy-family-${(currentSlideIndex % 6) + 1} active-slide-${currentSlideIndex + 1}`}
-      onMouseMove={handleUserActivity}
-      onTouchStart={(e) => { handleUserActivity(); handleTouchStart(e); }}
+      onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
 
@@ -365,16 +329,6 @@ export const Presentation: React.FC = () => {
             <span>{isCleanPresentationMode ? 'Website View' : 'Presentation Mode'}</span>
           </button>
 
-          {/* Fullscreen Quick Toggle */}
-          <button
-            onClick={toggleFullscreen}
-            className={`shell-btn ${isFullscreen ? 'active' : ''}`}
-            title={isFullscreen ? "Thoát toàn màn hình (F / Esc)" : "Chiếu toàn màn hình máy chiếu (F)"}
-          >
-            {isFullscreen ? <Minimize size={14} /> : <Maximize size={14} />}
-            <span>{isFullscreen ? 'Thu nhỏ' : 'Toàn màn hình'}</span>
-          </button>
-
           <button 
             className="shell-btn"
             onClick={() => setShowKeyboardHelp(true)}
@@ -418,24 +372,15 @@ export const Presentation: React.FC = () => {
           </aside>
         )}
 
-        {/* Center Presentation Stage with Universal Projector Scaler */}
+        {/* Center Presentation Stage */}
         <main className={`shell-stage ${isCleanPresentationMode ? 'clean-mode' : ''}`}>
-          <PresentationScaler>
-            <div 
-              ref={slideStageRef} 
-              style={{ 
-                width: '100%', 
-                height: '100%', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center' 
-              }}
-            >
-              <SlideRenderer key={currentSlide.id} slide={currentSlide} />
-            </div>
-          </PresentationScaler>
+          <div ref={slideStageRef} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <SlideRenderer key={currentSlide.id} slide={currentSlide} />
+          </div>
         </main>
       </div>
+
+
 
       {/* Bottom Floating Navigation Bar */}
       <SlideNavigation
@@ -444,13 +389,7 @@ export const Presentation: React.FC = () => {
         onNext={handleNext}
         onPrev={handlePrev}
         onFirst={handleFirst}
-        isFullscreen={isFullscreen}
-        onToggleFullscreen={toggleFullscreen}
-        onToggleThumbnails={() => setIsThumbnailsOpen(true)}
         isCleanPresentationMode={isCleanPresentationMode}
-        onTogglePresentationMode={() => setIsCleanPresentationMode(prev => !prev)}
-        onToggleHelp={() => setShowKeyboardHelp(true)}
-        isControlsVisible={isControlsVisible}
       />
 
       {/* Full Overview Thumbnails Drawer Modal */}

@@ -2,13 +2,7 @@ import React from 'react';
 import { 
   ChevronLeft, 
   ChevronRight, 
-  RotateCcw,
-  Maximize,
-  Minimize,
-  Layout,
-  MonitorPlay,
-  Grid,
-  HelpCircle
+  RotateCcw
 } from 'lucide-react';
 
 interface SlideNavigationProps {
@@ -25,9 +19,6 @@ interface SlideNavigationProps {
   isAutoPlay?: boolean;
   onToggleAutoPlay?: () => void;
   isCleanPresentationMode?: boolean;
-  onTogglePresentationMode?: () => void;
-  onToggleHelp?: () => void;
-  isControlsVisible?: boolean;
 }
 
 export const SlideNavigation: React.FC<SlideNavigationProps> = ({
@@ -36,25 +27,14 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({
   onNext,
   onPrev,
   onFirst,
-  isFullscreen = false,
-  onToggleFullscreen,
-  onToggleThumbnails,
-  isCleanPresentationMode = false,
-  onTogglePresentationMode,
-  onToggleHelp,
-  isControlsVisible = true
+  isCleanPresentationMode
 }) => {
   const isFirstSlide = currentSlideIndex === 0;
   const isLastSlide = currentSlideIndex === totalSlides - 1;
 
-  // Determine visibility in clean presentation mode
-  const cleanModeClass = isCleanPresentationMode 
-    ? (isControlsVisible ? 'clean-mode-floating visible' : 'clean-mode-floating hidden')
-    : '';
-
   return (
-    <nav className={`presentation-bottom-nav ${cleanModeClass}`}>
-      {/* Left Info: Clean First Slide button & Thumbnails */}
+    <nav className={`presentation-bottom-nav ${isCleanPresentationMode ? 'clean-mode' : ''}`}>
+      {/* Left Info: Clean First Slide button */}
       <div className="nav-left-info">
         <button
           onClick={onFirst}
@@ -67,18 +47,6 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({
           </span>
           <span className="nav-home-label">Đầu trang</span>
         </button>
-
-        {onToggleThumbnails && (
-          <button
-            onClick={onToggleThumbnails}
-            title="Xem danh sách tất cả slide (G)"
-            className="nav-action-pill-btn"
-            aria-label="Danh sách slide"
-          >
-            <Grid size={14} />
-            <span className="nav-btn-text">Tổng quan</span>
-          </button>
-        )}
       </div>
 
       {/* Center Controls: Prev Arrow, Slide Counter, Next Arrow */}
@@ -122,43 +90,8 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({
         </button>
       </div>
 
-      {/* Right Action Tools: Fullscreen, Mode, Help */}
-      <div className="nav-right-actions">
-        {onTogglePresentationMode && (
-          <button
-            onClick={onTogglePresentationMode}
-            title={isCleanPresentationMode ? "Chuyển sang Chế độ Website (P)" : "Chuyển sang Chế độ Trình chiếu (P)"}
-            className="nav-action-pill-btn"
-            aria-label="Chuyển chế độ xem"
-          >
-            {isCleanPresentationMode ? <Layout size={14} /> : <MonitorPlay size={14} />}
-            <span className="nav-btn-text">{isCleanPresentationMode ? 'Website' : 'Slide'}</span>
-          </button>
-        )}
-
-        {onToggleFullscreen && (
-          <button
-            onClick={onToggleFullscreen}
-            title={isFullscreen ? "Thoát toàn màn hình (F / Esc)" : "Chiếu toàn màn hình (F)"}
-            className="nav-action-pill-btn highlight-btn"
-            aria-label="Toàn màn hình máy chiếu"
-          >
-            {isFullscreen ? <Minimize size={14} /> : <Maximize size={14} />}
-            <span className="nav-btn-text">{isFullscreen ? 'Thu nhỏ' : 'Toàn màn hình'}</span>
-          </button>
-        )}
-
-        {onToggleHelp && (
-          <button
-            onClick={onToggleHelp}
-            title="Trợ giúp phím tắt máy chiếu (?)"
-            className="nav-action-pill-btn icon-only"
-            aria-label="Trợ giúp phím tắt"
-          >
-            <HelpCircle size={14} />
-          </button>
-        )}
-      </div>
+      {/* Right placeholder to keep center controls perfectly balanced */}
+      <div className="nav-right-spacer" />
     </nav>
   );
 };

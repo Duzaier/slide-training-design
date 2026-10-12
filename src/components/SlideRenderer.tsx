@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import { getAssetUrl } from '../utils/assetHelper';
 import { SlideData } from '../types/presentation';
 import { InteractiveColorPicker } from './InteractiveColorPicker';
@@ -1494,8 +1493,8 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
         </>
       )}
 
-      {/* Enlarged Visual Lightbox with Multi-image Navigation (Portaled to document.body for unconstrained fullscreen) */}
-      {zoomModalUrl && typeof document !== 'undefined' && createPortal(
+      {/* Enlarged Visual Lightbox with Multi-image Navigation */}
+      {zoomModalUrl && (
         <div
           className="image-lightbox-overlay"
           onClick={() => setZoomModalUrl(null)}
@@ -1557,8 +1556,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide, onImageClic
               <ChevronRight size={32} />
             </button>
           )}
-        </div>,
-        document.body
+        </div>
       )}
     </div>
   );

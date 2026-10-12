@@ -5,6 +5,7 @@
 .website-shell-root {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -49,7 +50,7 @@
   left: 50%;
   width: 300vmax;
   height: 300vmax;
-  background-image: url('../../public/assets/b2febc677701abb5f05e69a56974f5ab.jpg');
+  background-image: url('/assets/b2febc677701abb5f05e69a56974f5ab.jpg');
   background-size: cover;
   background-position: center 42%;
   background-repeat: no-repeat;
@@ -70,7 +71,7 @@
   left: 50%;
   width: 290vmax;
   height: 290vmax;
-  background-image: url('../../public/assets/700ef2bb7f79b95bcd3a084cb2095559.jpg');
+  background-image: url('/assets/700ef2bb7f79b95bcd3a084cb2095559.jpg');
   background-size: cover;
   background-position: 65% center;
   background-repeat: no-repeat;
@@ -92,7 +93,7 @@
   width: 320vmax;
   height: 320vmax;
   transform: translate(-50%, -50%) scale(1.3) translate3d(0, 0, 0);
-  background-image: url('../../public/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
+  background-image: url('/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -503,69 +504,33 @@
   margin-top: 1px;
 }
 
-/* ============================================================
-   UNIVERSAL RESPONSIVE STAGE & PRESENTATION SCALER ENGINE
-   Auto-adapts to ANY monitor, projector (4:3, 16:10, 16:9, 4K),
-   laptop scale, or windowed mode with zero element clipping.
-   ============================================================ */
-
-.presentation-scaler-viewport {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-  contain: strict;
-}
-
-.presentation-scaler-canvas {
-  width: 1920px;
-  height: 1080px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-origin: center center;
-  will-change: transform;
-  position: relative;
-}
-
 /* Center Stage Viewport */
 .shell-stage {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 12px 20px 68px 20px;
   position: relative;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
   transition: padding 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 0;
+  min-height: 0;
 }
 
 .shell-stage.clean-mode {
-  padding: 0;
+  padding: clamp(6px, 1.2vh, 16px) clamp(8px, 1.2vw, 20px);
   width: 100%;
   height: 100%;
 }
 
-.shell-stage .slide-content-wrapper,
 .shell-stage.clean-mode .slide-content-wrapper {
-  width: 1820px;
-  height: 960px;
-  max-width: 1820px;
-  max-height: 960px;
-  padding: 16px 24px;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  padding: 0;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  animation: slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slide-content-wrapper {
@@ -577,6 +542,10 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
+  animation: slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 @keyframes slideFadeIn {
@@ -703,7 +672,7 @@
   width: 320vmax;
   height: 320vmax;
   transform: translate(-50%, -50%) scale(1.35) translate3d(0, 0, 0);
-  background-image: url('../../public/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
+  background-image: url('/assets/310b3c93b56be36f537471a68bb84fe4.jpg');
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -902,12 +871,14 @@
 .speaker-galaxy-content-grid {
   display: grid;
   grid-template-columns: 0.95fr 1.3fr;
-  gap: 40px;
+  gap: clamp(16px, 2.5vw, 40px);
   width: 100%;
   height: 100%;
   align-items: center;
   position: relative;
   z-index: 10;
+  min-width: 0;
+  min-height: 0;
 }
 
 /* Left Column: Speaker Portrait */
@@ -916,6 +887,8 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
 }
 
 .speaker-hero-card {
@@ -942,7 +915,8 @@
 
 .speaker-img-container {
   width: 100%;
-  height: 580px;
+  height: 100%;
+  max-height: min(580px, 78vh);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -952,7 +926,7 @@
 
 .speaker-hero-img {
   max-width: 100%;
-  max-height: 580px;
+  max-height: min(580px, 78vh);
   height: auto;
   object-fit: contain;
   object-position: center bottom;
@@ -1023,11 +997,12 @@
   gap: 28px;
   font-family: var(--font-segoe);
   padding-left: 12px;
+  min-width: 0;
 }
 
 .speaker-minimal-name {
   font-family: var(--font-display-modern, 'Noto Serif Display', serif);
-  font-size: clamp(2.8rem, 4.4vw, 4.4rem);
+  font-size: clamp(2.4rem, 4vw, 4.4rem);
   font-weight: 800;
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -1046,7 +1021,7 @@
 
 .speaker-minimal-role {
   font-family: var(--font-sans-clean, 'Plus Jakarta Sans', sans-serif);
-  font-size: clamp(1.15rem, 1.6vw, 1.55rem);
+  font-size: clamp(1.05rem, 1.5vw, 1.55rem);
   font-weight: 500;
   color: #cbd5e1;
   line-height: 1.5;
@@ -1071,22 +1046,51 @@
   transform: translateX(6px);
 }
 
+@media (max-width: 820px), (max-aspect-ratio: 1.05) {
+  .speaker-galaxy-content-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 16px;
+  }
+  .speaker-portrait-col {
+    max-height: 42vh;
+  }
+  .speaker-img-container {
+    height: 100%;
+    max-height: 40vh;
+  }
+  .speaker-hero-img {
+    max-height: 38vh;
+  }
+  .speaker-minimal-col {
+    align-items: center;
+    padding-left: 0;
+    gap: 12px;
+  }
+  .speaker-minimal-name {
+    font-size: clamp(2rem, 5.5vw, 3rem);
+    text-align: center;
+  }
+  .speaker-minimal-role {
+    font-size: clamp(0.85rem, 2.6vw, 1.15rem);
+    justify-content: center;
+  }
+}
+
 /* ------------------------------------------------------------
-   CONCEPT & DESIGN (SLIDE 02 & 04) MINIMALIST STAGE
-   Fully responsive across viewport width and height
+   CONCEPT & DESIGN (SLIDE 02) MINIMALIST STAGE
    ------------------------------------------------------------ */
 .layout-concept-minimal-stage {
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: clamp(14px, 2vw, var(--radius-xl, 24px));
-  padding: clamp(14px, 2.8vh, 36px) clamp(18px, 3vw, 48px);
+  border-radius: var(--radius-xl);
+  padding: clamp(14px, 2.2vh, 32px) clamp(16px, 2.5vw, 44px);
+  min-height: 0;
   box-sizing: border-box;
   background: radial-gradient(circle at 80% 20%, rgba(255, 120, 0, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 15% 85%, rgba(112, 0, 255, 0.22) 0%, transparent 55%),
@@ -1097,18 +1101,16 @@
 
 .concept-minimal-content-grid {
   display: grid;
-  grid-template-columns: minmax(260px, 32%) 1fr;
-  gap: clamp(16px, 2.5vw, 40px);
+  grid-template-columns: minmax(280px, 440px) 1fr;
+  gap: clamp(16px, 2.2vw, 36px);
   width: 100%;
   max-width: 1760px;
   height: 100%;
-  max-height: 100%;
-  min-height: 0;
-  min-width: 0;
   align-items: center;
   position: relative;
   z-index: 10;
-  box-sizing: border-box;
+  min-height: 0;
+  min-width: 0;
 }
 
 .concept-minimal-title-col {
@@ -1153,7 +1155,7 @@
 
 .concept-minimal-heading {
   font-family: var(--font-display-modern, 'Noto Serif Display', serif);
-  font-size: clamp(1.8rem, min(3.2vw, 6vh), 3.6rem);
+  font-size: clamp(1.8rem, min(3.2vw, 5.5vh), 3.6rem);
   font-weight: 800;
   line-height: 1.16;
   letter-spacing: -0.02em;
@@ -1171,7 +1173,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(12px, 2vw, 28px);
+  gap: clamp(12px, 1.8vw, 28px);
   height: 100%;
   max-height: 100%;
   min-height: 0;
@@ -1185,11 +1187,11 @@
   flex: 1 1 0;
   min-width: 0;
   min-height: 0;
-  max-width: min(480px, 35vw);
+  max-width: min(480px, 36vw);
   height: 100%;
-  max-height: min(590px, 76vh, calc(100% - 12px));
+  max-height: min(590px, 78vh, calc(100% - 10px));
   aspect-ratio: 480 / 590;
-  border-radius: clamp(12px, 1.6vw, 20px);
+  border-radius: clamp(12px, 1.5vw, 20px);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: #080d18;
@@ -1245,7 +1247,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: clamp(10px, 1.5vw, 20px);
+  gap: clamp(10px, 1.4vw, 20px);
   height: 100%;
   max-height: 100%;
   min-height: 0;
@@ -1259,11 +1261,11 @@
   flex: 1 1 0;
   min-width: 0;
   min-height: 0;
-  max-width: min(440px, 24vw);
+  max-width: min(440px, 25vw);
   height: 100%;
-  max-height: min(580px, 76vh, calc(100% - 12px));
+  max-height: min(580px, 78vh, calc(100% - 10px));
   aspect-ratio: 1458 / 1998;
-  border-radius: clamp(10px, 1.3vw, 16px);
+  border-radius: clamp(10px, 1.2vw, 16px);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.16);
   background: #080d18;
@@ -1282,50 +1284,6 @@
 @media (max-height: 560px), (max-width: 768px) {
   .layout-concept-minimal-stage .floating-decor-item {
     display: none;
-  }
-}
-
-/* Responsive Breakpoints for Height & Width */
-@media (max-width: 1024px) {
-  .concept-minimal-content-grid {
-    grid-template-columns: minmax(220px, 36%) 1fr;
-    gap: clamp(14px, 2vw, 24px);
-  }
-}
-
-@media (max-width: 820px), (max-aspect-ratio: 1/1) {
-  .concept-minimal-content-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    gap: 16px;
-  }
-  .concept-minimal-title-col {
-    padding-left: 0;
-    text-align: center;
-    align-items: center;
-  }
-  .concept-minimal-heading {
-    text-align: center;
-    font-size: clamp(1.5rem, 4.5vw, 2.4rem);
-  }
-  .concept-poster-card {
-    max-width: 45vw;
-  }
-}
-
-@media (max-height: 650px) {
-  .layout-concept-minimal-stage {
-    padding: 10px 18px;
-  }
-  .concept-minimal-heading {
-    font-size: clamp(1.4rem, 4.5vh, 2.2rem);
-  }
-  .concept-meta-badge {
-    margin-bottom: 6px;
-    padding: 3px 10px;
-  }
-  .concept-poster-card {
-    max-height: calc(100% - 6px);
   }
 }
 
@@ -1656,16 +1614,20 @@
 }
 
 .lighting-diagram-card {
-  flex: 1.45;
-  max-width: 880px;
-  max-height: 84vh;
+  flex: 1.45 1 0;
+  min-width: 0;
+  min-height: 0;
+  max-width: min(880px, 44vw);
+  max-height: min(560px, 76vh, calc(100% - 10px));
   aspect-ratio: 2281 / 1599;
 }
 
 .lighting-render-card {
-  flex: 1.22;
-  max-width: 740px;
-  max-height: 84vh;
+  flex: 1.22 1 0;
+  min-width: 0;
+  min-height: 0;
+  max-width: min(740px, 38vw);
+  max-height: min(560px, 76vh, calc(100% - 10px));
   aspect-ratio: 2062 / 1599;
 }
 
@@ -1695,11 +1657,11 @@
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 560px;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 36px 60px 36px;
+  padding: clamp(14px, 2vh, 24px) clamp(16px, 2.5vw, 36px);
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -1713,6 +1675,8 @@
   gap: 40px;
   width: 100%;
   max-width: 1800px;
+  min-width: 0;
+  min-height: 0;
 }
 
 .genai-minimal-title-col {
@@ -1741,15 +1705,19 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 20px;
+  gap: clamp(10px, 1.4vw, 20px);
   height: 100%;
+  min-width: 0;
+  min-height: 0;
 }
 
 .genai-posters-subcol {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: clamp(8px, 1.2vh, 16px);
   justify-content: center;
+  min-width: 0;
+  min-height: 0;
 }
 
 .genai-grid-card {
@@ -1764,13 +1732,23 @@
 }
 
 .genai-card-square {
-  width: 340px;
+  width: auto;
+  max-width: min(340px, 26vw);
+  height: auto;
+  max-height: min(270px, 37vh, calc(50% - 8px));
   aspect-ratio: 1 / 1;
+  min-width: 0;
+  min-height: 0;
 }
 
 .genai-card-portrait {
-  width: 300px;
+  width: auto;
+  max-width: min(300px, 22vw);
+  height: auto;
+  max-height: min(280px, 38vh, calc(50% - 8px));
   aspect-ratio: 3 / 4;
+  min-width: 0;
+  min-height: 0;
 }
 
 .genai-grid-card:hover {
@@ -2490,21 +2468,25 @@
 }
 
 .lighting-primitives-card {
-  flex: 1.25;
-  max-width: 700px;
-  max-height: 84vh;
+  flex: 1.25 1 0;
+  max-width: min(700px, 42vw);
+  max-height: min(540px, 76vh, calc(100% - 10px));
   aspect-ratio: 16 / 9;
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
+  min-height: 0;
 }
 
 .lighting-commercial-card {
-  flex: 0.95;
-  max-width: 520px;
-  max-height: 84vh;
+  flex: 0.95 1 0;
+  max-width: min(520px, 32vw);
+  max-height: min(540px, 76vh, calc(100% - 10px));
   aspect-ratio: 1458 / 1998;
+  min-width: 0;
+  min-height: 0;
 }
 
 .lighting-duo-card:hover {
@@ -3151,7 +3133,7 @@
 
 .value-contrast-heading {
   font-family: var(--font-display-modern, 'Noto Serif Display', serif);
-  font-size: 3.5rem;
+  font-size: clamp(2.2rem, 3.4vw, 3.5rem);
   font-weight: 800;
   line-height: 1.1;
   background: linear-gradient(135deg, #ffffff 0%, #fae8ff 35%, #a855f7 70%, #ffffff 100%);
@@ -3165,10 +3147,12 @@
 .value-comparison-showcase {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: clamp(12px, 1.8vh, 24px);
   width: 100%;
   height: 100%;
-  max-height: 760px;
+  max-height: min(760px, 78vh);
+  min-height: 0;
+  min-width: 0;
   justify-content: center;
 }
 
@@ -3220,7 +3204,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 36px 60px 36px;
+  padding: clamp(10px, 1.8vh, 20px) clamp(16px, 2.5vw, 36px);
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -3234,7 +3218,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 12px;
+  gap: clamp(8px, 1.4vh, 14px);
+  min-height: 0;
+  min-width: 0;
 }
 
 .style-art-header-row {
@@ -3246,7 +3232,7 @@
 
 .style-art-heading {
   font-family: var(--font-display-modern, 'Noto Serif Display', serif);
-  font-size: 3rem;
+  font-size: clamp(2rem, 3.2vw, 3rem);
   font-weight: 800;
   line-height: 1;
   background: linear-gradient(135deg, #ffffff 0%, #fce7f3 30%, #ec4899 65%, #a855f7 85%, #ffffff 100%);
@@ -3260,10 +3246,12 @@
 .style-art-gallery-showcase {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: clamp(8px, 1.4vh, 14px);
   width: 100%;
   flex: 1;
   justify-content: center;
+  min-height: 0;
+  min-width: 0;
 }
 
 /* Row 1: 5 Character illustration cards */
@@ -3271,9 +3259,11 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 12px;
-  height: 275px;
+  gap: clamp(8px, 1vw, 12px);
+  height: min(275px, 36vh);
   width: 100%;
+  min-height: 0;
+  min-width: 0;
 }
 
 .style-art-card {
@@ -3326,9 +3316,11 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 14px;
-  height: 290px;
+  gap: clamp(10px, 1.2vw, 14px);
+  height: min(290px, 38vh);
   width: 100%;
+  min-height: 0;
+  min-width: 0;
 }
 
 .style-art-poster-square {
@@ -3382,42 +3374,38 @@
 }
 
 .presentation-bottom-nav.clean-mode {
-  transform: translateY(100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Floating Projector Controls in Clean Presentation Mode */
-.presentation-bottom-nav.clean-mode-floating {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%) translateY(0);
-  width: auto;
-  min-width: 520px;
-  max-width: 92vw;
-  height: 56px;
-  padding: 0 24px;
-  border-radius: 999px;
-  background: rgba(10, 15, 26, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 24px rgba(56, 182, 255, 0.18);
-  z-index: 100;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-}
-
-.presentation-bottom-nav.clean-mode-floating.visible {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(calc(100% - 4px));
+  opacity: 0.25;
   pointer-events: auto;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
-.presentation-bottom-nav.clean-mode-floating.hidden {
-  opacity: 0;
-  transform: translateX(-50%) translateY(28px);
-  pointer-events: none;
+.presentation-bottom-nav.clean-mode:hover,
+.presentation-bottom-nav.clean-mode:focus-within {
+  transform: translateY(0);
+  opacity: 1;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 680px) {
+  .presentation-bottom-nav {
+    height: 52px;
+    padding: 0 10px;
+  }
+  .nav-home-label {
+    display: none;
+  }
+  .nav-center-controls {
+    gap: 8px;
+    padding: 4px 10px;
+  }
+  .nav-btn {
+    width: 32px;
+    height: 32px;
+  }
+  .nav-right-spacer {
+    width: 36px;
+  }
 }
 
 .nav-left-info {
@@ -3495,58 +3483,8 @@
   letter-spacing: 0.02em;
 }
 
-.nav-right-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-action-pill-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #cbd5e1;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.nav-action-pill-btn:hover {
-  background: rgba(56, 182, 255, 0.2);
-  color: #ffffff;
-  border-color: rgba(56, 182, 255, 0.45);
-}
-
-.nav-action-pill-btn.highlight-btn {
-  background: rgba(56, 182, 255, 0.14);
-  border-color: rgba(56, 182, 255, 0.35);
-  color: #38b6ff;
-}
-
-.nav-action-pill-btn.highlight-btn:hover {
-  background: rgba(56, 182, 255, 0.28);
-  color: #ffffff;
-  box-shadow: 0 0 15px rgba(56, 182, 255, 0.4);
-}
-
-.nav-action-pill-btn.icon-only {
-  padding: 6px 10px;
-}
-
-@media (max-width: 680px) {
-  .presentation-bottom-nav.clean-mode-floating {
-    min-width: unset;
-    width: 94vw;
-    padding: 0 14px;
-  }
-  .nav-btn-text {
-    display: none;
-  }
+.nav-right-spacer {
+  width: 90px;
 }
 
 .exit-presentation-fab {
@@ -6626,26 +6564,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: clamp(14px, 2vw, 24px);
   width: 100%;
   height: 100%;
   max-height: 680px;
+  min-height: 0;
+  min-width: 0;
 }
 
 .grid-part1 .card-sketch {
   height: 100%;
-  max-height: 600px;
+  max-height: min(600px, 75vh);
   aspect-ratio: 2 / 3;
   flex: 1 1 0;
-  max-width: 360px;
+  max-width: min(360px, 34vw);
+  min-width: 0;
 }
 
 .grid-part1 .card-pubg {
   height: auto;
-  max-height: 540px;
+  max-height: min(540px, 70vh);
   aspect-ratio: 16 / 9;
   flex: 1.6 1 0;
-  max-width: 660px;
+  max-width: min(660px, 54vw);
+  min-width: 0;
 }
 
 /* Part 2 Specific Sizing (3 Images: Cosmic Boy, LoL Skins, Poster) */
@@ -6653,36 +6595,70 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: clamp(10px, 1.5vw, 20px);
   width: 100%;
   height: 100%;
   max-height: 680px;
+  min-height: 0;
+  min-width: 0;
 }
 
 .grid-part2 .card-cosmic-boy {
   height: 100%;
-  max-height: 600px;
+  max-height: min(600px, 75vh);
   aspect-ratio: 9 / 16;
   flex: 1 1 0;
-  max-width: 320px;
+  max-width: min(320px, 25vw);
+  min-width: 0;
 }
 
 .grid-part2 .card-cosmic-skins {
   height: 100%;
-  max-height: 600px;
+  max-height: min(600px, 75vh);
   aspect-ratio: 1 / 2;
   flex: 0.9 1 0;
-  max-width: 280px;
+  max-width: min(280px, 22vw);
+  min-width: 0;
 }
 
 .grid-part2 .card-final-poster {
   height: 100%;
-  max-height: 600px;
+  max-height: min(600px, 75vh);
   aspect-ratio: 4 / 5;
   flex: 1.25 1 0;
-  max-width: 440px;
+  max-width: min(440px, 35vw);
+  min-width: 0;
   border: 1.5px solid rgba(236, 72, 153, 0.45);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(236, 72, 153, 0.3);
+}
+
+@media (max-width: 768px), (max-aspect-ratio: 1.05) {
+  .grid-part1 {
+    gap: 12px;
+  }
+  .grid-part1 .card-sketch {
+    max-width: 42vw;
+    max-height: min(450px, 58vh);
+  }
+  .grid-part1 .card-pubg {
+    max-width: 54vw;
+    max-height: min(380px, 52vh);
+  }
+  .grid-part2 {
+    gap: 8px;
+  }
+  .grid-part2 .card-cosmic-boy {
+    max-width: 28vw;
+    max-height: min(440px, 56vh);
+  }
+  .grid-part2 .card-cosmic-skins {
+    max-width: 25vw;
+    max-height: min(440px, 56vh);
+  }
+  .grid-part2 .card-final-poster {
+    max-width: 38vw;
+    max-height: min(440px, 56vh);
+  }
 }
 
 /* All View: 2 Balanced Rows */
@@ -6803,7 +6779,7 @@ h4,
   text-wrap: balance !important;
 }
 
-/* Widen minimum left title column width across all 2-column layouts */
+/* Universal Responsive 2-Column Grid Architecture */
 .concept-minimal-content-grid,
 .ai-minimal-content-grid,
 .genmodel-minimal-content-grid,
@@ -6817,9 +6793,54 @@ h4,
 .social-size-content-grid,
 .social-multi-content-grid,
 .social-error-content-grid {
-  grid-template-columns: minmax(360px, 500px) 1fr !important;
-  gap: 36px !important;
-  overflow: visible !important;
+  grid-template-columns: minmax(280px, 440px) 1fr;
+  gap: clamp(20px, 2.5vw, 40px);
+  overflow: visible;
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* 1. Projectors (4:3, 16:10) & Compact Desktop Displays (width <= 1180px or max-aspect-ratio: 1.45) */
+@media (max-width: 1180px) and (min-width: 769px), (max-aspect-ratio: 1.45) and (min-width: 769px) {
+  .concept-minimal-content-grid,
+  .ai-minimal-content-grid,
+  .genmodel-minimal-content-grid,
+  .lighting-minimal-content-grid,
+  .genai-minimal-content-grid,
+  .prompt-minimal-content-grid,
+  .lighting-duo-content-grid,
+  .perspective-minimal-content-grid,
+  .color-analysis-content-grid,
+  .value-contrast-content-grid,
+  .social-size-content-grid,
+  .social-multi-content-grid,
+  .social-error-content-grid {
+    grid-template-columns: minmax(190px, 280px) 1fr !important;
+    gap: clamp(14px, 1.8vw, 24px) !important;
+  }
+}
+
+/* 2. Tablet Portrait & Mobile Devices (width <= 768px or portrait aspect ratio <= 1.05) */
+@media (max-width: 768px), (max-aspect-ratio: 1.05) {
+  .concept-minimal-content-grid,
+  .ai-minimal-content-grid,
+  .genmodel-minimal-content-grid,
+  .lighting-minimal-content-grid,
+  .genai-minimal-content-grid,
+  .prompt-minimal-content-grid,
+  .lighting-duo-content-grid,
+  .perspective-minimal-content-grid,
+  .color-analysis-content-grid,
+  .value-contrast-content-grid,
+  .social-size-content-grid,
+  .social-multi-content-grid,
+  .social-error-content-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto 1fr !important;
+    gap: clamp(10px, 1.6vh, 18px) !important;
+  }
 }
 
 /* Enable auto height & visible overflow for all title wrapper containers */
@@ -6859,7 +6880,7 @@ h4,
   position: fixed;
   inset: 0;
   background: rgba(3, 5, 12, 0.94);
-  z-index: 9999999;
+  z-index: 1000;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   display: flex;
