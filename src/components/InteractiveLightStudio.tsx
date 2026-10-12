@@ -176,8 +176,8 @@ export const InteractiveLightStudio: React.FC = () => {
       alpha: true,
       powerPreference: 'high-performance'
     });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height, false);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -275,11 +275,15 @@ export const InteractiveLightStudio: React.FC = () => {
     // 9. Resize Handling
     const handleResize = () => {
       if (!container) return;
-      width = container.clientWidth;
-      height = container.clientHeight;
-      camera.aspect = width / height;
+      const newWidth = container.clientWidth;
+      const newHeight = container.clientHeight;
+      if (newWidth === 0 || newHeight === 0) return;
+      camera.aspect = newWidth / newHeight;
+      // Adjust FOV in portrait mode so the 3D box and light orbit never clip
+      camera.fov = camera.aspect < 1 ? Math.min(54, 38 / camera.aspect) : 38;
       camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(newWidth, newHeight, false);
     };
 
     const resizeObserver = new ResizeObserver(handleResize);
