@@ -503,15 +503,47 @@
   margin-top: 1px;
 }
 
+/* ============================================================
+   UNIVERSAL RESPONSIVE STAGE & PRESENTATION SCALER ENGINE
+   Auto-adapts to ANY monitor, projector (4:3, 16:10, 16:9, 4K),
+   laptop scale, or windowed mode with zero element clipping.
+   ============================================================ */
+
+.presentation-scaler-viewport {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  contain: strict;
+}
+
+.presentation-scaler-canvas {
+  width: 1920px;
+  height: 1080px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  will-change: transform;
+  position: relative;
+}
+
 /* Center Stage Viewport */
 .shell-stage {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px 68px 20px;
+  padding: 0;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   transition: padding 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -521,25 +553,30 @@
   height: 100%;
 }
 
+.shell-stage .slide-content-wrapper,
 .shell-stage.clean-mode .slide-content-wrapper {
-  max-width: 100vw;
-  max-height: 100vh;
-  width: 100%;
-  height: 100%;
+  width: 1820px;
+  height: 960px;
+  max-width: 1820px;
+  max-height: 960px;
   padding: 16px 24px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  animation: slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slide-content-wrapper {
   width: 100%;
   max-width: 1820px;
   height: 100%;
-  max-height: 940px;
+  max-height: 960px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
-  animation: slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes slideFadeIn {
@@ -3238,6 +3275,39 @@
   pointer-events: none;
 }
 
+/* Floating Projector Controls in Clean Presentation Mode */
+.presentation-bottom-nav.clean-mode-floating {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  width: auto;
+  min-width: 520px;
+  max-width: 92vw;
+  height: 56px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: rgba(10, 15, 26, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 24px rgba(56, 182, 255, 0.18);
+  z-index: 100;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+.presentation-bottom-nav.clean-mode-floating.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.presentation-bottom-nav.clean-mode-floating.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(28px);
+  pointer-events: none;
+}
+
 .nav-left-info {
   display: flex;
   align-items: center;
@@ -3313,8 +3383,58 @@
   letter-spacing: 0.02em;
 }
 
-.nav-right-spacer {
-  width: 90px;
+.nav-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-action-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-action-pill-btn:hover {
+  background: rgba(56, 182, 255, 0.2);
+  color: #ffffff;
+  border-color: rgba(56, 182, 255, 0.45);
+}
+
+.nav-action-pill-btn.highlight-btn {
+  background: rgba(56, 182, 255, 0.14);
+  border-color: rgba(56, 182, 255, 0.35);
+  color: #38b6ff;
+}
+
+.nav-action-pill-btn.highlight-btn:hover {
+  background: rgba(56, 182, 255, 0.28);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(56, 182, 255, 0.4);
+}
+
+.nav-action-pill-btn.icon-only {
+  padding: 6px 10px;
+}
+
+@media (max-width: 680px) {
+  .presentation-bottom-nav.clean-mode-floating {
+    min-width: unset;
+    width: 94vw;
+    padding: 0 14px;
+  }
+  .nav-btn-text {
+    display: none;
+  }
 }
 
 .exit-presentation-fab {
@@ -6627,7 +6747,7 @@ h4,
   position: fixed;
   inset: 0;
   background: rgba(3, 5, 12, 0.94);
-  z-index: 1000;
+  z-index: 9999999;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   display: flex;
